@@ -1,7 +1,6 @@
 import { AbstractView } from '../AbstractView';
 import { QueryStringParams } from '../types';
 
-
 export class Home extends AbstractView {
     constructor(params: QueryStringParams) {
         super(params);
@@ -103,6 +102,6 @@ export class Home extends AbstractView {
     }
 
     async mounted() {
-        console.log('mounted')
+       document.body.innerHTML = 'mounted';
     }
 }

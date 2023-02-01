@@ -1,2 +1,2 @@
-import "./assets/scss/style.scss";
-import "./spa/router"
+import './assets/scss/style.scss';
+import './spa/router';

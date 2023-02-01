@@ -14,6 +14,6 @@ export class Page404 extends AbstractView {
     }
 
     async mounted() {
-        console.log('mounted')
+        document.body.innerHTML = 'mounted';
     }
 }

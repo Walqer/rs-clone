@@ -13,7 +13,7 @@ function getParams(match: RouterMatch) {
     return Object.fromEntries(keys.map((key, i) => [key, values[i]]));
 }
 
-async function router():Promise<void> {
+async function router(): Promise<void> {
     const routes: Router[] = [
         { path: '/', view: Home },
         { path: '/404', view: Page404 },
@@ -52,13 +52,13 @@ async function navigateTo(url: string) {
 window.addEventListener('popstate', router);
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
-document.addEventListener('DOMContentLoaded',   async () => {
-    document.body.addEventListener('click',  (e) => {
+document.addEventListener('DOMContentLoaded', async () => {
+    document.body.addEventListener('click', (e) => {
         if ((<HTMLElement>e.target).matches('[data-link]')) {
             e.preventDefault();
-            navigateTo((<HTMLAnchorElement>e.target).href).catch((err:string) =>{
+            navigateTo((<HTMLAnchorElement>e.target).href).catch((err: string) => {
                 throw new Error(err);
-            })
+            });
         }
     });
 
