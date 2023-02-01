@@ -101,7 +101,8 @@ export class Home extends AbstractView {
       </section>
     `;
     }
+
     async mounted() {
-        
+        console.log('mounted')
     }
 }

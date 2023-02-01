@@ -12,5 +12,8 @@ export class Page404 extends AbstractView {
       <h1 class="main-title">404 - Page not found</h1>>
     `;
     }
-    async mounted() {}
+
+    async mounted() {
+        console.log('mounted')
+    }
 }

@@ -27,7 +27,6 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 2,
         'import/prefer-default-export': 0,
         'lines-between-class-members': 'off',
-        '@typescript-eslint/lines-between-class-members': 'false',
     },
     settings: {
         'import/resolver': {

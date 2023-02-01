@@ -1,6 +1,8 @@
 import { QueryStringParams } from './types';
+
 export abstract class AbstractView {
     title: string;
+
     params: QueryStringParams = {};
     abstract mounted(): void;
 
