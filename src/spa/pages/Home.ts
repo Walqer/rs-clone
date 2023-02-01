@@ -102,6 +102,6 @@ export class Home extends AbstractView {
     }
 
     async mounted() {
-       document.body.innerHTML = 'mounted';
+        document.body.innerHTML = 'mounted';
     }
 }
