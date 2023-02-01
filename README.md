@@ -1,1 +1,3 @@
-# rs-clone
+RS CLONE
+
+for install project use $npm i
