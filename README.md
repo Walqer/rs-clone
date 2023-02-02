@@ -1,3 +1,3 @@
 RS CLONE
 
-for install project use $npm i
+install dependencies with $ npm i
