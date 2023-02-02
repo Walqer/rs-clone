@@ -1,4 +1,4 @@
-.header {
+.home-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -7,15 +7,15 @@
     padding: 0 20px;
 }
 
-.auth__header {
+.links-header {
     display: flex;
 }
 
-.sign-up__auth {
+.sign-up__link {
     margin-right: 20px;
 }
 
-.content {
+.home-content {
     width: 100%;
     height: calc(100vh - 117px);
     background: linear-gradient(180deg, rgba(86, 8, 196, 0.7) 34.38%, rgba(184, 0, 132, 0.7) 79.69%);
