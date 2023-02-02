@@ -1,4 +1,5 @@
 import { Router, RouterMatch } from './interface';
+import { Auth } from './pages/Auth';
 import { Home } from './pages/Home';
 import { Page404 } from './pages/Page404';
 
@@ -16,6 +17,7 @@ function getParams(match: RouterMatch) {
 async function router(): Promise<void> {
     const routes: Router[] = [
         { path: '/', view: Home },
+        { path: '/auth', view: Auth },
         { path: '/404', view: Page404 },
     ];
 
