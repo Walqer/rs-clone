@@ -1,3 +1,35 @@
-.hello {
-    color: red;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 55px;
+    padding: 0 20px;
+}
+
+.auth__header {
+    display: flex;
+}
+
+.sign-up__auth {
+    margin-right: 20px;
+}
+
+.content {
+    width: 100%;
+    height: calc(80vh);
+    background: linear-gradient(180deg, rgba(86, 8, 196, 0.7) 34.38%, rgba(184, 0, 132, 0.7) 79.69%);
+    padding: 0 90px;
+}
+
+.greating__content {
+    max-width: 300px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
 }
