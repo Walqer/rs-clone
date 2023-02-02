@@ -1,16 +1,16 @@
 export class HtmlElement {
     element: HTMLElement;
 
-    constructor(element:string, ...classNames:string[]){
+    constructor(element: string, ...classNames: string[]) {
         this.element = document.createElement(element);
         this.element.classList.add(...classNames);
     }
-    
-    append(parent:HTMLElement){
+
+    append(parent: HTMLElement) {
         parent.appendChild(this.element);
     }
 
-    remove(){
+    remove() {
         this.element.remove();
     }
 }
