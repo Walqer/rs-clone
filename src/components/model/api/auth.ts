@@ -16,7 +16,7 @@ export async function signUp(name: string, login: string, password: string): Pro
     const url = `${urls.signup}`;
     const user = { name, login, password };
     const res = await fetchApi(url, 'POST', '', user);
-    if (res.status === 200) return res.body as unknown as User;
+    if (res.status === 200) return (await res.body) as unknown as User;
     if (res.status === 400) return 'Bad Request';
     if (res.status === 409) return 'Login already exist';
     return 'error';
