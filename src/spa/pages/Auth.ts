@@ -16,9 +16,15 @@ export class Auth extends AbstractView {
 
     async mounted() {
         const params: URLSearchParams = new URLSearchParams(document.location.search);
-        const { body } = document;
-        if (params.get('type') === 'login') body.append(loginView.render());
-        else if (params.get('type') === 'signup') body.append(loginView.render());
+        const { body } = document
+        document.body.innerHTML = `
+        <main class="auth-content">
+            <h2>Task manager</h2>
+        </main>
+        `;
+        const main = document.querySelector('.auth-content') as HTMLElement;
+        if (params.get('type') === 'login') main.append(loginView.render());
+        else if (params.get('type') === 'signup') main.append(loginView.render());
         body.append(footerView.render());
     }
 }
