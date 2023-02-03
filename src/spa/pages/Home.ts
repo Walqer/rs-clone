@@ -18,16 +18,16 @@ export class Home extends AbstractView {
         <header class="home-header">
             <div>Task manager</div>
             <ul class="links-header">
-                <li class="sign-up__link"><a href="/auth?type=signup">Sign up</a></li>
-                <li class="log-in__link"><a href="/auth?type=login">Log in</a></li>
+                <li class="signup-link"><a href="/auth?type=signup">Sign up</a></li>
+                <li class="login-link"><a href="/auth?type=login">Log in</a></li>
             </ul>
         </header>
         <main class="home-content">
-            <div class="greating-content">
+            <div class="greating">
                 <p>Task manager brings all your tasks, teammates, and tools together</p>
                 <p>Keep everything in the same place—even if your team isnt</p>
-                <div class="greating-auth">
-                    <input type="email" name="email" id="emai">
+                <div class="home-auth">
+                    <input type="text">
                     <button>Sign Up!</button>
                 </div>
             </div>

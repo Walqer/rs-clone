@@ -1,11 +1,11 @@
 export function renderSignupForm() {
     return `
-    <form class="form-auth" action="#" method="post">
+    <form class="auth-form signup-form">
         <h2>Account registration</h2>
-        <input type="email" name="login-auth" placeholder="Enter login" required >
-        <input type="password" name="pass-auth" placeholder="Enter password" required >
-        <input type="password" name="pass-auth" placeholder="Repeat password" required >
-        <button class="button-auth" type="submit" name="submit-auth">Register</button>
+        <input type="text" placeholder="Enter login" required >
+        <input type="password" placeholder="Enter password" required >
+        <input type="password" placeholder="Repeat password" required >
+        <button type="submit">Register</button>
         <p align="center">or</p>
         <a align="center"  href="/auth?type=login">Log in</a>
     </form>`;
