@@ -31,6 +31,23 @@ export type ColumnList = {
     boardId: string;
 };
 
+export type Task = {
+    _id: string;
+    title: string;
+    order: number;
+    boardId: string;
+    columnId: string;
+    description: string;
+    userId: string;
+    users: string[];
+};
+
+export type TaskOrder = {
+    _id: string;
+    order: number;
+    columnId: string;
+};
+
 export type Token = {
     token: string;
 };
