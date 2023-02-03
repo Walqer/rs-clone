@@ -13,6 +13,24 @@ export type Board = {
     users: string[];
 };
 
+export type Column = {
+    _id: string;
+    title: string;
+    order: number;
+    boardId: string;
+};
+
+export type ColumnOrder = {
+    _id: string;
+    order: number;
+};
+
+export type ColumnList = {
+    title: string;
+    order: number;
+    boardId: string;
+};
+
 export type Token = {
     token: string;
 };
