@@ -24,8 +24,8 @@ export class Home extends AbstractView {
         </header>
         <main class="home-content">
             <div class="greating">
-                <p>Task manager brings all your tasks, teammates, and tools together</p>
-                <p>Keep everything in the same place—even if your team isnt</p>
+                <h2>Task manager brings all your tasks, teammates, and tools together</h2><br>
+                <p>Keep everything in the same place—even if your team isnt</p><br>
                 <div class="home-auth">
                     <input type="text">
                     <button>Sign Up!</button>
