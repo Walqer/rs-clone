@@ -2,6 +2,7 @@ import { Router, RouterMatch } from './interface';
 import { Auth } from './pages/Auth';
 import { Home } from './pages/Home';
 import { Page404 } from './pages/Page404';
+import { WorkSpace } from './pages/WorkSpace';
 
 function pathToRegex(path: string) {
     return new RegExp(`^${path.replace(/\//g, '\\/').replace(/:\w+/g, '(.+)')}$`);
@@ -19,6 +20,7 @@ async function router(): Promise<void> {
         { path: '/', view: Home },
         { path: '/auth', view: Auth },
         { path: '/404', view: Page404 },
+        { path: '/workspace', view: WorkSpace },
     ];
 
     const potentialMatches = routes.map((route) => ({

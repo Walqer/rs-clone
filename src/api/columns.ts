@@ -1,6 +1,6 @@
 import { urlParams, urls } from './apiConfig';
 import { fetchApi } from './helper';
-import { Column, ColumnList, ColumnOrder } from '../../../spa/types';
+import { Column, ColumnList, ColumnOrder } from '../spa/types';
 
 export async function getColumns(token: string, boardId: string): Promise<Column[] | string> {
     const url = `${urls.boards}/${boardId}/${urlParams.columns}`;

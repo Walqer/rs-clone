@@ -1,8 +1,8 @@
-export class HtmlElement {
-    element: HTMLElement;
+export class Control<T extends HTMLElement> {
+    public element: T;
 
     constructor(element: string, ...classNames: string[]) {
-        this.element = document.createElement(element);
+        this.element = <T>document.createElement(element);
         this.element.classList.add(...classNames);
     }
 
