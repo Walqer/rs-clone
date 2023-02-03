@@ -1,6 +1,6 @@
 import { urls } from './apiConfig';
 import { fetchApi } from './helper';
-import { User } from '../../../spa/types';
+import { User } from '../spa/types';
 
 export async function getAllUsers(token: string): Promise<User[] | string> {
     const url = `${urls.users}`;

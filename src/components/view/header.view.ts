@@ -1,4 +1,5 @@
 import { Control } from '../../utils/Control';
+import headerController from '../controller/header.controller';
 
 class HeaderView {
     render(): HTMLElement {
@@ -13,9 +14,10 @@ class HeaderView {
         const userBlock = new Control<HTMLDivElement>('div', 'header__user-block');
         const userIcon = new Control<HTMLImageElement>('img', 'header__user-block-img');
         const userInfo = new Control<HTMLSpanElement>('span', 'header__user-block-info');
-        userIcon.element.src = '../../assets/img/icon.svg';
+        const curentUser = headerController.getUserInfo();
+        userIcon.element.src = curentUser.imgSrc;
         userIcon.append(userBlock.element);
-        userInfo.element.textContent = 'Clayton Santos';
+        userInfo.element.textContent = curentUser.fullname;
         userInfo.append(userBlock.element);
         logo.element.textContent = 'Task manager';
         logo.append(header.element);

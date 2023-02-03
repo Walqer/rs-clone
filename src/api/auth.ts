@@ -1,6 +1,6 @@
 import { urls } from './apiConfig';
 import { fetchApi } from './helper';
-import { Token, User } from '../../../spa/types';
+import { Token, User } from '../spa/types';
 
 export async function signIn(login: string, password: string): Promise<Token | string> {
     const url = `${urls.signin}`;

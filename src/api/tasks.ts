@@ -1,6 +1,6 @@
 import { urlParams, urls } from './apiConfig';
 import { fetchApi } from './helper';
-import { Task, TaskOrder } from '../../../spa/types';
+import { Task, TaskOrder } from '../spa/types';
 
 export async function getTasks(token: string, boardId: string, columnId: string): Promise<Task[] | string> {
     const url = `${urls.boards}/${boardId}/${urlParams.columns}/${columnId}/${urlParams.tasks}`;

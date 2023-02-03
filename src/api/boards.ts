@@ -1,6 +1,6 @@
 import { urls } from './apiConfig';
 import { fetchApi } from './helper';
-import { Board } from '../../../spa/types';
+import { Board } from '../spa/types';
 
 export async function getAllBoards(token: string): Promise<Board[] | string> {
     const url = `${urls.boards}`;
