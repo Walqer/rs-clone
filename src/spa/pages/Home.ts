@@ -1,4 +1,4 @@
-import { renderFooter } from '../../components/view/footer';
+import footerView from '../../components/view/footer.view';
 import { AbstractView } from '../AbstractView';
 import { QueryStringParams } from '../types';
 
@@ -14,6 +14,7 @@ export class Home extends AbstractView {
     }
 
     async mounted() {
+        const { body } = document;
         document.body.innerHTML = `
         <header class="home-header">
             <a href="/">Task manager</a>
@@ -32,7 +33,7 @@ export class Home extends AbstractView {
                 </div>
             </div>
         </main>
-        ${renderFooter()}
         `;
+        body.append(footerView.render());
     }
 }
