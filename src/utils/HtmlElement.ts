@@ -1,5 +1,5 @@
-export class HtmlElement {
-    element: HTMLElement;
+export class HtmlElem {
+    public element: HTMLElement;
 
     constructor(element: string, ...classNames: string[]) {
         this.element = document.createElement(element);
