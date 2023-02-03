@@ -1,2 +1,13 @@
 @import '../../../node_modules/normalize.css/normalize.css';
 @import './reset';
+@import './fonts';
+@import './home-page';
+@import './footer';
+@import './auth-page.scss';
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #4d5e80;
+}
