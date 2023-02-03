@@ -16,7 +16,7 @@ export class Home extends AbstractView {
     async mounted() {
         document.body.innerHTML = `
         <header class="home-header">
-            <div>Task manager</div>
+            <a href="/">Task manager</a>
             <ul class="links-header">
                 <li class="signup-link"><a href="/auth?type=signup">Sign up</a></li>
                 <li class="login-link"><a href="/auth?type=login">Log in</a></li>
@@ -24,10 +24,10 @@ export class Home extends AbstractView {
         </header>
         <main class="home-content">
             <div class="greating">
-                <h2>Task manager brings all your tasks, teammates, and tools together</h2><br>
-                <p>Keep everything in the same place—even if your team isnt</p><br>
+                <h2 class="h2-greating">Task manager brings all your tasks, teammates, and tools together</h2><br>
+                <p class="p-greating">Keep everything in the same place—even if your team isnt</p><br>
                 <div class="home-auth">
-                    <input type="text">
+                    <input type="text" placeholder="Login">
                     <button>Sign Up!</button>
                 </div>
             </div>
