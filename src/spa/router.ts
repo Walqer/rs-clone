@@ -1,5 +1,6 @@
 import { Router, RouterMatch } from './interface';
 import { Auth } from './pages/Auth';
+import { BoardPage } from './pages/BoardPage';
 import { Home } from './pages/Home';
 import { Page404 } from './pages/Page404';
 import { WorkSpace } from './pages/WorkSpace';
@@ -21,6 +22,7 @@ async function router(): Promise<void> {
         { path: '/404', view: Page404 },
         { path: '/auth', view: Auth },
         { path: '/workspace', view: WorkSpace },
+        { path: '/board/:type', view: BoardPage },
     ];
 
     const potentialMatches = routes.map((route) => ({
