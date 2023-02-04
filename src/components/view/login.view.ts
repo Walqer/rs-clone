@@ -1,4 +1,5 @@
 import { Control } from "../../utils/Control";
+import loginController from "../controller/login.controller";
 
 class LoginView {
     render(): HTMLFormElement {
@@ -20,9 +21,15 @@ class LoginView {
         pass.element.placeholder = 'Enter password';
         pass.element.required = true;
         pass.append(form.element);
-        submit.element.type = 'submit';
         submit.element.textContent = 'Log in';
         submit.append(form.element);
+        submit.element.addEventListener('click', (event) => {
+            event.preventDefault();
+            loginController.loginUser(
+                login.element.value,
+                pass.element.value
+            )
+        })
         or.element.textContent = 'or';
         or.append(form.element);
         reg.element.textContent = 'Register accaunt';
