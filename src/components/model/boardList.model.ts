@@ -1,36 +1,15 @@
-import { Board } from '../../interfaces';
+import { getBoardsSetByUserId } from '../../api/boards';
 
 class BoardListModel {
-    getUserBoards(): Board[] {
-        return [
-            {
-                _id: '1',
-                title: 'Board title1',
-                owner: 'userId of owner',
-                bgColor: 'green',
-                bgImg: '../../../assets/img/board-background.jpg',
-                isFavourite: true,
-                users: ['userId of invited user #1', 'userId of invited user #2'],
-            },
-            {
-                _id: '2',
-                title: 'Board title2',
-                owner: 'userId of owner',
-                bgColor: 'green',
-                bgImg: 'unset',
-                isFavourite: false,
-                users: ['userId of invited user #1', 'userId of invited user #2'],
-            },
-            {
-                _id: '3',
-                title: 'Board title3',
-                owner: 'userId of owner',
-                bgColor: 'green',
-                bgImg: 'unset',
-                isFavourite: true,
-                users: ['userId of invited user #1', 'userId of invited user #2'],
-            },
-        ];
+    async getUserBoards() {
+        const boards = await getBoardsSetByUserId(
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGU4YmE5ODk4MjVhYWFmMGU2MDQxMiIsImxvZ2luIjoiQWxpbXVzaW0iLCJpYXQiOjE2NzU1MjkxNzIsImV4cCI6MTY3NTU3MjM3Mn0.5_aDPDcOkr5mOEP56iXz1DVMiojRMa6ZhW7Co_K0tFE',
+            '63de8ba989825aaaf0e60412'
+        );
+        if (typeof boards !== 'string') {
+            return boards;
+        }
+        return 'error';
     }
 }
 

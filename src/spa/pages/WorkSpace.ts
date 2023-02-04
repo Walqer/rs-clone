@@ -17,6 +17,6 @@ export class WorkSpace extends AbstractView {
     async mounted() {
         const { body } = document;
         body.append(headerView.render());
-        body.append(boardsListView.render());
+        body.append(await boardsListView.render());
     }
 }
