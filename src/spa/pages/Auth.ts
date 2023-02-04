@@ -2,6 +2,7 @@ import { AbstractView } from '../AbstractView';
 import { QueryStringParams } from '../types';
 import loginView from '../../components/view/login.view';
 import footerView from '../../components/view/footer.view';
+import signupView from '../../components/view/signup.view';
 
 export class Auth extends AbstractView {
     constructor(params: QueryStringParams) {
@@ -24,7 +25,7 @@ export class Auth extends AbstractView {
         `;
         const main = document.querySelector('.auth-content') as HTMLElement;
         if (params.get('type') === 'login') main.append(loginView.render());
-        else if (params.get('type') === 'signup') main.append(loginView.render());
+        else if (params.get('type') === 'signup') main.append(signupView.render());
         body.append(footerView.render());
     }
 }
