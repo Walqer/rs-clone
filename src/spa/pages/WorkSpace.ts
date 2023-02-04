@@ -1,4 +1,5 @@
 import headerView from '../../components/view/header.view';
+import boardsListView from '../../components/view/boardsList.view';
 import { AbstractView } from '../AbstractView';
 import { QueryStringParams } from '../types';
 
@@ -16,5 +17,6 @@ export class WorkSpace extends AbstractView {
     async mounted() {
         const { body } = document;
         body.append(headerView.render());
+        body.append(boardsListView.render());
     }
 }

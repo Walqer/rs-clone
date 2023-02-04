@@ -18,8 +18,8 @@ function getParams(match: RouterMatch) {
 async function router(): Promise<void> {
     const routes: Router[] = [
         { path: '/', view: Home },
-        { path: '/auth', view: Auth },
         { path: '/404', view: Page404 },
+        { path: '/auth', view: Auth },
         { path: '/workspace', view: WorkSpace },
     ];
 
