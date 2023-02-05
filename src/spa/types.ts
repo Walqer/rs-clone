@@ -11,6 +11,8 @@ export type Board = {
     title: string;
     owner: string;
     users: string[];
+    bgColor: string;
+    bgImg: string;
 };
 
 export type Column = {
