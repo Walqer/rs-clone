@@ -17,7 +17,7 @@ export class Auth extends AbstractView {
 
     async mounted() {
         const params: URLSearchParams = new URLSearchParams(document.location.search);
-        const { body } = document
+        const { body } = document;
         document.body.innerHTML = `
         <main class="auth-content">
             <h2>Task manager</h2>

@@ -1,4 +1,4 @@
-import { Control } from "../../utils/Control";
+import { Control } from '../../utils/Control';
 
 class FooterView {
     render(): HTMLElement {
