@@ -14,11 +14,11 @@ export async function createBoard(
     title: string,
     owner: string,
     users: string[],
-    bgcolor: string,
-    bgimage: string
+    bgColor: string,
+    bgImg: string
 ): Promise<Board | string> {
     const url = `${urls.boards}`;
-    const board = { title, owner, users, bgcolor, bgimage };
+    const board = { title, owner, users, bgColor, bgImg };
     const res = await fetchApi(url, 'POST', token, board);
     if (res.status === 200) return (await res.body) as unknown as Board;
     if (res.status === 400) return 'Bad Request';
@@ -39,11 +39,11 @@ export async function updateBoardById(
     title: string,
     owner: string,
     users: string[],
-    bgcolor: string,
-    bgimage: string
+    bgColor: string,
+    bgImg: string
 ): Promise<Board | string> {
     const url = `${urls.boards}/${boardId}`;
-    const board = { title, owner, users, bgcolor, bgimage };
+    const board = { title, owner, users, bgColor, bgImg };
     const res = await fetchApi(url, 'PUT', token, board);
     if (res.status === 200) return (await res.body) as unknown as Board;
     if (res.status === 400) return 'Bad Request';
