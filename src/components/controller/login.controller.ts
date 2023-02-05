@@ -1,10 +1,9 @@
-import { signIn } from '../../api/auth';
+import loginModel from "../model/login.model";
 
 class LoginController {
-    async loginUser(login: string, password: string) {
-        const token = await signIn(login, password);
-        if (typeof token === 'object') window.location.href = '/workspace';
-        else console.log(token);
+    async loginUser(login: string, password: string, update: () => void) {
+        await loginModel.loginUser(login, password);
+        update();
     }
 }
 export default new LoginController();
