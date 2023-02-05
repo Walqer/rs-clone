@@ -11,12 +11,11 @@ export class Home extends AbstractView {
 
     async getHtml() {
         return `
-        <h1 class="main-title">Home</h1>`;
+        <h1 class="main-title visually-hidden">Home</h1>`;
     }
 
     async mounted() {
         const { body } = document;
-
         const header = new Control<HTMLElement>('header', 'home-header');
         const title = new Control<HTMLLinkElement>('a', 'title');
         const links = new Control<HTMLUListElement>('ul', 'links-header');
