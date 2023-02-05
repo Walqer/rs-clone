@@ -74,8 +74,8 @@ export async function getBoardsSetByUserId(token: string, userId: string): Promi
 }
 
 export async function getFavouriteBoardsByUserId(token: string, userId: string): Promise<Board[] | string> {
-  const url = `${urls.favouriteBoards}/${userId}`;
-  const res = await fetchApi(url, 'GET', token);
-  if (res.status === 200) return (await res.body) as unknown as Board[];
-  return 'error';
+    const url = `${urls.favouriteBoards}/${userId}`;
+    const res = await fetchApi(url, 'GET', token);
+    if (res.status === 200) return (await res.body) as unknown as Board[];
+    return 'error';
 }
