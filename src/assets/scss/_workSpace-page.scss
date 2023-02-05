@@ -22,10 +22,15 @@
         margin-bottom: 50px;
         &-item {
             border-radius: 5px;
-            padding: 20px;
             position: relative;
             cursor: pointer;
             background-color: green;
+            &-link {
+                display: inline-block;
+                width: 100%;
+                padding: 20px;
+                height: 100%;
+            }
             &.starred::after {
                 position: absolute;
                 bottom: 10px;

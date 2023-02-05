@@ -21,14 +21,19 @@ class BoardListView {
         if (userBoardsFromDatabase !== 'error') {
             userBoardsFromDatabase.forEach((item) => {
                 // const { isFavourite } = item;
-                const board = new Control<HTMLLinkElement>('li', 'workspace__user-boards-list-item');
+                const board = new Control<HTMLLIElement>('li', 'workspace__user-boards-list-item');
+                const boardLink = new Control<HTMLLinkElement>('a', 'workspace__user-boards-list-item-link');
                 // if (isFavourite) board.element.classList.add('starred');
                 const boardTitle = new Control<HTMLSpanElement>('span', 'workspace__user-boards-list-item-title');
                 // board.element.style.backgroundColor = item.bgColor;
                 board.element.dataset.id = item._id;
                 // if (item.bgImg) board.element.style.backgroundImage = `url(${item.bgImg})`;
                 boardTitle.element.textContent = item.title;
-                boardTitle.append(board.element);
+                boardLink.element.href = `/board/${item._id}`;
+                boardLink.element.dataset.link = '';
+                boardLink.append(board.element);
+
+                boardTitle.append(boardLink.element);
                 board.append(userBoardsList.element);
             });
         }

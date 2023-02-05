@@ -8,7 +8,7 @@ class HeaderView {
         const menu = new Control<HTMLElement>('nav', 'header__menu');
         const menuList = new Control<HTMLUListElement>('ul', 'header__menu-list');
         const menuLinks = [
-            ['Dashboard', 'href'],
+            ['Dashboard', '/workspace'],
             ['About Us', 'href'],
         ];
         const userBlock = new Control<HTMLDivElement>('div', 'header__user-block');
@@ -29,6 +29,7 @@ class HeaderView {
             const menuListLink = new Control<HTMLLinkElement>('a', 'header__menu-list-item-link');
             menuListLink.element.textContent = `${item[0]}`;
             menuListLink.element.href = `${item[1]}`;
+            menuListLink.element.dataset.link = '';
             menuListLink.append(menuListItem.element);
             menuListItem.append(menuList.element);
         });
