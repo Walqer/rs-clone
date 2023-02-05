@@ -9,9 +9,16 @@ export async function getAllBoards(token: string): Promise<Board[] | string> {
     return 'error';
 }
 
-export async function createBoard(token: string, title: string, owner: string, users: string[]): Promise<Board | string> {
+export async function createBoard(
+    token: string,
+    title: string,
+    owner: string,
+    users: string[],
+    bgcolor: string,
+    bgimage: string
+): Promise<Board | string> {
     const url = `${urls.boards}`;
-    const board = { title, owner, users };
+    const board = { title, owner, users, bgcolor, bgimage };
     const res = await fetchApi(url, 'POST', token, board);
     if (res.status === 200) return (await res.body) as unknown as Board;
     if (res.status === 400) return 'Bad Request';
@@ -31,10 +38,12 @@ export async function updateBoardById(
     boardId: string,
     title: string,
     owner: string,
-    users: string[]
+    users: string[],
+    bgcolor: string,
+    bgimage: string
 ): Promise<Board | string> {
     const url = `${urls.boards}/${boardId}`;
-    const board = { title, owner, users };
+    const board = { title, owner, users, bgcolor, bgimage };
     const res = await fetchApi(url, 'PUT', token, board);
     if (res.status === 200) return (await res.body) as unknown as Board;
     if (res.status === 400) return 'Bad Request';
