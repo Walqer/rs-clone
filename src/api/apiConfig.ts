@@ -14,6 +14,7 @@ export const urls = {
     users: `${url}${port}/users`,
     boards: `${url}${port}/boards`,
     boardsSet: `${url}${port}/boardsSet`,
+    favouriteBoards: `${url}${port}/favourites`,
     columnsSet: `${url}${port}/columnsSet`,
     tasksSet: `${url}${port}/tasksSet`,
 };
