@@ -27,6 +27,7 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 2,
         'import/prefer-default-export': 0,
         'lines-between-class-members': 'off',
+        'no-underscore-dangle': 'off',
     },
     settings: {
         'import/resolver': {
