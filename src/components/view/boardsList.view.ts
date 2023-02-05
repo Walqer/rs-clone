@@ -39,7 +39,6 @@ class BoardListView {
         const NewBoard = new Control<HTMLLinkElement>('li', 'workspace__user-boards-list-item', 'add-new-board');
         NewBoard.element.textContent = 'Create new board';
         NewBoard.append(userBoardsList.element);
-
         const newBoard = new Control<HTMLDivElement>('div', 'new-board');
         const newBoardTitle = new Control<HTMLTitleElement>('h3', 'new-board__title');
         newBoardTitle.append(newBoard.element);
@@ -95,11 +94,22 @@ class BoardListView {
             const formData = new FormData(newBoardForm.element);
             const boardName = formData.get('name') as string;
             const boardColor = formData.get('color') as string;
-            await boardListController.createBoard(boardName, boardColor);
+            newBoard.element.classList.remove('active');
+            await boardListController.createBoard(boardName, boardColor).then(async () => {
+                await this.update();
+            });
         });
-
+        NewBoard.element.addEventListener('click', () => {
+            newBoard.element.classList.add('active');
+        });
         newBoard.append(section.element);
         return section.element;
+    }
+
+    async update() {
+        const newData = await this.render();
+        const oldData = document.querySelector('.workspace') as HTMLElement;
+        oldData.replaceWith(newData);
     }
 }
 
