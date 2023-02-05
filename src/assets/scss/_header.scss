@@ -3,6 +3,8 @@
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     align-items: center;
+    margin-bottom: 35px;
+    border-bottom: 2px solid #edeff2;
     &__logo {
         font-weight: bold;
         font-size: 18px;
