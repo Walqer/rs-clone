@@ -13,7 +13,6 @@ export type Board = {
     users: string[];
     bgColor: string;
     bgImg: string;
-
 };
 
 export type Column = {

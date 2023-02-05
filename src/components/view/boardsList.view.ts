@@ -25,9 +25,11 @@ class BoardListView {
                 const boardLink = new Control<HTMLLinkElement>('a', 'workspace__user-boards-list-item-link');
                 // if (isFavourite) board.element.classList.add('starred');
                 const boardTitle = new Control<HTMLSpanElement>('span', 'workspace__user-boards-list-item-title');
-                board.element.style.backgroundColor = item.bgcolor;
+
+                board.element.style.backgroundColor = `${item.bgColor}`;
+
                 board.element.dataset.id = item._id;
-                if (item.bgimage) board.element.style.backgroundImage = `url(${item.bgimage})`;
+                if (item.bgImg) board.element.style.backgroundImage = `url(${item.bgImg})`;
                 boardTitle.element.textContent = item.title;
                 boardLink.element.href = `/board/${item._id}`;
                 boardLink.element.dataset.link = '';
