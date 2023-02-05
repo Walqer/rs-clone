@@ -15,10 +15,11 @@ export async function createBoard(
     owner: string,
     users: string[],
     bgColor: string,
-    bgImg: string
+    bgImg: string,
+    usersFavourite: string[]
 ): Promise<Board | string> {
     const url = `${urls.boards}`;
-    const board = { title, owner, users, bgColor, bgImg };
+    const board = { title, owner, users, bgColor, bgImg, usersFavourite };
     const res = await fetchApi(url, 'POST', token, board);
     if (res.status === 200) return (await res.body) as unknown as Board;
     if (res.status === 400) return 'Bad Request';
@@ -40,10 +41,11 @@ export async function updateBoardById(
     owner: string,
     users: string[],
     bgColor: string,
-    bgImg: string
+    bgImg: string,
+    usersFavourite: string[]
 ): Promise<Board | string> {
     const url = `${urls.boards}/${boardId}`;
-    const board = { title, owner, users, bgColor, bgImg };
+    const board = { title, owner, users, bgColor, bgImg, usersFavourite };
     const res = await fetchApi(url, 'PUT', token, board);
     if (res.status === 200) return (await res.body) as unknown as Board;
     if (res.status === 400) return 'Bad Request';
@@ -69,4 +71,11 @@ export async function getBoardsSetByUserId(token: string, userId: string): Promi
     const res = await fetchApi(url, 'GET', token);
     if (res.status === 200) return (await res.body) as unknown as Board[];
     return 'error';
+}
+
+export async function getFavouriteBoardsByUserId(token: string, userId: string): Promise<Board[] | string> {
+  const url = `${urls.favouriteBoards}/${userId}`;
+  const res = await fetchApi(url, 'GET', token);
+  if (res.status === 200) return (await res.body) as unknown as Board[];
+  return 'error';
 }
