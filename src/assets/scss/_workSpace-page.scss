@@ -62,20 +62,14 @@
 }
 
 .new-board {
-    &.active {
-        display: flex;
-    }
-    display: none;
-    position: absolute;
+    position: relative;
+    display: flex;
     background-color: #fff;
     border-radius: 5px;
     flex-direction: column;
     align-items: center;
     padding: 5px;
     width: 300px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     box-shadow: var(--ds-shadow-overlay, 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08));
     &__title {
         text-align: center;
@@ -121,4 +115,31 @@
     &__input {
         margin-bottom: 20px;
     }
+    &-wrapper {
+        left: 0;
+        top: 0;
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 100;
+        &.active {
+            display: flex;
+        }
+    }
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+.close-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 25px;
 }
