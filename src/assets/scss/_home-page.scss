@@ -11,8 +11,13 @@
     display: flex;
 }
 
-.signup-link {
+.signup-link,
+.workspace-link {
     margin-right: 20px;
+}
+
+.logout-link-a {
+    cursor: pointer;
 }
 
 .home-content {

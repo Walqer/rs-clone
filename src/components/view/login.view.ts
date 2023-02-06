@@ -5,7 +5,9 @@ import loginController from '../controller/login.controller';
 class LoginView {
     render(): HTMLFormElement {
         const update = () => {
-            this.render();
+            const newData = this.render();
+            const oldData = document.querySelector('.login-form') as HTMLFormElement;
+            oldData.replaceWith(newData);
         };
         const form = new Control<HTMLFormElement>('form', 'login-form');
         const title = new Control<HTMLElement>('h2', 'form-title');
@@ -34,7 +36,6 @@ class LoginView {
             await loginController.loginUser(login.element.value, pass.element.value, update);
         });
         err.element.textContent = state.authError as string;
-        console.log(state.authError);
         err.append(form.element);
         or.element.textContent = 'or';
         or.append(form.element);
