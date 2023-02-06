@@ -15,10 +15,10 @@ export async function createBoard(
     owner: string,
     users: string[],
     bgColor: string,
-    bgImg: string,
-    usersFavourite: string[]
+    bgImg: string
 ): Promise<Board | string> {
     const url = `${urls.boards}`;
+    const usersFavourite: string[] = [];
     const board = { title, owner, users, bgColor, bgImg, usersFavourite };
     const res = await fetchApi(url, 'POST', token, board);
     if (res.status === 200) return (await res.body) as unknown as Board;
