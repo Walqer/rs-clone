@@ -41,17 +41,22 @@ class BoardListView {
         const NewBoard = new Control<HTMLLinkElement>('li', 'workspace__user-boards-list-item', 'add-new-board');
         NewBoard.element.textContent = 'Create new board';
         NewBoard.append(userBoardsList.element);
-        const newBoard = new Control<HTMLDivElement>('div', 'new-board');
+        const newBoardMainWrapper = new Control<HTMLDivElement>('div', 'new-board-wrapper');
+        const newBoardMain = new Control<HTMLDivElement>('div', 'new-board');
+        const newBoardCloseBtn = new Control<HTMLDivElement>('span', 'close-btn');
+        newBoardCloseBtn.element.textContent = '×';
+        newBoardCloseBtn.append(newBoardMain.element);
+        newBoardMain.append(newBoardMainWrapper.element);
         const newBoardTitle = new Control<HTMLTitleElement>('h3', 'new-board__title');
-        newBoardTitle.append(newBoard.element);
+        newBoardTitle.append(newBoardMain.element);
         newBoardTitle.element.textContent = 'Создать доску';
 
         const newBoardBgtitle = new Control<HTMLTitleElement>('h3', 'new-board__inner-title');
-        newBoardBgtitle.append(newBoard.element);
+        newBoardBgtitle.append(newBoardMain.element);
         newBoardBgtitle.element.textContent = 'Фон';
 
         const newBoardBgColors = new Control<HTMLUListElement>('ul', 'new-board__bg-colors');
-        newBoardBgColors.append(newBoard.element);
+        newBoardBgColors.append(newBoardMain.element);
         const newBoardColorsList = boardListController.getBoardColorList();
         newBoardColorsList.forEach((colorHex) => {
             const colorItem = new Control<HTMLLIElement>('li', 'new-board__bg-color');
@@ -61,7 +66,7 @@ class BoardListView {
         });
 
         const newBoardName = new Control<HTMLInputElement>('h3', 'new-board__inner-title');
-        newBoardName.append(newBoard.element);
+        newBoardName.append(newBoardMain.element);
         newBoardName.element.textContent = 'Заголовок доски';
         const newBoardNameInput = new Control<HTMLInputElement>('input', 'new-board__input');
         newBoardNameInput.element.required = true;
@@ -76,7 +81,7 @@ class BoardListView {
         newBoardColorInput.element.value = '#0079BF';
         newBoardColorInput.element.name = 'color';
         newBoardButton.append(newBoardForm.element);
-        newBoardForm.append(newBoard.element);
+        newBoardForm.append(newBoardMain.element);
         newBoardBgColors.element.addEventListener('click', (event) => {
             const target = event.target as HTMLLIElement;
             if (target.classList.contains('new-board__bg-color')) {
@@ -96,15 +101,24 @@ class BoardListView {
             const formData = new FormData(newBoardForm.element);
             const boardName = formData.get('name') as string;
             const boardColor = formData.get('color') as string;
-            newBoard.element.classList.remove('active');
+            newBoardMain.element.classList.remove('active');
             await boardListController.createBoard(boardName, boardColor).then(async () => {
                 await this.update();
             });
         });
         NewBoard.element.addEventListener('click', () => {
-            newBoard.element.classList.add('active');
+            newBoardMainWrapper.element.classList.add('active');
+            document.body.classList.add('no-scroll');
         });
-        newBoard.append(section.element);
+        newBoardMainWrapper.append(section.element);
+        newBoardMainWrapper.element.addEventListener('click', (event) => {
+            const target = event.target as unknown as HTMLElement;
+            if (target.classList.contains('active') || target === newBoardCloseBtn.element) {
+                newBoardMainWrapper.element.classList.remove('active');
+            }
+            event.stopPropagation();
+        });
+
         return section.element;
     }
 
