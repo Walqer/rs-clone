@@ -23,10 +23,13 @@ export class Home extends AbstractView {
         // main
         const main = new Control<HTMLElement>('main', 'home-content');
         const greating = new Control<HTMLElement>('div', 'greating');
-        const h2 = new Control<HTMLElement>('h2', 'h2-ggreating');
+        const h2 = new Control<HTMLElement>('h2', 'h2-greating');
         const p = new Control<HTMLElement>('p', 'p-greating');
+        const collage = new Control<HTMLImageElement>('img', 'home-collage');
         main.append(body);
         greating.append(main.element);
+        collage.element.src = '../../assets/img/home-page-collage.png';
+        collage.append(main.element);
         h2.element.innerHTML = 'Task manager brings all your tasks, teammates, and tools together<br><br>';
         h2.append(greating.element);
         p.element.innerHTML = 'Keep everything in the same place—even if your team isnt<br><br>';

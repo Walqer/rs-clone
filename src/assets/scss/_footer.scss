@@ -12,7 +12,41 @@
     cursor: pointer;
 }
 
+.btn {
+    color: black;
+}
+
 .logo-git {
     height: 40px;
     cursor: pointer;
+}
+
+.categories {
+    display: flex;
+    list-style-type: none;
+}
+.categories .category {
+    display: flex;
+    position: relative;
+}
+.categories .category a {
+    color: #222;
+}
+.categories .category:hover a {
+    color: #ff7300;
+}
+.categories .category:hover .submenu {
+    display: flex;
+}
+.categories .category .submenu {
+    list-style-type: none;
+    padding: 10px;
+    display: none;
+}
+.categories .category .submenu li a {
+    color: #222;
+    margin-right: 10px;
+}
+.categories .category .submenu li a:hover {
+    color: #ff7300;
 }
