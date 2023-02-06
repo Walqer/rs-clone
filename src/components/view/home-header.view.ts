@@ -4,6 +4,11 @@ import homeHeaderController from '../controller/home-header.controller';
 
 class HomeHeaderView {
     render(): HTMLElement {
+        const update = () => {
+            const newData = this.render();
+            const oldData = document.querySelector('.home-header') as HTMLElement;
+            oldData.replaceWith(newData);
+        };
         const header = new Control<HTMLElement>('header', 'home-header');
         const title = new Control<HTMLLinkElement>('a', 'title');
         const links = new Control<HTMLUListElement>('ul', 'links-header');
@@ -27,7 +32,7 @@ class HomeHeaderView {
             logOutLink.element.textContent = 'Log out';
             logOutLink.append(logOut.element);
             logOutLink.element.addEventListener('click', () => {
-                homeHeaderController.logOut();
+                homeHeaderController.logOut(update);
             });
         } else {
             signUp.append(links.element);
