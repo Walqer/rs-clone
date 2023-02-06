@@ -1,5 +1,5 @@
-import { state } from "../store/state";
+import { state } from '../store/state';
 
 export function initToken() {
-    state.token =  localStorage.getItem('token');
+    state.token = localStorage.getItem('token');
 }

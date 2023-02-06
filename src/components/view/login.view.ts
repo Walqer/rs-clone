@@ -6,7 +6,7 @@ class LoginView {
     render(): HTMLFormElement {
         const update = () => {
             this.render();
-        }
+        };
         const form = new Control<HTMLFormElement>('form', 'login-form');
         const title = new Control<HTMLElement>('h2', 'form-title');
         const login = new Control<HTMLInputElement>('input', 'input-login');

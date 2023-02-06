@@ -1,4 +1,4 @@
-import loginModel from "../model/login.model";
+import loginModel from '../model/login.model';
 
 class LoginController {
     async loginUser(login: string, password: string, update: () => void) {
