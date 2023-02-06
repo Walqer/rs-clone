@@ -1,11 +1,9 @@
-import { signUp } from '../../api/auth';
+import signUpModel from '../model/signup.model';
 
-class SignupController {
+class SignUpController {
     async registerUser(name: string, login: string, password: string) {
-        const user = await signUp(name, login, password);
-        if (typeof user === 'object') window.location.href = '/workspace';
-        else console.log(user);
+        await signUpModel.registerUser(name, login, password);
     }
 }
 
-export default new SignupController();
+export default new SignUpController();

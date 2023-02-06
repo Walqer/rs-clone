@@ -21,15 +21,18 @@
 }
 
 .home-content {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     height: calc(100vh - 117px);
     background: linear-gradient(180deg, rgba(86, 8, 196, 0.7) 34.38%, rgba(184, 0, 132, 0.7) 79.69%);
-    padding: 100px 90px;
+    padding: 100px 0;
 }
 
 .greating {
     max-width: 300px;
     color: white;
+    margin-left: 100px;
 }
 
 .h2-greating {
@@ -62,4 +65,8 @@
     border: none;
     background-color: blue;
     color: white;
+}
+
+.home-collage {
+    width: 400px;
 }

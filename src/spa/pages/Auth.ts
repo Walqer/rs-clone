@@ -20,7 +20,7 @@ export class Auth extends AbstractView {
         const { body } = document;
         document.body.innerHTML = `
         <main class="auth-content">
-            <h2>Task manager</h2>
+            <h1>Task manager</h1>
         </main>
         `;
         const main = document.querySelector('.auth-content') as HTMLElement;

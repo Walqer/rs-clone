@@ -1,7 +1,7 @@
 import { Control } from '../../utils/Control';
-import signupController from '../controller/signup.controller';
+import signUpController from '../controller/signup.controller';
 
-class SignupView {
+class SignUpView {
     render(): HTMLFormElement {
         const form = new Control<HTMLFormElement>('form', 'signup-form');
         const title = new Control<HTMLElement>('h2', 'form-title');
@@ -36,7 +36,7 @@ class SignupView {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         submit.element.addEventListener('click', async (event) => {
             event.preventDefault();
-            await signupController.registerUser(name.element.value, login.element.value, pass.element.value);
+            await signUpController.registerUser(name.element.value, login.element.value, pass.element.value);
         });
         or.element.textContent = 'or';
         or.append(form.element);
@@ -48,4 +48,4 @@ class SignupView {
     }
 }
 
-export default new SignupView();
+export default new SignUpView();

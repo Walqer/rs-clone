@@ -1,8 +1,9 @@
 import homeHeaderModel from '../model/home-header.model';
 
 class HomeHeaderContoller {
-    logOut() {
+    logOut(update: () => void) {
         homeHeaderModel.logOut();
+        update();
     }
 }
 
