@@ -1,4 +1,6 @@
 import footerView from '../../components/view/footer.view';
+import homeHeaderView from '../../components/view/home-header.view';
+import { Control } from '../../utils/Control';
 import { AbstractView } from '../AbstractView';
 import { QueryStringParams } from '../types';
 
@@ -10,30 +12,34 @@ export class Home extends AbstractView {
 
     async getHtml() {
         return `
-        <h1 class="main-title">Home</h1>`;
+        <h1 class="main-title visually-hidden">Home</h1>`;
     }
 
     async mounted() {
         const { body } = document;
-        document.body.innerHTML = `
-        <header class="home-header">
-            <a href="/">Task manager</a>
-            <ul class="links-header">
-                <li class="signup-link"><a href="/auth?type=signup">Sign up</a></li>
-                <li class="login-link"><a href="/auth?type=login">Log in</a></li>
-            </ul>
-        </header>
-        <main class="home-content">
-            <div class="greating">
-                <h2 class="h2-greating">Task manager brings all your tasks, teammates, and tools together</h2><br>
-                <p class="p-greating">Keep everything in the same place—even if your team isnt</p><br>
-                <div class="home-auth">
-                    <input type="text" placeholder="Login">
-                    <button>Sign Up!</button>
-                </div>
-            </div>
-        </main>
-        `;
+        // header
+        body.append(homeHeaderView.render());
+        // main
+        const main = new Control<HTMLElement>('main', 'home-content');
+        const greating = new Control<HTMLElement>('div', 'greating');
+        const h2 = new Control<HTMLElement>('h2', 'h2-ggreating');
+        const p = new Control<HTMLElement>('p', 'p-greating');
+        const auth = new Control<HTMLElement>('div', 'home-auth');
+        const logInInput = new Control<HTMLInputElement>('input', 'signup-input');
+        const signUpBtn = new Control<HTMLButtonElement>('button', 'signup-button');
+        main.append(body);
+        greating.append(main.element);
+        h2.element.innerHTML = 'Task manager brings all your tasks, teammates, and tools together<br><br>';
+        h2.append(greating.element);
+        p.element.innerHTML = 'Keep everything in the same place—even if your team isnt<br><br>';
+        p.append(greating.element);
+        auth.append(greating.element);
+        logInInput.element.type = 'text';
+        logInInput.element.placeholder = 'Login';
+        logInInput.append(auth.element);
+        signUpBtn.element.innerHTML = 'Sign Up!';
+        signUpBtn.append(auth.element);
+        // footer
         body.append(footerView.render());
     }
 }

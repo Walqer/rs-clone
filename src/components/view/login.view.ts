@@ -1,8 +1,14 @@
+import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import loginController from '../controller/login.controller';
 
 class LoginView {
     render(): HTMLFormElement {
+        const update = () => {
+            const newData = this.render();
+            const oldData = document.querySelector('.login-form') as HTMLFormElement;
+            oldData.replaceWith(newData);
+        };
         const form = new Control<HTMLFormElement>('form', 'login-form');
         const title = new Control<HTMLElement>('h2', 'form-title');
         const login = new Control<HTMLInputElement>('input', 'input-login');
@@ -10,6 +16,7 @@ class LoginView {
         const submit = new Control<HTMLButtonElement>('button', 'button__submit-login');
         const or = new Control<HTMLElement>('p', 'or');
         const reg = new Control<HTMLLinkElement>('a', 'reg');
+        const err = new Control<HTMLElement>('p', 'error-message');
         form.element.classList.add('auth-form');
         title.element.textContent = 'Login to Task manager';
         title.append(form.element);
@@ -26,8 +33,10 @@ class LoginView {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         submit.element.addEventListener('click', async (event) => {
             event.preventDefault();
-            await loginController.loginUser(login.element.value, pass.element.value);
+            await loginController.loginUser(login.element.value, pass.element.value, update);
         });
+        err.element.textContent = state.authError as string;
+        err.append(form.element);
         or.element.textContent = 'or';
         or.append(form.element);
         reg.element.textContent = 'Register accaunt';
