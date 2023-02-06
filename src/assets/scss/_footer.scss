@@ -25,24 +25,26 @@
     display: flex;
     list-style-type: none;
 }
+
 .categories .category {
     display: flex;
     position: relative;
 }
-.categories .category a {
-    color: #222;
+
+.categories .category a img {
+    width: 50px;
 }
-.categories .category:hover a {
-    color: #ff7300;
-}
+
 .categories .category:hover .submenu {
     display: flex;
 }
+
 .categories .category .submenu {
     list-style-type: none;
     padding: 10px;
     display: none;
 }
+
 .categories .category .submenu li a {
     color: #222;
     margin-right: 10px;
