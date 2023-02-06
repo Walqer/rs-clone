@@ -4,6 +4,6 @@ interface IState {
 }
 
 export const state: IState = {
-    token: null,
+    token: localStorage.getItem('token') || null,
     authError: null,
 };
