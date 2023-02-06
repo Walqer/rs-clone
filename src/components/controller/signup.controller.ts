@@ -1,10 +1,10 @@
-import { signUp } from "../../api/auth";
+import { signUp } from '../../api/auth';
 
 class SignupController {
-   async registerUser(name: string, login: string, password: string) {
-       const user = await signUp(name, login, password)
-       if(typeof user === 'object') window.location.href = '/workspace';
-       else alert(user);
+    async registerUser(name: string, login: string, password: string) {
+        const user = await signUp(name, login, password);
+        if (typeof user === 'object') window.location.href = '/workspace';
+        else console.log(user);
     }
 }
 

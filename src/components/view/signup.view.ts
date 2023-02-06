@@ -11,14 +11,14 @@
 //     </form>`;
 // }
 
-import { Control } from "../../utils/Control";
-import signupController from "../controller/signup.controller";
+import { Control } from '../../utils/Control';
+import signupController from '../controller/signup.controller';
 
 class SignupView {
     render(): HTMLFormElement {
-        const form = new Control<HTMLFormElement>('form','signup-form');
+        const form = new Control<HTMLFormElement>('form', 'signup-form');
         const title = new Control<HTMLElement>('h2', 'form-title');
-        const name = new Control<HTMLInputElement>('input', 'input-name')
+        const name = new Control<HTMLInputElement>('input', 'input-name');
         const login = new Control<HTMLInputElement>('input', 'input-login');
         const pass = new Control<HTMLInputElement>('input', 'input-pass');
         const passRepit = new Control<HTMLInputElement>('input', 'input-pass-repit');
@@ -46,20 +46,17 @@ class SignupView {
         passRepit.append(form.element);
         submit.element.textContent = 'Register';
         submit.append(form.element);
-        submit.element.addEventListener('click', (event) => {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        submit.element.addEventListener('click', async (event) => {
             event.preventDefault();
-            signupController.registerUser(
-                name.element.value,
-                login.element.value,
-                pass.element.value
-            )
+            await signupController.registerUser(name.element.value, login.element.value, pass.element.value);
         });
         or.element.textContent = 'or';
         or.append(form.element);
         log.element.textContent = 'Log in';
         log.element.href = '/auth?type=login';
         log.append(form.element);
-        
+
         return form.element;
     }
 }

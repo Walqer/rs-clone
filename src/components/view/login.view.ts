@@ -1,9 +1,9 @@
-import { Control } from "../../utils/Control";
-import loginController from "../controller/login.controller";
+import { Control } from '../../utils/Control';
+import loginController from '../controller/login.controller';
 
 class LoginView {
     render(): HTMLFormElement {
-        const form = new Control<HTMLFormElement>('form','login-form');
+        const form = new Control<HTMLFormElement>('form', 'login-form');
         const title = new Control<HTMLElement>('h2', 'form-title');
         const login = new Control<HTMLInputElement>('input', 'input-login');
         const pass = new Control<HTMLInputElement>('input', 'input-pass');
@@ -23,19 +23,17 @@ class LoginView {
         pass.append(form.element);
         submit.element.textContent = 'Log in';
         submit.append(form.element);
-        submit.element.addEventListener('click', (event) => {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        submit.element.addEventListener('click', async (event) => {
             event.preventDefault();
-            loginController.loginUser(
-                login.element.value,
-                pass.element.value
-            )
-        })
+            await loginController.loginUser(login.element.value, pass.element.value);
+        });
         or.element.textContent = 'or';
         or.append(form.element);
         reg.element.textContent = 'Register accaunt';
         reg.element.href = '/auth?type=signup';
         reg.append(form.element);
-        
+
         return form.element;
     }
 }
