@@ -9,3 +9,20 @@ export async function fetchApi(url: string, method: string, token: string, body?
     }).then((res) => ({ status: res.status, body: res.json() }));
     return response;
 }
+
+export function parseJwt(token: string): string {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+        window
+            .atob(base64)
+            .split('')
+            .map((c) => {
+                const s = c.charCodeAt(0).toString(16);
+                return `%${`00${s}`.slice(-2)}`;
+            })
+            .join('')
+    );
+    return jsonPayload;
+    //  return JSON.parse(jsonPayload);
+}
