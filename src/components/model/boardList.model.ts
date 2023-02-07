@@ -1,11 +1,15 @@
 import { createBoard, getBoardsSetByUserId } from '../../api/boards';
+import { state } from '../../store/state';
 
 class BoardListModel {
     token: string;
 
     constructor() {
-        this.token =
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGU4YmE5ODk4MjVhYWFmMGU2MDQxMiIsImxvZ2luIjoiQWxpbXVzaW0iLCJpYXQiOjE2NzU2MTc5OTcsImV4cCI6MTY3NTY2MTE5N30.a4yBwup33lMaVmqPhzdieFHrzkuadXebZcKhba5ZS6E';
+        if (typeof state.token === 'string') {
+            this.token = state.token;
+        } else {
+            this.token = 'invalid token';
+        }
     }
 
     async getUserBoards() {
