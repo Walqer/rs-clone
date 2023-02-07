@@ -1,5 +1,6 @@
 import { getBoardById } from '../../api/boards';
 import headerView from '../../components/view/header.view';
+import { state } from '../../store/state';
 import { AbstractView } from '../AbstractView';
 import { QueryStringParams } from '../types';
 
@@ -20,10 +21,12 @@ export class BoardPage extends AbstractView {
     async mounted() {
         const { body } = document;
         body.append(headerView.render());
-        const board = await getBoardById(
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZGU4YmE5ODk4MjVhYWFmMGU2MDQxMiIsImxvZ2luIjoiQWxpbXVzaW0iLCJpYXQiOjE2NzU1NzMzOTcsImV4cCI6MTY3NTYxNjU5N30.jzhPVXmg1MpMUcE3TPi0gSCeVpnTY6e_781bFPh-U6k',
-            this.boardID
-        );
-        if (board === 'Board was not founded!') window.location.href = '/404';
+        const { token } = state;
+        if (token) {
+            const board = await getBoardById(token, this.boardID);
+            if (board === 'Board was not founded!') window.location.href = '/404';
+        } else {
+            throw new Error('invalid token');
+        }
     }
 }
