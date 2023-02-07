@@ -1,3 +1,5 @@
+import { JWTData } from "../spa/types";
+
 export async function fetchApi(url: string, method: string, token: string, body?: object) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -10,7 +12,7 @@ export async function fetchApi(url: string, method: string, token: string, body?
     return response;
 }
 
-export function parseJwt(token: string): string {
+export function parseJwt(token: string): JWTData {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(
@@ -23,6 +25,5 @@ export function parseJwt(token: string): string {
             })
             .join('')
     );
-    return jsonPayload;
-    //  return JSON.parse(jsonPayload);
+    return JSON.parse(jsonPayload) as JWTData;
 }

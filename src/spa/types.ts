@@ -54,3 +54,10 @@ export type TaskOrder = {
 export type Token = {
     token: string;
 };
+
+export type JWTData = {
+    id: string;
+    login: string;
+    iat: number;
+    exp: number;
+};
