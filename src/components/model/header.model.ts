@@ -1,7 +1,9 @@
+import { state } from '../../store/state';
+
 class HeaderModel {
     getUserInfo() {
         return {
-            fullname: 'Clayton Santos',
+            fullname: state.login,
             imgSrc: '../../assets/img/icon.svg',
         };
     }
