@@ -1,4 +1,4 @@
-import { JWTData } from "../spa/types";
+import { JWTData } from '../spa/types';
 
 export async function fetchApi(url: string, method: string, token: string, body?: object) {
     const headers = new Headers();

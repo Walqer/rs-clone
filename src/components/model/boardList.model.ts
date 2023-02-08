@@ -4,16 +4,20 @@ import { state } from '../../store/state';
 class BoardListModel {
     token: string;
 
+    userId: string;
+
     constructor() {
-        if (typeof state.token === 'string') {
-            this.token = state.token;
+        if (typeof state === 'object') {
+            this.token = state.token as string;
+            this.userId = state.userId as string;
         } else {
             this.token = 'invalid token';
+            this.userId = 'invalid token';
         }
     }
 
     async getUserBoards() {
-        const boards = await getBoardsSetByUserId(this.token, '63de8ba989825aaaf0e60412');
+        const boards = await getBoardsSetByUserId(this.token, this.userId);
         if (typeof boards !== 'string') {
             return boards;
         }
@@ -25,7 +29,7 @@ class BoardListModel {
     }
 
     async createBoard(name: string, color: string) {
-        await createBoard(this.token, name, '63de8ba989825aaaf0e60412', ['user1', 'user2'], color, '');
+        await createBoard(this.token, name, this.userId, ['user1', 'user2'], color, '');
     }
 }
 
