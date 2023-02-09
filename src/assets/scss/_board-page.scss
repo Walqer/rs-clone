@@ -20,19 +20,5 @@
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
-        &-column {
-            display: flex;
-            flex-direction: column;
-            padding: 5px;
-            width: 200px;
-            height: 400px;
-            &_create {
-                width: 200px;
-                display: flex;
-                justify-content: center;
-                padding: 5px;
-                background-color: gray;
-            }
-        }
     }
 }
