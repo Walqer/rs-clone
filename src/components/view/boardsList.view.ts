@@ -1,5 +1,3 @@
-import { updateBoardColor, updateBoardFavourites, updateBoardImage } from '../../api/boards';
-import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardListController from '../controller/boardList.controller';
 
@@ -120,9 +118,6 @@ class BoardListView {
             }
             event.stopPropagation();
         });
-        await updateBoardColor(state.token as string, '63e5450be010a7b12680473e', '#663366');
-        await updateBoardImage(state.token as string, '63e5450be010a7b12680473e', 'http://www.mail.ru/abc.png');
-        await updateBoardFavourites(state.token as string, '63e5450be010a7b12680473e', ['63dbdeb689825aaaf0e60384', '63dbf62b89825aaaf0e60398']);
 
         return section.element;
     }
