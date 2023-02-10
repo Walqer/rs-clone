@@ -2,9 +2,9 @@ const url = 'https://final-task-backend-production-c474.up.railway.app';
 const port = '';
 
 export const urlParams = {
-    boards: '/boards',
-    columns: '/columns',
-    tasks: '/tasks',
+    boards: 'boards',
+    columns: 'columns',
+    tasks: 'tasks',
 };
 
 export const urls = {
