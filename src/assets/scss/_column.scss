@@ -1,14 +1,25 @@
 .column {
     display: flex;
+    justify-content: flex-start;
     flex-direction: column;
     padding: 5px;
     width: 200px;
-    height: 400px;
-    &_create {
+    &-create {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         width: 200px;
         padding: 5px;
-        background-color: gray;
+        cursor: pointer;
+    }
+    &__add-task {
+        cursor: pointer;
+        color: #7d8fb3;
+        &:hover {
+            background-color: #edeff2;
+        }
+    }
+    &__remove-column {
+        cursor: pointer;
     }
 }
