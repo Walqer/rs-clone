@@ -22,6 +22,7 @@ class ColumnView {
         addTask.element.innerHTML = 'Add task..';
 
         columnRemove.element.addEventListener('click', () => {
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
             columnController.deleteColumnById(column._id);
         });
         return columnBox.element;

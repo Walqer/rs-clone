@@ -1,8 +1,8 @@
 import columnModel from '../model/column.model';
 
 class ColumnController {
-    deleteColumnById(id: string) {
-        columnModel.deleteColumnById(id);
+    async deleteColumnById(id: string) {
+        await columnModel.deleteColumnById(id);
     }
 }
 

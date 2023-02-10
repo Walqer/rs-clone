@@ -24,7 +24,6 @@ class BoardView {
         createColumnInput.append(createColumn.element);
         createColumnBtn.append(createColumn.element);
         await boardController.getColumns();
-        console.log(state.columns);
         if (state.columns) {
             state.columns.forEach((elem) => {
                 columns.element.append(columnView.render(elem));
