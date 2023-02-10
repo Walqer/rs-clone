@@ -61,6 +61,15 @@ export async function updateBoardColor(token: string, boardId: string, bgColor: 
     return 'error';
 }
 
+export async function updateBoardImage(token: string, boardId: string, bgImg: string): Promise<Board | string> {
+  const url = `${urls.boards}/${boardId}/image`;
+  const board = { bgImg };
+  const res = await fetchApi(url, 'PATCH', token, board);
+  if (res.status === 200) return (await res.body) as unknown as Board;
+  if (res.status === 400) return 'Bad Request';
+  return 'error';
+}
+
 export async function deleteBoardById(token: string, boardId: string): Promise<Board | string> {
     const url = `${urls.boards}/${boardId}`;
     const res = await fetchApi(url, 'DELETE', token);
