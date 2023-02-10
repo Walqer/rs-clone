@@ -1,9 +1,15 @@
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
+// eslint-disable-next-line import/no-cycle
 import columnView from './column.view';
 
 class BoardView {
     async render(token: string, boardid: string): Promise<HTMLElement> {
+        const update = async () => {
+            const newData = this.render(token, boardid);
+            const oldData = document.querySelector('.board') as HTMLElement;
+            oldData.replaceWith(await newData);
+        };
         const board = new Control<HTMLElement>('div', 'board');
         const header = new Control<HTMLElement>('div', 'board__header');
         const title = new Control<HTMLElement>('h2', 'board__header-title');
@@ -22,24 +28,30 @@ class BoardView {
         createColumnTitle.append(createColumn.element);
         createColumnInput.append(createColumn.element);
         createColumnBtn.append(createColumn.element);
-        createColumnTitle.element.textContent = 'Add another column';
-        createColumnInput.element.placeholder = 'Enter column name..';
-        createColumnBtn.element.innerHTML = 'Add column';
-        title.element.textContent = 'Board';
+
         const columnsArray = await boardController.getAllColumns(token, boardid);
         if (columnsArray) {
             columnsArray.forEach((elem) => {
                 columns.element.append(columnView.render(elem.title, elem.boardId, elem._id));
             });
         }
+        createColumn.append(columns.element);
+
+        createColumnTitle.element.textContent = 'Add another column';
+        createColumnInput.element.placeholder = 'Enter column name..';
+        createColumnBtn.element.innerHTML = 'Add column';
+        title.element.textContent = 'Board';
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         createColumnBtn.element.addEventListener('click', async () => {
             const inputValue = createColumnInput.element.value;
-            await boardController.addColumn(token, boardid, inputValue, 0);
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            await boardController.addColumn(token, boardid, inputValue, 0, update);
         });
 
         return board.element;
     }
+
+    update() {}
 }
 
 export default new BoardView();

@@ -1,9 +1,9 @@
 .board {
     margin: 0 auto;
     width: 95%;
-    height: 60vh;
     border-radius: 15px;
     border: 2px solid #edeff2;
+    overflow-x: auto;
     &__header {
         display: flex;
         justify-content: space-between;
