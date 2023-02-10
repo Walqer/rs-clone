@@ -70,6 +70,33 @@ export async function updateBoardImage(token: string, boardId: string, bgImg: st
   return 'error';
 }
 
+export async function updateBoardFavourites(token: string, boardId: string, usersFavourite: string[]): Promise<Board | string> {
+  const url = `${urls.boards}/${boardId}/favourites`;
+  const board = { usersFavourite };
+  const res = await fetchApi(url, 'PATCH', token, board);
+  if (res.status === 200) return (await res.body) as unknown as Board;
+  if (res.status === 400) return 'Bad Request';
+  return 'error';
+}
+
+export async function updateBoardUsers(token: string, boardId: string, users: string[]): Promise<Board | string> {
+  const url = `${urls.boards}/${boardId}/users`;
+  const board = { users };
+  const res = await fetchApi(url, 'PATCH', token, board);
+  if (res.status === 200) return (await res.body) as unknown as Board;
+  if (res.status === 400) return 'Bad Request';
+  return 'error';
+}
+
+export async function updateBoardTitle(token: string, boardId: string, title: string): Promise<Board | string> {
+  const url = `${urls.boards}/${boardId}/title`;
+  const board = { title };
+  const res = await fetchApi(url, 'PATCH', token, board);
+  if (res.status === 200) return (await res.body) as unknown as Board;
+  if (res.status === 400) return 'Bad Request';
+  return 'error';
+}
+
 export async function deleteBoardById(token: string, boardId: string): Promise<Board | string> {
     const url = `${urls.boards}/${boardId}`;
     const res = await fetchApi(url, 'DELETE', token);
