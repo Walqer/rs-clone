@@ -1,15 +1,10 @@
+import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
-// eslint-disable-next-line import/no-cycle
 import columnView from './column.view';
 
 class BoardView {
-    async render(token: string, boardid: string): Promise<HTMLElement> {
-        const update = async () => {
-            const newData = this.render(token, boardid);
-            const oldData = document.querySelector('.board') as HTMLElement;
-            oldData.replaceWith(await newData);
-        };
+    async render() {
         const board = new Control<HTMLElement>('div', 'board');
         const header = new Control<HTMLElement>('div', 'board__header');
         const title = new Control<HTMLElement>('h2', 'board__header-title');
@@ -28,15 +23,13 @@ class BoardView {
         createColumnTitle.append(createColumn.element);
         createColumnInput.append(createColumn.element);
         createColumnBtn.append(createColumn.element);
-
-        const columnsArray = await boardController.getAllColumns(token, boardid);
-        if (columnsArray) {
-            columnsArray.forEach((elem) => {
-                columns.element.append(columnView.render(elem.title, elem.boardId, elem._id));
+        await boardController.getColumns();
+        if (state.columns) {
+            state.columns.forEach((elem) => {
+                columns.element.append(columnView.render(elem));
             });
         }
         createColumn.append(columns.element);
-
         createColumnTitle.element.textContent = 'Add another column';
         createColumnInput.element.placeholder = 'Enter column name..';
         createColumnBtn.element.innerHTML = 'Add column';
@@ -44,14 +37,18 @@ class BoardView {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         createColumnBtn.element.addEventListener('click', async () => {
             const inputValue = createColumnInput.element.value;
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            await boardController.addColumn(token, boardid, inputValue, 0, update);
+            await boardController.createColumn(inputValue);
+            await this.update();
         });
 
         return board.element;
     }
 
-    update() {}
+    async update() {
+        const newData = this.render();
+        const oldData = document.querySelector('.board') as HTMLElement;
+        oldData.replaceWith(await newData);
+    }
 }
 
 export default new BoardView();

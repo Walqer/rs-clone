@@ -1,13 +1,12 @@
 import boardModel from '../model/board.model';
 
 class BoardController {
-    async addColumn(token: string, boardId: string, title: string, order: number, update: () => void) {
-        await boardModel.addColumn(token, boardId, title, order);
-        update();
+    async createColumn(title: string) {
+        await boardModel.createColumn(title);
     }
 
-    getAllColumns(token: string, boardId: string) {
-        return boardModel.getAllColumns(token, boardId);
+    async getColumns() {
+        await boardModel.getColumns();
     }
 }
 

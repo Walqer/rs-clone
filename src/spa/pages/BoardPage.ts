@@ -29,6 +29,6 @@ export class BoardPage extends AbstractView {
         }
         const { body } = document;
         body.append(headerView.render());
-        body.append(await boardView.render(token, this.boardID));
+        body.append(await boardView.render());
     }
 }
