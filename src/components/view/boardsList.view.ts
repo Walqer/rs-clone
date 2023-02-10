@@ -1,3 +1,5 @@
+import { updateBoardColor } from '../../api/boards';
+import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardListController from '../controller/boardList.controller';
 
@@ -118,6 +120,7 @@ class BoardListView {
             }
             event.stopPropagation();
         });
+        await updateBoardColor(state.token as string, '63e5450be010a7b12680473e', '#660066');
 
         return section.element;
     }
