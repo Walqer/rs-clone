@@ -24,6 +24,7 @@ export class BoardPage extends AbstractView {
         if (token) {
             const board = await getBoardById(token, this.boardID);
             if (board === 'Board was not founded!') window.location.href = '/404';
+            else state.boardId = this.boardID;
         } else {
             throw new Error('invalid token');
         }
