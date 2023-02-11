@@ -1,0 +1,40 @@
+.column {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 5px;
+    margin-right: 10px;
+    width: 200px;
+    background-color: #c2c4c7;
+    border-radius: 5px;
+    &-create {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 200px;
+        padding: 5px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    &__title {
+        height: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid#7d8fb3;
+        &_remove-column {
+            cursor: pointer;
+        }
+    }
+    &__tasks {
+        min-height: 200px;
+    }
+    &__add-task {
+        cursor: pointer;
+        color: #7d8fb3;
+        border-top: 2px solid#7d8fb3;
+        &:hover {
+            background-color: #edeff2;
+        }
+    }
+}

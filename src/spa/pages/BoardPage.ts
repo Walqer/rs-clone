@@ -1,4 +1,5 @@
 import { getBoardById } from '../../api/boards';
+import boardView from '../../components/view/board.view';
 import headerView from '../../components/view/header.view';
 import { state } from '../../store/state';
 import { AbstractView } from '../AbstractView';
@@ -9,7 +10,7 @@ export class BoardPage extends AbstractView {
 
     constructor(params: QueryStringParams) {
         super(params);
-        this.setTitle('WorkSpace');
+        this.setTitle('Board');
         this.boardID = this.params.type;
     }
 
@@ -19,14 +20,16 @@ export class BoardPage extends AbstractView {
     }
 
     async mounted() {
-        const { body } = document;
-        body.append(headerView.render());
         const { token } = state;
         if (token) {
             const board = await getBoardById(token, this.boardID);
             if (board === 'Board was not founded!') window.location.href = '/404';
+            else state.boardId = this.boardID;
         } else {
             throw new Error('invalid token');
         }
+        const { body } = document;
+        body.append(headerView.render());
+        body.append(await boardView.render());
     }
 }

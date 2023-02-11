@@ -1,39 +1,45 @@
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
+import { validation } from '../../utils/Validation';
 import loginController from '../controller/login.controller';
 
 class LoginView {
     render(): HTMLFormElement {
-        const update = () => {
-            const newData = this.render();
-            const oldData = document.querySelector('.login-form') as HTMLFormElement;
-            oldData.replaceWith(newData);
-        };
-        const form = new Control<HTMLFormElement>('form', 'login-form');
-        const title = new Control<HTMLElement>('h2', 'form-title');
-        const login = new Control<HTMLInputElement>('input', 'input-login');
-        const pass = new Control<HTMLInputElement>('input', 'input-pass');
-        const submit = new Control<HTMLButtonElement>('button', 'button__submit-login');
-        const or = new Control<HTMLElement>('p', 'or');
-        const reg = new Control<HTMLLinkElement>('a', 'reg');
-        const err = new Control<HTMLElement>('p', 'error-message');
-        form.element.classList.add('auth-form');
+        const form = new Control<HTMLFormElement>('form', 'auth__form', 'form__login');
+        const title = new Control<HTMLElement>('h2', 'auth__form-title');
+        const loginBox = new Control<HTMLInputElement>('div', 'auth__form-input-box');
+        const login = new Control<HTMLInputElement>('input', 'auth__form-input');
+        const passBox = new Control<HTMLInputElement>('div', 'auth__form-input-box');
+        const pass = new Control<HTMLInputElement>('input', 'auth__form-input');
+        const submit = new Control<HTMLButtonElement>('button', 'auth__form-submit');
+        const or = new Control<HTMLElement>('p', 'auth__form-text-or');
+        const reg = new Control<HTMLLinkElement>('a', 'auth__form-text-reg');
+        const err = new Control<HTMLElement>('p', 'auth_server-error');
+        form.element.action = '';
         title.element.textContent = 'Login to Task manager';
         title.append(form.element);
+        loginBox.append(form.element);
         login.element.type = 'text';
         login.element.placeholder = 'Enter login';
-        login.element.required = true;
-        login.append(form.element);
+        login.element.dataset.minLength = '3';
+        login.element.dataset.maxLength = '16';
+        login.append(loginBox.element);
+        passBox.append(form.element);
         pass.element.type = 'password';
         pass.element.placeholder = 'Enter password';
-        pass.element.required = true;
-        pass.append(form.element);
+        pass.element.dataset.minLength = '3';
+        pass.element.dataset.maxLength = '32';
+        pass.append(passBox.element);
         submit.element.textContent = 'Log in';
         submit.append(form.element);
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         submit.element.addEventListener('click', async (event) => {
             event.preventDefault();
-            await loginController.loginUser(login.element.value, pass.element.value, update);
+            const isValid = validation();
+            if (isValid) {
+                await loginController.loginUser(login.element.value, pass.element.value);
+                this.update();
+            }
         });
         err.element.textContent = state.authError as string;
         err.append(form.element);
@@ -42,8 +48,13 @@ class LoginView {
         reg.element.textContent = 'Register accaunt';
         reg.element.href = '/auth?type=signup';
         reg.append(form.element);
-
         return form.element;
+    }
+
+    update() {
+        const newData = this.render();
+        const oldData = document.querySelector('.form__login') as HTMLFormElement;
+        oldData.replaceWith(newData);
     }
 }
 
