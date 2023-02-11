@@ -22,6 +22,14 @@ class BoardListView {
             userBoardsFromDatabase.forEach((item) => {
                 // const { isFavourite } = item;
                 const board = new Control<HTMLLIElement>('li', 'workspace__user-boards-list-item');
+                const boardStar = new Control<HTMLLIElement>('span', 'star');
+                boardStar.append(board.element);
+                boardStar.element.addEventListener('click', (event) => {
+                    const { target } = event;
+                    if (target === boardStar.element) {
+                        board.element.classList.toggle('starred');
+                    }
+                });
                 const boardLink = new Control<HTMLLinkElement>('a', 'workspace__user-boards-list-item-link');
                 // if (isFavourite) board.element.classList.add('starred');
                 const boardTitle = new Control<HTMLSpanElement>('span', 'workspace__user-boards-list-item-title');
