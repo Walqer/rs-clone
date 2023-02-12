@@ -61,3 +61,12 @@ export type JWTData = {
     iat: number;
     exp: number;
 };
+
+export type File = {
+    _id: string;
+    name: string;
+    taskId: string;
+    boardId: string;
+    path: string;
+};
+  
