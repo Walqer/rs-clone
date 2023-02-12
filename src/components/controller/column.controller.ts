@@ -7,6 +7,10 @@ class ColumnController {
         await columnModel.deleteColumnById(id);
         await boardView.update();
     }
+
+    async updateColumnById(columnId: string, title: string) {
+        await columnModel.updateColumnById(columnId, title);
+    }
 }
 
 export default new ColumnController();
