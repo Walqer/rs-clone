@@ -2,37 +2,39 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    padding: 5px;
     margin-right: 10px;
-    width: 200px;
-    background-color: #c2c4c7;
+    width: 220px;
+    padding: 10px;
+    border: 2px solid #edeff2;
     border-radius: 5px;
     &-create {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 200px;
-        padding: 5px;
         margin-right: 10px;
-        cursor: pointer;
     }
     &__title {
-        height: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 2px solid#7d8fb3;
-        &_remove-column {
+        border-bottom: 2px solid#edeff2;
+        padding: 5px;
+        &_remove {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
+            &-img {
+                width: 15px;
+                height: 15px;
+                filter: contrast(10%);
+            }
         }
     }
     &__tasks {
-        min-height: 200px;
+        min-height: 0px;
     }
     &__add-task {
+        padding: 5px;
         cursor: pointer;
         color: #7d8fb3;
-        border-top: 2px solid#7d8fb3;
         &:hover {
             background-color: #edeff2;
         }

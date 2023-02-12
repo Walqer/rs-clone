@@ -1,6 +1,7 @@
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
+// eslint-disable-next-line import/no-cycle
 import columnView from './column.view';
 
 class BoardView {
@@ -10,7 +11,7 @@ class BoardView {
         const title = new Control<HTMLElement>('h2', 'board__header-title');
         const search = new Control<HTMLElement>('div', 'board__header-search');
         const columns = new Control<HTMLElement>('div', 'board__columns');
-        const createColumn = new Control<HTMLElement>('div', 'column-create');
+        const createColumn = new Control<HTMLElement>('div', 'column', 'column-create');
         const createColumnTitle = new Control<HTMLElement>('a', 'column-create__title');
         const createColumnInput = new Control<HTMLInputElement>('input', 'column-create__input');
         const createColumnBtn = new Control<HTMLButtonElement>('button', 'column-create__btn');
