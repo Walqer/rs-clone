@@ -12,6 +12,21 @@ export async function fetchApi(url: string, method: string, token: string, body?
     return response;
 }
 
+export async function fetchApiFormData(url: string, method: string, token: string, formElement: HTMLFormElement) {
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/x-www-form-urlencoded');
+  if (token !== '') headers.append('Authorization', `Bearer ${token}`);
+  
+  const data = new URLSearchParams(new FormData(formElement) as unknown as string);
+
+  const response = await fetch(url, {
+      headers,
+      method,
+      body: data,
+  }).then((res) => ({ status: res.status, body: res.json() }));
+  return response;
+}
+
 export function parseJwt(token: string): JWTData {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
