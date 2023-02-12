@@ -14,10 +14,8 @@ export async function fetchApi(url: string, method: string, token: string, body?
 
 export async function fetchApiFormData(url: string, method: string, token: string, formElement: HTMLFormElement) {
   const headers = new Headers();
-  headers.append('Content-Type', 'application/x-www-form-urlencoded');
   if (token !== '') headers.append('Authorization', `Bearer ${token}`);
-  
-  const data = new URLSearchParams(new FormData(formElement) as unknown as string);
+  const data = new FormData(formElement);
 
   const response = await fetch(url, {
       headers,
