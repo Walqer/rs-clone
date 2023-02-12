@@ -1,4 +1,4 @@
-import { createColumn, getColumns } from '../../api/columns';
+import { createColumn, getColumns, deleteColumnById, updateColumnById } from '../../api/columns';
 import { state } from '../../store/state';
 
 class BoardModel {
@@ -11,6 +11,14 @@ class BoardModel {
         if (typeof resp !== 'string') {
             state.columns = resp;
         }
+    }
+
+    async deleteColumnById(id: string) {
+        await deleteColumnById(state.token as string, state.boardId as string, id);
+    }
+
+    async updateColumnById(columnId: string, title: string) {
+        await updateColumnById(state.token as string, state.boardId as string, columnId, title, 0);
     }
 }
 
