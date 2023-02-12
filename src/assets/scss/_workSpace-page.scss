@@ -31,22 +31,29 @@
                 padding: 20px;
                 height: 100%;
             }
-            &.starred::after {
+            &-title {
+                color: #fff;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            & .star {
+                display: none;
                 position: absolute;
                 bottom: 10px;
                 right: 10px;
                 content: '';
                 width: 33px;
                 height: 32px;
-                display: inline-block;
-                background-image: url(../icons/star.svg);
+                background-image: url(../icons/star-border.svg);
                 background-size: contain;
                 background-repeat: no-repeat;
             }
-            &-title {
-                color: #fff;
-                font-size: 16px;
-                font-weight: bold;
+            &.starred .star {
+                background-image: url(../icons/star.svg);
+                display: inline-block;
+            }
+            &:hover .star {
+                display: inline-block;
             }
         }
     }
