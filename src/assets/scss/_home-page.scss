@@ -21,20 +21,23 @@
     height: calc(100vh - 117px);
     background: linear-gradient(180deg, rgba(86, 8, 196, 0.7) 34.38%, rgba(184, 0, 132, 0.7) 79.69%);
     padding: 100px 0;
-}
-
-.greating {
-    max-width: 300px;
-    color: white;
-    margin-left: 100px;
-}
-
-.h2-greating {
-    font-size: 32px;
-}
-
-.p-greating {
-    font-size: 16px;
+    &__greating {
+        max-width: 300px;
+        color: white;
+        margin-left: 100px;
+        &-title {
+            font-size: 32px;
+        }
+        &-text {
+            font-size: 16px;
+        }
+    }
+    &__collage {
+        width: 250px;
+        background-image: url(../img/home-page-collage.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
 }
 
 .home-auth {

@@ -22,13 +22,12 @@ export class Home extends AbstractView {
         body.append(homeHeaderView.render());
         // main
         const main = new Control<HTMLElement>('main', 'home-content');
-        const greating = new Control<HTMLElement>('div', 'greating');
-        const h2 = new Control<HTMLElement>('h2', 'h2-greating');
-        const p = new Control<HTMLElement>('p', 'p-greating');
-        const collage = new Control<HTMLImageElement>('img', 'home-collage');
+        const greating = new Control<HTMLElement>('div', 'home-content__greating');
+        const h2 = new Control<HTMLElement>('h2', 'home-content__greating-title');
+        const p = new Control<HTMLElement>('p', 'home-content__greating-text');
+        const collage = new Control<HTMLImageElement>('div', 'home-content__collage');
         main.append(body);
         greating.append(main.element);
-        collage.element.src = '../../assets/img/home-page-collage.png';
         collage.append(main.element);
         h2.element.innerHTML = 'Task manager brings all your tasks, teammates, and tools together<br><br>';
         h2.append(greating.element);
