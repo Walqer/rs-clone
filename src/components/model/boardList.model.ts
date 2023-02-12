@@ -1,3 +1,4 @@
+import { addToFavourites, removeFromFavourites } from '../../api/apiUtils';
 import { createBoard, getBoardsSetByUserId } from '../../api/boards';
 import { state } from '../../store/state';
 
@@ -30,6 +31,14 @@ class BoardListModel {
 
     async createBoard(name: string, color: string) {
         await createBoard(this.token, name, this.userId, ['user1', 'user2'], color, '');
+    }
+
+    addBoardToFavorite(boardId: string) {
+        return addToFavourites(state.token as string, boardId, state.userId as string);
+    }
+
+    removeBoardFromFavorite(boardId: string) {
+        return removeFromFavourites(state.token as string, boardId, state.userId as string);
     }
 }
 

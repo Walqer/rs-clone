@@ -1,3 +1,4 @@
+import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardListController from '../controller/boardList.controller';
 
@@ -20,18 +21,31 @@ class BoardListView {
         const userBoardsFromDatabase = await boardListController.getUserBoards();
         if (userBoardsFromDatabase !== 'error') {
             userBoardsFromDatabase.forEach((item) => {
-                // const { isFavourite } = item;
                 const board = new Control<HTMLLIElement>('li', 'workspace__user-boards-list-item');
+                const curentUser = state.userId;
+                const favouriteUsers = item.usersFavourite;
+                favouriteUsers.forEach((user) => {
+                    if (user === curentUser) {
+                        board.element.classList.add('starred');
+                    }
+                });
+
                 const boardStar = new Control<HTMLLIElement>('span', 'star');
                 boardStar.append(board.element);
-                boardStar.element.addEventListener('click', (event) => {
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                boardStar.element.addEventListener('click', async (event) => {
                     const { target } = event;
                     if (target === boardStar.element) {
-                        board.element.classList.toggle('starred');
+                        if (board.element.classList.contains('starred')) {
+                            board.element.classList.remove('starred');
+                            await boardListController.removeBoardFromFavorite(board.element.dataset.id as string);
+                        } else {
+                            board.element.classList.add('starred');
+                            await boardListController.addBoardToFavorite(board.element.dataset.id as string);
+                        }
                     }
                 });
                 const boardLink = new Control<HTMLLinkElement>('a', 'workspace__user-boards-list-item-link');
-                // if (isFavourite) board.element.classList.add('starred');
                 const boardTitle = new Control<HTMLSpanElement>('span', 'workspace__user-boards-list-item-title');
 
                 board.element.style.backgroundColor = `${item.bgColor}`;

@@ -28,7 +28,7 @@ export async function addUserToBoard(token: string, boardId: string, userId: str
     const board = await getBoardById(token, boardId);
     if (typeof board === 'string') return board;
 
-    const {users} = board;
+    const { users } = board;
     if (users.includes(userId)) return board;
     users.push(userId);
     const update = await updateBoardUsers(token, boardId, users);
@@ -39,7 +39,7 @@ export async function removeUserFromBoard(token: string, boardId: string, userId
     const board = await getBoardById(token, boardId);
     if (typeof board === 'string') return board;
 
-    const {users} = board;
+    const { users } = board;
     const index = users.indexOf(userId);
     if (index === -1) return board;
     users.splice(index, 1);

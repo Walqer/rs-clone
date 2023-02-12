@@ -12,6 +12,14 @@ class BoardListController {
     createBoard(name: string, color: string) {
         return boardListModel.createBoard(name, color);
     }
+
+    addBoardToFavorite(boardId: string) {
+        return boardListModel.addBoardToFavorite(boardId);
+    }
+
+    removeBoardFromFavorite(boardId: string) {
+        return boardListModel.removeBoardFromFavorite(boardId);
+    }
 }
 
 export default new BoardListController();
