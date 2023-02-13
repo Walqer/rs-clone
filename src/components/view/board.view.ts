@@ -84,7 +84,7 @@ class BoardView {
             setTimeout(() => {
                 (event.target as HTMLElement).classList.add('column_hide');
                 ((event.target as HTMLElement).parentElement as Element).classList.add('column__wrapper_hide');
-            }, 0)
+            }, 0);
             state.dragElement = event.target as HTMLElement;
             state.dragZone = (event.target as HTMLElement).parentElement;
         });
