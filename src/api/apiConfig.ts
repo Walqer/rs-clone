@@ -17,4 +17,5 @@ export const urls = {
     favouriteBoards: `${url}${port}/favourites`,
     columnsSet: `${url}${port}/columnsSet`,
     tasksSet: `${url}${port}/tasksSet`,
+    files: `${url}${port}/file`,
 };
