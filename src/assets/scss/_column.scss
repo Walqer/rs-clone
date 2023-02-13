@@ -9,16 +9,19 @@
     background-color: white;
     &__wrapper {
         width: 224px;
-        background-color: #4d5e80;
+        min-height: 282px;
+        background-color: white;
         border-radius: 5px;
         margin-right: 10px;
+        &_hide {
+            background-color: #edeff2;
+        }
     }
-    &_drag-start {
+    &_hide {
+        color: red;
         visibility: hidden;
     }
-    &_drag-end {
-        visibility: visible;
-    }
+
     &-create {
         background-color: #edeff2;
         margin-right: 0;

@@ -59,7 +59,7 @@ class BoardView {
 
     renderColumn(column: Column) {
         const columnWrap = new Control<HTMLElement>('div', 'column__wrapper');
-        const columnBox = new Control<HTMLElement>('div', 'column');
+        const columnBox = new Control<HTMLElement>('div', 'column', `${column.title}`);
         const columnTitle = new Control<HTMLElement>('div', 'column__title');
         const columnName = new Control<HTMLInputElement>('input', 'column__title_name');
         const columnRemove = new Control<HTMLElement>('div', 'column__title_remove');
@@ -82,30 +82,36 @@ class BoardView {
 
         columnBox.element.addEventListener('dragstart', (event) => {
             setTimeout(() => {
-                columnBox.element.classList.add('column_drag-start');
-                state.dragElement = event.target as HTMLElement;
-            }, 0);
+                (event.target as HTMLElement).classList.add('column_hide');
+                ((event.target as HTMLElement).parentElement as Element).classList.add('column__wrapper_hide');
+            }, 0)
+            state.dragElement = event.target as HTMLElement;
+            state.dragZone = (event.target as HTMLElement).parentElement;
         });
 
-        columnBox.element.addEventListener('dragend', () => {
-            columnBox.element.classList.remove('column_drag-start');
-            console.log('dragend');
+        columnBox.element.addEventListener('dragend', (event) => {
+            (event.target as HTMLElement).classList.remove('column_hide');
         });
 
-        columnBox.element.addEventListener('dragover', () => {});
-
-        columnBox.element.addEventListener('dragenter', (event) => {
-            (state.dragElement as HTMLElement).replaceWith(event.target as HTMLElement);
-
-            console.log('dragenter', columnBox.element);
+        columnWrap.element.addEventListener('dragover', (event) => {
+            event.preventDefault();
         });
 
-        columnBox.element.addEventListener('dragleave', () => {
-            console.log('dragleave');
+        columnWrap.element.addEventListener('dragenter', (event) => {
+            (state.dragZone as HTMLElement).append((event.currentTarget as HTMLElement).firstElementChild as Element);
+            (event.currentTarget as HTMLElement).append(state.dragElement as HTMLElement);
+            (event.currentTarget as HTMLElement).classList.add('column__wrapper_hide');
         });
 
-        columnBox.element.addEventListener('dragdrop', () => {
-            console.log('dragdrop');
+        columnWrap.element.addEventListener('dragleave', (event) => {
+            state.dragZone = event.currentTarget as HTMLElement;
+            (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+        });
+
+        columnWrap.element.addEventListener('drop', (event) => {
+            event.preventDefault();
+            (state.dragElement as HTMLElement).classList.remove('column_hide');
+            (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
         });
 
         columnName.element.addEventListener('mouseup', () => {
