@@ -1,3 +1,4 @@
+import homeHeaderModel from '../components/model/home-header.model';
 import { JWTData } from '../spa/types';
 
 export async function fetchApi(url: string, method: string, token: string, body?: object) {
@@ -9,20 +10,28 @@ export async function fetchApi(url: string, method: string, token: string, body?
         method,
         body: body ? JSON.stringify(body) : null,
     }).then((res) => ({ status: res.status, body: res.json() }));
+    if (response.status === 403) {
+        homeHeaderModel.logOut();
+        document.location = '/auth?type=login';
+    }
     return response;
 }
 
 export async function fetchApiFormData(url: string, method: string, token: string, formElement: HTMLFormElement) {
-  const headers = new Headers();
-  if (token !== '') headers.append('Authorization', `Bearer ${token}`);
-  const data = new FormData(formElement);
+    const headers = new Headers();
+    if (token !== '') headers.append('Authorization', `Bearer ${token}`);
+    const data = new FormData(formElement);
 
-  const response = await fetch(url, {
-      headers,
-      method,
-      body: data,
-  }).then((res) => ({ status: res.status, body: res.json() }));
-  return response;
+    const response = await fetch(url, {
+        headers,
+        method,
+        body: data,
+    }).then((res) => ({ status: res.status, body: res.json() }));
+    if (response.status === 403) {
+        homeHeaderModel.logOut();
+        document.location = '/auth?type=login';
+    }
+    return response;
 }
 
 export function parseJwt(token: string): JWTData {

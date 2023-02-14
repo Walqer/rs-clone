@@ -19,6 +19,7 @@ class HeaderView {
         userIcon.append(userBlock.element);
         userInfo.element.textContent = curentUser.fullname;
         userInfo.append(userBlock.element);
+        logo.element.href = '/';
         logo.element.textContent = 'Task manager';
         logo.append(header.element);
         menu.append(header.element);
