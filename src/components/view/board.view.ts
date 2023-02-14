@@ -10,7 +10,7 @@ class BoardView {
         const title = new Control<HTMLElement>('h2', 'board__header-title');
         const search = new Control<HTMLElement>('div', 'board__header-search');
         const columns = new Control<HTMLElement>('div', 'board__columns');
-        const createColumn = new Control<HTMLElement>('div', 'column', 'column-create');
+        const createColumn = new Control<HTMLElement>('div', 'column-create');
         const createColumnInput = new Control<HTMLInputElement>('input', 'column-create__input');
         const createColumnButtons = new Control<HTMLElement>('div', 'column-create__buttons', 'column-create__buttons_hide');
         const createColumnAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
@@ -58,7 +58,8 @@ class BoardView {
     }
 
     renderColumn(column: Column) {
-        const columnBox = new Control<HTMLElement>('div', 'column');
+        const columnWrap = new Control<HTMLElement>('div', 'column__wrapper');
+        const columnBox = new Control<HTMLElement>('div', 'column', `${column.title}`);
         const columnTitle = new Control<HTMLElement>('div', 'column__title');
         const columnName = new Control<HTMLInputElement>('input', 'column__title_name');
         const columnRemove = new Control<HTMLElement>('div', 'column__title_remove');
@@ -66,6 +67,7 @@ class BoardView {
         const tasks = new Control<HTMLElement>('div', 'column__tasks');
         const addTask = new Control<HTMLElement>('a', 'column__add-task');
 
+        columnBox.append(columnWrap.element);
         columnTitle.append(columnBox.element);
         columnName.append(columnTitle.element);
         columnRemove.append(columnTitle.element);
@@ -73,13 +75,47 @@ class BoardView {
         tasks.append(columnBox.element);
         addTask.append(columnBox.element);
 
+        columnBox.element.draggable = true;
         columnName.element.value = column.title;
         columnRemoveImg.element.src = '../assets/icons/remove-task.png';
         addTask.element.innerHTML = 'Add task..';
 
-        columnName.element.addEventListener('focus', () => {
+        columnBox.element.addEventListener('dragstart', (event) => {
+            setTimeout(() => {
+                (event.target as HTMLElement).classList.add('column_hide');
+                ((event.target as HTMLElement).parentElement as Element).classList.add('column__wrapper_hide');
+            }, 0);
+            state.dragElement = event.target as HTMLElement;
+            state.dragZone = (event.target as HTMLElement).parentElement;
+        });
+
+        columnBox.element.addEventListener('dragend', (event) => {
+            (event.target as HTMLElement).classList.remove('column_hide');
+        });
+
+        columnWrap.element.addEventListener('dragover', (event) => {
+            event.preventDefault();
+        });
+
+        columnWrap.element.addEventListener('dragenter', (event) => {
+            (state.dragZone as HTMLElement).append((event.currentTarget as HTMLElement).firstElementChild as Element);
+            (event.currentTarget as HTMLElement).append(state.dragElement as HTMLElement);
+            (event.currentTarget as HTMLElement).classList.add('column__wrapper_hide');
+        });
+
+        columnWrap.element.addEventListener('dragleave', (event) => {
+            state.dragZone = event.currentTarget as HTMLElement;
+            (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+        });
+
+        columnWrap.element.addEventListener('drop', (event) => {
+            event.preventDefault();
+            (state.dragElement as HTMLElement).classList.remove('column_hide');
+            (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+        });
+
+        columnName.element.addEventListener('mouseup', () => {
             columnName.element.select();
-            columnName.element.setSelectionRange(0, 99999);
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             document.addEventListener('keyup', async (event) => {
                 if (event.code === 'Enter') columnName.element.blur();
@@ -95,7 +131,7 @@ class BoardView {
             await boardController.deleteColumnById(column._id);
             await this.update();
         });
-        return columnBox.element;
+        return columnWrap.element;
     }
 
     async update() {

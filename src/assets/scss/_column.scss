@@ -3,13 +3,29 @@
     justify-content: flex-start;
     flex-direction: column;
     margin-right: 10px;
-    width: 220px;
-    padding: 10px;
+    width: 100%;
     border: 2px solid #edeff2;
     border-radius: 5px;
+    background-color: white;
+    &__wrapper {
+        width: 224px;
+        min-height: 282px;
+        background-color: white;
+        border-radius: 5px;
+        margin-right: 10px;
+        &_hide {
+            background-color: #edeff2;
+        }
+    }
+    &_hide {
+        color: red;
+        visibility: hidden;
+    }
+
     &-create {
         background-color: #edeff2;
         margin-right: 0;
+        width: 200px;
         &__input {
             width: 100%;
             padding: 6px 18px;

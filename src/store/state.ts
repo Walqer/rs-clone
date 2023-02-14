@@ -8,6 +8,8 @@ interface IState {
     authError: string | null;
     columnError: string | null;
     columns: Array<Column> | null;
+    dragElement: HTMLElement | null;
+    dragZone: HTMLElement | null;
 }
 
 export const state: IState = {
@@ -18,4 +20,6 @@ export const state: IState = {
     authError: null,
     columnError: null,
     columns: null,
+    dragElement: null,
+    dragZone: null,
 };
