@@ -27,6 +27,10 @@ export async function fetchApiFormData(url: string, method: string, token: strin
         method,
         body: data,
     }).then((res) => ({ status: res.status, body: res.json() }));
+    if (response.status === 403) {
+        homeHeaderModel.logOut();
+        document.location = '/auth?type=login';
+    }
     return response;
 }
 
