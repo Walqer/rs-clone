@@ -27,6 +27,7 @@ class BoardView {
         createColumnButtons.append(createColumn.element);
         createColumnAddBtn.append(createColumnButtons.element);
         createColumnCancelBtn.append(createColumnButtons.element);
+        
         await boardController.getColumns();
         if (state.columns) {
             state.columns.forEach((elem) => {
