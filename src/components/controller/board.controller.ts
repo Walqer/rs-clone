@@ -16,6 +16,10 @@ class BoardController {
     async updateColumnById(columnId: string, title: string) {
         await boardModel.updateColumnById(columnId, title);
     }
+
+    async updateColumnSet() {
+        await boardModel.updateColumnSet();
+    }
 }
 
 export default new BoardController();

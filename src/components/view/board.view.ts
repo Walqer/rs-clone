@@ -1,9 +1,7 @@
-import { updateColumnsSet } from '../../api/columns';
 import { Column } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
-import boardModel from '../model/board.model';
 
 class BoardView {
     async render() {
@@ -27,7 +25,6 @@ class BoardView {
         createColumnButtons.append(createColumn.element);
         createColumnAddBtn.append(createColumnButtons.element);
         createColumnCancelBtn.append(createColumnButtons.element);
-        
         await boardController.getColumns();
         if (state.columns) {
             state.columns.forEach((elem) => {
@@ -86,16 +83,18 @@ class BoardView {
         addTask.element.innerHTML = 'Add task..';
 
         columnBox.element.addEventListener('dragstart', (event) => {
+            const target = event.target as HTMLElement;
+            const parent = target.parentElement as HTMLElement
             setTimeout(() => {
-                (event.target as HTMLElement).classList.add('column_hide');
-                ((event.target as HTMLElement).parentElement as Element).classList.add('column__wrapper_hide');
+                target.classList.add('column_hide');
+                parent.classList.add('column__wrapper_hide');
             }, 0);
             state.columnOrder.push({
-                _id: (event.target as HTMLElement).dataset.column as string,
-                order: Number((event.target as HTMLElement).dataset.order),
+                _id: target.dataset.column as string,
+                order: Number(target.dataset.order),
             });
-            state.dragElement = event.target as HTMLElement;
-            state.dragZone = (event.target as HTMLElement).parentElement;
+            state.dragElement = target;
+            state.dragZone = parent;
         });
 
         columnBox.element.addEventListener('dragend', (event) => {
@@ -108,14 +107,14 @@ class BoardView {
 
         columnWrap.element.addEventListener('dragenter', (event) => {
             const target = event.currentTarget as HTMLElement;
-            const child: HTMLElement = target.firstElementChild as HTMLElement;
+            const child = target.firstElementChild as HTMLElement;
             state.columnOrder.push({
                 _id: child.dataset.column as string,
                 order: Number(child.dataset.order),
             });
-            (state.dragZone as HTMLElement).append((event.currentTarget as HTMLElement).firstElementChild as Element);
-            (event.currentTarget as HTMLElement).append(state.dragElement as HTMLElement);
-            (event.currentTarget as HTMLElement).classList.add('column__wrapper_hide');
+            (state.dragZone as HTMLElement).append(child);
+            target.append(state.dragElement as HTMLElement);
+            target.classList.add('column__wrapper_hide');
         });
 
         columnWrap.element.addEventListener('dragleave', (event) => {
@@ -129,12 +128,7 @@ class BoardView {
             event.preventDefault();
             (state.dragElement as HTMLElement).classList.remove('column_hide');
             (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
-            const temp = state.columnOrder[0].order;
-            state.columnOrder[0].order = state.columnOrder[1].order;
-            state.columnOrder[1].order = temp;
-            await updateColumnsSet(state.token as string, state.columnOrder);
-            state.columnOrder.length = 0;
-            await boardModel.getColumns();
+            await boardController.updateColumnSet();
         });
 
         columnName.element.addEventListener('mouseup', () => {

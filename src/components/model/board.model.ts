@@ -1,5 +1,4 @@
-import { createColumn, getColumns, deleteColumnById, updateColumnById, getColumnsSet, createColumnsSet } from '../../api/columns';
-import { Column, ColumnList } from '../../spa/types';
+import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
 import { state } from '../../store/state';
 
 class BoardModel {
@@ -10,21 +9,13 @@ class BoardModel {
 
     async getColumns() {
         const columnIds: string[] = [];
-        const columnList: ColumnList[] = [];
         const columns = await getColumns(state.token as string, state.boardId as string);
         if (typeof columns !== 'string') {
             columns.forEach((column) => {
                 columnIds.push(column._id);
-                columnList.push({
-                    title: column.title,
-                    order: column.order,
-                    boardId: column.boardId,
-                })
             });
-            columnList.sort((a, b) => a.order > b.order ? 1 : -1);
-            const resp = await createColumnsSet(state.token as string, columnList)
-            state.columns = (await getColumnsSet(state.token as string, state.userId as string, columnIds)) as Column[];
-            console.log(resp);
+            columns.sort((a, b) => a.order > b.order ? 1 : -1);
+            state.columns = columns;
         }
     }
 
@@ -34,6 +25,14 @@ class BoardModel {
 
     async updateColumnById(columnId: string, title: string) {
         await updateColumnById(state.token as string, state.boardId as string, columnId, title, 0);
+    }
+
+    async updateColumnSet() {
+        const temp = state.columnOrder[0].order;
+        state.columnOrder[0].order = state.columnOrder[1].order;
+        state.columnOrder[1].order = temp;
+        await updateColumnsSet(state.token as string, state.columnOrder)
+        state.columnOrder.length = 0;
     }
 }
 
