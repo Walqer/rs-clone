@@ -84,7 +84,7 @@ class BoardView {
 
         columnBox.element.addEventListener('dragstart', (event) => {
             const target = event.target as HTMLElement;
-            const parent = target.parentElement as HTMLElement
+            const parent = target.parentElement as HTMLElement;
             setTimeout(() => {
                 target.classList.add('column_hide');
                 parent.classList.add('column__wrapper_hide');

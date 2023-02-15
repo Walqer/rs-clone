@@ -14,7 +14,7 @@ class BoardModel {
             columns.forEach((column) => {
                 columnIds.push(column._id);
             });
-            columns.sort((a, b) => a.order > b.order ? 1 : -1);
+            columns.sort((a, b) => (a.order > b.order ? 1 : -1));
             state.columns = columns;
         }
     }
@@ -31,7 +31,7 @@ class BoardModel {
         const temp = state.columnOrder[0].order;
         state.columnOrder[0].order = state.columnOrder[1].order;
         state.columnOrder[1].order = temp;
-        await updateColumnsSet(state.token as string, state.columnOrder)
+        await updateColumnsSet(state.token as string, state.columnOrder);
         state.columnOrder.length = 0;
     }
 }
