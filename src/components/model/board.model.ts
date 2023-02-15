@@ -1,16 +1,23 @@
-import { createColumn, getColumns, deleteColumnById, updateColumnById } from '../../api/columns';
+import { createColumn, getColumns, deleteColumnById, updateColumnById, getColumnsSet } from '../../api/columns';
+import { Column } from '../../spa/types';
 import { state } from '../../store/state';
 
 class BoardModel {
     async createColumn(title: string) {
-        await createColumn(state.token as string, state.boardId as string, title, 0);
+        state.countColumns += 1;
+        await createColumn(state.token as string, state.boardId as string, title, state.countColumns);
     }
 
     async getColumns() {
-        const resp = await getColumns(state.token as string, state.boardId as string);
-        if (typeof resp !== 'string') {
-            state.columns = resp;
+        const arrayIds: string[] = [];
+        const columns = await getColumns(state.token as string, state.boardId as string);
+        if (typeof columns !== 'string') {
+            columns.forEach((column) => {
+                arrayIds.push(column._id);
+            });
+            state.columns = (await getColumnsSet(state.token as string, state.userId as string, arrayIds)) as Column[];
         }
+        console.log(state.columns);
     }
 
     async deleteColumnById(id: string) {

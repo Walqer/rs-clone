@@ -69,4 +69,3 @@ export type File = {
     boardId: string;
     path: string;
 };
-  
