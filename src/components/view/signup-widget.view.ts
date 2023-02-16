@@ -3,10 +3,10 @@ import { Control } from '../../utils/Control';
 
 class SignUpWidget {
     render(): HTMLFormElement {
-        const auth = new Control<HTMLFormElement>('form', 'home-auth');
+        const auth = new Control<HTMLFormElement>('form', 'home-content__greating-widget');
         if (!state.token) {
-            const logInInput = new Control<HTMLInputElement>('input', 'signup-input');
-            const signUpBtn = new Control<HTMLButtonElement>('button', 'signup-button');
+            const logInInput = new Control<HTMLInputElement>('input', 'home-content__greating-widget_input');
+            const signUpBtn = new Control<HTMLButtonElement>('button', 'home-content__greating-widget_submit');
             logInInput.element.type = 'text';
             logInInput.element.placeholder = 'Login';
             logInInput.append(auth.element);
