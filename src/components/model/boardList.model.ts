@@ -1,5 +1,5 @@
 import { addToFavourites, removeFromFavourites } from '../../api/apiUtils';
-import { createBoard, getBoardsSetByUserId } from '../../api/boards';
+import { createBoard, getBoardsSetByUserId, deleteBoardById } from '../../api/boards';
 import { state } from '../../store/state';
 
 class BoardListModel {
@@ -32,6 +32,10 @@ class BoardListModel {
     async createBoard(name: string, color: string) {
         await createBoard(this.token, name, this.userId, ['user1', 'user2'], color, '');
     }
+
+    async deleteBoard(boardId: string) {
+      await deleteBoardById(this.token, boardId);
+  }
 
     addBoardToFavorite(boardId: string) {
         return addToFavourites(state.token as string, boardId, state.userId as string);
