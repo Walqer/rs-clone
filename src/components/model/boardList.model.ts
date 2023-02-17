@@ -1,4 +1,4 @@
-import { addToFavourites, removeFromFavourites } from '../../api/apiUtils';
+import { addToFavourites, isBoardOwner, removeFromFavourites, removeUserFromBoard } from '../../api/apiUtils';
 import { createBoard, getBoardsSetByUserId, deleteBoardById } from '../../api/boards';
 import { state } from '../../store/state';
 
@@ -34,8 +34,13 @@ class BoardListModel {
     }
 
     async deleteBoard(boardId: string) {
-      await deleteBoardById(this.token, boardId);
-  }
+        const isOwner = await isBoardOwner(this.token, boardId, this.userId);
+        if (isOwner) {
+            await deleteBoardById(this.token, boardId);
+        } else {
+            await removeUserFromBoard(this.token, boardId, this.userId);
+        }
+    }
 
     addBoardToFavorite(boardId: string) {
         return addToFavourites(state.token as string, boardId, state.userId as string);
