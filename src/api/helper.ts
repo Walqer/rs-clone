@@ -1,15 +1,18 @@
 import homeHeaderModel from '../components/model/home-header.model';
 import { JWTData } from '../spa/types';
+import preloader from '../utils/Preloader';
 
 export async function fetchApi(url: string, method: string, token: string, body?: object) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     if (token !== '') headers.append('Authorization', `Bearer ${token}`);
+    preloader.start();
     const response = await fetch(url, {
         headers,
         method,
         body: body ? JSON.stringify(body) : null,
     }).then((res) => ({ status: res.status, body: res.json() }));
+    preloader.stop();
     if (response.status === 403) {
         homeHeaderModel.logOut();
         document.location = '/auth?type=login';

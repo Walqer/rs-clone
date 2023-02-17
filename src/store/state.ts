@@ -1,4 +1,4 @@
-import { Column } from '../spa/types';
+import { Column, ColumnOrder } from '../spa/types';
 
 interface IState {
     token: string | null;
@@ -8,6 +8,8 @@ interface IState {
     authError: string | null;
     columnError: string | null;
     columns: Array<Column> | null;
+    countColumns: number;
+    columnOrder: Array<ColumnOrder>;
     dragElement: HTMLElement | null;
     dragZone: HTMLElement | null;
 }
@@ -20,6 +22,8 @@ export const state: IState = {
     authError: null,
     columnError: null,
     columns: null,
+    countColumns: 0,
+    columnOrder: [],
     dragElement: null,
     dragZone: null,
 };
