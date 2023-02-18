@@ -46,3 +46,12 @@ export async function removeUserFromBoard(token: string, boardId: string, userId
     const update = await updateBoardUsers(token, boardId, users);
     return update;
 }
+
+export async function isBoardOwner(token: string, boardId: string, userId: string): Promise<boolean> {
+    const board = await getBoardById(token, boardId);
+    if (typeof board === 'string') return false;
+
+    const { owner } = board;
+    if (owner === userId) return true;
+    return false;
+}
