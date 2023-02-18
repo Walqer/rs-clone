@@ -1,5 +1,5 @@
-import { addToFavourites, removeFromFavourites } from '../../api/apiUtils';
-import { createBoard, getBoardsSetByUserId } from '../../api/boards';
+import { addToFavourites, isBoardOwner, removeFromFavourites, removeUserFromBoard } from '../../api/apiUtils';
+import { createBoard, getBoardsSetByUserId, deleteBoardById } from '../../api/boards';
 import { state } from '../../store/state';
 
 class BoardListModel {
@@ -31,6 +31,15 @@ class BoardListModel {
 
     async createBoard(name: string, color: string) {
         await createBoard(this.token, name, this.userId, ['user1', 'user2'], color, '');
+    }
+
+    async deleteBoard(boardId: string) {
+        const isOwner = await isBoardOwner(this.token, boardId, this.userId);
+        if (isOwner) {
+            await deleteBoardById(this.token, boardId);
+        } else {
+            await removeUserFromBoard(this.token, boardId, this.userId);
+        }
     }
 
     addBoardToFavorite(boardId: string) {

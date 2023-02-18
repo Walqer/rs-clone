@@ -13,6 +13,10 @@ class BoardListController {
         return boardListModel.createBoard(name, color);
     }
 
+    deleteBoard(boardId: string) {
+        return boardListModel.deleteBoard(boardId);
+    }
+
     addBoardToFavorite(boardId: string) {
         return boardListModel.addBoardToFavorite(boardId);
     }

@@ -45,6 +45,18 @@ class BoardListView {
                         }
                     }
                 });
+
+                const boardDelete = new Control<HTMLLIElement>('span', 'delete');
+                boardDelete.append(board.element);
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                boardDelete.element.addEventListener('click', async () => {
+                    if (confirm('Are you sure you want to delete this board?')) {
+                        await boardListController.deleteBoard(board.element.dataset.id as string).then(async () => {
+                            await this.update();
+                        });
+                    }
+                });
+
                 const boardLink = new Control<HTMLLinkElement>('a', 'workspace__user-boards-list-item-link');
                 const boardTitle = new Control<HTMLSpanElement>('span', 'workspace__user-boards-list-item-title');
 
