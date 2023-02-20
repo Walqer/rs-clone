@@ -1,7 +1,9 @@
+import { User } from '../../spa/types';
 import { Control } from '../../utils/Control';
+import manageController from '../controller/manage.controller';
 
 class ManageView {
-    render() {
+    async render() {
         const form = new Control<HTMLFormElement>('form', 'auth__form', 'form__manage');
         const title = new Control<HTMLElement>('h2', 'auth__form-title');
 
@@ -25,6 +27,8 @@ class ManageView {
 
         const passSave = new Control<HTMLButtonElement>('button', 'auth__form-pass-save');
 
+        const currentUser = (await manageController.getUserById()) as User;
+
         form.element.action = '';
 
         title.element.textContent = 'Your profile';
@@ -33,13 +37,13 @@ class ManageView {
         nameBox.append(form.element);
         nameTitle.element.textContent = 'Name:';
         nameTitle.append(nameBox.element);
-        nameInput.element.value = 'VDVFsd';
+        nameInput.element.value = currentUser.name;
         nameInput.append(nameBox.element);
 
         loginBox.append(form.element);
         loginTitle.element.textContent = 'Login:';
         loginTitle.append(nameBox.element);
-        loginInput.element.value = '28189';
+        loginInput.element.value = currentUser.login;
         loginInput.append(nameBox.element);
 
         passChangeTitle.element.textContent = 'Change password';
@@ -59,6 +63,24 @@ class ManageView {
 
         passSave.element.textContent = 'Save changes';
         passSave.append(form.element);
+
+        nameInput.element.addEventListener('mouseup', () => {
+            nameInput.element.select();
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            document.addEventListener('keyup', async (event) => {
+                if (event.code === 'Enter') nameInput.element.blur();
+            });
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            nameInput.element.addEventListener('focusout', async (event) => {
+                event.preventDefault();
+                const target = event.target as HTMLInputElement;
+                await manageController.updateUserById(target.value, loginInput.element.value, '123');
+            });
+        });
+
+        passSave.element.addEventListener('click', (event) => {
+            event.preventDefault();
+        });
 
         return form.element;
     }

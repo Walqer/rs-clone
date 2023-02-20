@@ -27,7 +27,7 @@ export class Auth extends AbstractView {
         title.element.textContent = 'Task manager';
         if (params.get('type') === 'login') main.element.append(loginView.render());
         else if (params.get('type') === 'signup') main.element.append(signupView.render());
-        else if (params.get('type') === 'manage') main.element.append(manageView.render());
+        else if (params.get('type') === 'manage') main.element.append(await manageView.render());
         body.append(main.element);
         body.append(footerView.render());
     }
