@@ -59,7 +59,7 @@ class BoardView {
 
     renderColumn(column: Column) {
         const columnWrap = new Control<HTMLElement>('div', 'column__wrapper');
-        const columnBox = new Control<HTMLElement>('div', 'column', `${column.title}`);
+        const columnBox = new Control<HTMLElement>('div', 'column');
         const columnTitle = new Control<HTMLElement>('div', 'column__title');
         const columnName = new Control<HTMLInputElement>('input', 'column__title_name');
         const columnRemove = new Control<HTMLElement>('div', 'column__title_remove');
@@ -77,24 +77,22 @@ class BoardView {
 
         columnBox.element.draggable = true;
         columnBox.element.dataset.column = column._id;
+        columnWrap.element.dataset.column = column._id;
         columnBox.element.dataset.order = String(column.order);
         columnName.element.value = column.title;
         columnRemoveImg.element.src = '../assets/icons/remove-task.png';
         addTask.element.innerHTML = 'Add task..';
 
         columnBox.element.addEventListener('dragstart', (event) => {
-            const target = event.target as HTMLElement;
+            const target = event.currentTarget as HTMLElement;
             const parent = target.parentElement as HTMLElement;
             setTimeout(() => {
                 target.classList.add('column_hide');
                 parent.classList.add('column__wrapper_hide');
             }, 0);
-            state.columnOrder.push({
-                _id: target.dataset.column as string,
-                order: Number(target.dataset.order),
-            });
             state.dragElement = target;
             state.dragZone = parent;
+            state.dragStartId = target.dataset.column as string;
         });
 
         columnBox.element.addEventListener('dragend', (event) => {
@@ -108,10 +106,7 @@ class BoardView {
         columnWrap.element.addEventListener('dragenter', (event) => {
             const target = event.currentTarget as HTMLElement;
             const child = target.firstElementChild as HTMLElement;
-            state.columnOrder.push({
-                _id: child.dataset.column as string,
-                order: Number(child.dataset.order),
-            });
+            state.dragEnterId = child.dataset.column as string;
             (state.dragZone as HTMLElement).append(child);
             target.append(state.dragElement as HTMLElement);
             target.classList.add('column__wrapper_hide');

@@ -71,7 +71,7 @@ export type File = {
 };
 
 export enum DefaultColumns {
-  Tasks = 'Tasks',
-  InProgress = 'InProgress',
-  Done = 'Done',
+    Tasks = 'Tasks',
+    InProgress = 'InProgress',
+    Done = 'Done',
 }

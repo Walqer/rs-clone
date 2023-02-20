@@ -1,4 +1,5 @@
-import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
+import { createColumn, getColumns, deleteColumnById, updateColumnById } from '../../api/columns';
+import { Column } from '../../spa/types';
 import { state } from '../../store/state';
 
 class BoardModel {
@@ -8,14 +9,12 @@ class BoardModel {
     }
 
     async getColumns() {
-        const columnIds: string[] = [];
-        const columns = await getColumns(state.token as string, state.boardId as string);
-        if (typeof columns !== 'string') {
-            columns.forEach((column) => {
-                columnIds.push(column._id);
-            });
-            columns.sort((a, b) => (a.order > b.order ? 1 : -1));
-            state.columns = columns;
+        if (localStorage.getItem('columns')) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            state.columns = JSON.parse(localStorage.columns) as Column[];
+        } else {
+            state.columns = (await getColumns(state.token as string, state.boardId as string)) as Column[];
+            localStorage.columns = JSON.stringify(state.columns);
         }
     }
 
@@ -28,11 +27,18 @@ class BoardModel {
     }
 
     async updateColumnSet() {
-        const temp = state.columnOrder[0].order;
-        state.columnOrder[0].order = state.columnOrder[1].order;
-        state.columnOrder[1].order = temp;
-        await updateColumnsSet(state.token as string, state.columnOrder);
-        state.columnOrder.length = 0;
+        if (state.columns) {
+            let startIndex = 0;
+            let enterIndex = 0;
+            state.columns.forEach((elem, index) => {
+                if (elem._id === state.dragStartId) startIndex = index;
+                if (elem._id === state.dragEnterId) enterIndex = index;
+            });
+            const temp = state.columns[startIndex];
+            state.columns.splice(startIndex, 1);
+            state.columns.splice(enterIndex, 0, temp);
+            localStorage.columns = JSON.stringify(state.columns);
+        }
     }
 }
 

@@ -12,6 +12,8 @@ interface IState {
     columnOrder: Array<ColumnOrder>;
     dragElement: HTMLElement | null;
     dragZone: HTMLElement | null;
+    dragStartId: string;
+    dragEnterId: string;
 }
 
 export const state: IState = {
@@ -26,4 +28,6 @@ export const state: IState = {
     columnOrder: [],
     dragElement: null,
     dragZone: null,
+    dragStartId: '',
+    dragEnterId: '',
 };
