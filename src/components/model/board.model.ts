@@ -9,13 +9,7 @@ class BoardModel {
     }
 
     async getColumns() {
-        if (localStorage.getItem('columns')) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-            state.columns = JSON.parse(localStorage.columns) as Column[];
-        } else {
-            state.columns = (await getColumns(state.token as string, state.boardId as string)) as Column[];
-            localStorage.columns = JSON.stringify(state.columns);
-        }
+        state.columns = (await getColumns(state.token as string, state.boardId as string)) as Column[];
     }
 
     async deleteColumnById(id: string) {
@@ -40,7 +34,6 @@ class BoardModel {
             const temp = state.columns[startIndex];
             state.columns.splice(startIndex, 1);
             state.columns.splice(enterIndex, 0, temp);
-            localStorage.columns = JSON.stringify(state.columns);
             await updateColumnsSet(state.token as string, columnOrder);
         }
     }
