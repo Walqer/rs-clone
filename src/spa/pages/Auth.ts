@@ -4,6 +4,7 @@ import loginView from '../../components/view/login.view';
 import footerView from '../../components/view/footer.view';
 import signupView from '../../components/view/signup.view';
 import { Control } from '../../utils/Control';
+import manageView from '../../components/view/manage.view';
 
 export class Auth extends AbstractView {
     constructor(params: QueryStringParams) {
@@ -26,6 +27,7 @@ export class Auth extends AbstractView {
         title.element.textContent = 'Task manager';
         if (params.get('type') === 'login') main.element.append(loginView.render());
         else if (params.get('type') === 'signup') main.element.append(signupView.render());
+        else if (params.get('type') === 'manage') main.element.append(manageView.render());
         body.append(main.element);
         body.append(footerView.render());
     }
