@@ -1,4 +1,5 @@
 import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
+import { createTask, getTasks } from '../../api/tasks';
 import { state } from '../../store/state';
 
 class BoardModel {
@@ -33,6 +34,14 @@ class BoardModel {
         state.columnOrder[1].order = temp;
         await updateColumnsSet(state.token as string, state.columnOrder);
         state.columnOrder.length = 0;
+    }
+
+    async createNewTask(columnID: string, title: string, order: number) {
+        await createTask(state.token as string, state.boardId as string, columnID, title, order, '', state.userId as string, []);
+    }
+
+    async getTasks(columnId: string) {
+        await getTasks(state.token as string, state.boardId as string, columnId);
     }
 }
 

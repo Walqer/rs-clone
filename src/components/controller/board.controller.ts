@@ -20,6 +20,14 @@ class BoardController {
     async updateColumnSet() {
         await boardModel.updateColumnSet();
     }
+
+    async createNewTask(columnID: string, title: string, order: number) {
+        await boardModel.createNewTask(columnID, title, order);
+    }
+
+    async getTasks(columnID: string) {
+        await boardModel.getTasks(columnID);
+    }
 }
 
 export default new BoardController();
