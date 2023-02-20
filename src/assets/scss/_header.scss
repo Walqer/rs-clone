@@ -23,16 +23,69 @@
         }
     }
     &__user-block {
+        position: relative;
         grid-column-start: -1;
         display: flex;
         align-items: center;
+
         &-img {
             display: inline-block;
             margin-right: 14px;
+            cursor: pointer;
         }
         &-info {
             font-weight: bold;
             font-size: 13px;
+        }
+        &-menu {
+            position: absolute;
+            z-index: 999;
+            width: 232px;
+            top: 30px;
+            left: -170px;
+            padding: 20px 15px;
+            color: #7d8fb3;
+            font-size: 14px;
+            background-color: #edeff2;
+            border-radius: 3px;
+            box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+            box-sizing: border-box;
+            &-title {
+                color: black;
+                padding-bottom: 10px;
+                cursor: pointer;
+            }
+            &-img {
+                width: 40px;
+                height: 40px;
+            }
+            &-info {
+                display: flex;
+                align-items: center;
+                padding-bottom: 10px;
+                &-container {
+                    display: flex;
+                    flex-direction: column;
+                }
+                &-name {
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: black;
+                }
+                &-login {
+                    font-size: 12px;
+                    font-weight: 200;
+                    color: gray;
+                }
+            }
+            &-logout {
+                border-top: 1px solid white;
+                padding-top: 10px;
+                cursor: pointer;
+            }
+            &_hide {
+                display: none;
+            }
         }
     }
 }
