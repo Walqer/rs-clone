@@ -53,10 +53,17 @@
                 margin-left: 3%;
             }
         }
+        &-name-edit {
+            width: 15px;
+        }
     }
     &_server-error {
         color: red;
         font-size: 12px;
         margin: 3%;
     }
+}
+
+.form__manage {
+    align-items: flex-start;
 }
