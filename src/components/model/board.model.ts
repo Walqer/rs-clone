@@ -4,8 +4,7 @@ import { state } from '../../store/state';
 
 class BoardModel {
     async createColumn(title: string) {
-        state.countColumns += 1;
-        await createColumn(state.token as string, state.boardId as string, title, state.countColumns);
+        await createColumn(state.token as string, state.boardId as string, title, 0);
     }
 
     async getColumns() {
@@ -32,7 +31,8 @@ class BoardModel {
             const temp = state.columns[startIndex];
             state.columns.splice(startIndex, 1);
             state.columns.splice(enterIndex, 0, temp);
-            state.columns.forEach((elem) => {
+            state.columns.forEach((elem, index) => {
+                elem.order = index + 1;
                 const { title, boardId, ...column } = elem;
                 columnOrder.push(column);
             });
