@@ -28,12 +28,14 @@ class BoardModel {
             state.columns.forEach((elem, index) => {
                 if (elem._id === state.dragStartId) startIndex = index;
                 if (elem._id === state.dragEnterId) enterIndex = index;
-                const { title, boardId, ...column } = elem;
-                columnOrder.push(column);
             });
             const temp = state.columns[startIndex];
             state.columns.splice(startIndex, 1);
             state.columns.splice(enterIndex, 0, temp);
+            state.columns.forEach((elem) => {
+                const { title, boardId, ...column } = elem;
+                columnOrder.push(column);
+            });
             await updateColumnsSet(state.token as string, columnOrder);
         }
     }
