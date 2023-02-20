@@ -1,5 +1,5 @@
-import { createColumn, getColumns, deleteColumnById, updateColumnById } from '../../api/columns';
-import { Column } from '../../spa/types';
+import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
+import { Column, ColumnOrder } from '../../spa/types';
 import { state } from '../../store/state';
 
 class BoardModel {
@@ -28,16 +28,20 @@ class BoardModel {
 
     async updateColumnSet() {
         if (state.columns) {
+            const columnOrder: ColumnOrder[] = [];
             let startIndex = 0;
             let enterIndex = 0;
             state.columns.forEach((elem, index) => {
                 if (elem._id === state.dragStartId) startIndex = index;
                 if (elem._id === state.dragEnterId) enterIndex = index;
+                const { title, boardId, ...column } = elem;
+                columnOrder.push(column);
             });
             const temp = state.columns[startIndex];
             state.columns.splice(startIndex, 1);
             state.columns.splice(enterIndex, 0, temp);
             localStorage.columns = JSON.stringify(state.columns);
+            await updateColumnsSet(state.token as string, columnOrder);
         }
     }
 }
