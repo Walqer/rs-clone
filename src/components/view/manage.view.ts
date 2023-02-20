@@ -7,14 +7,14 @@ class ManageView {
         const form = new Control<HTMLFormElement>('form', 'auth__form', 'form__manage');
         const title = new Control<HTMLElement>('h2', 'auth__form-title');
 
+        const loginBox = new Control<HTMLElement>('div', 'auth__form-login-box');
+        const loginTitle = new Control<HTMLElement>('p', 'auth-form-login-title');
+        const loginValue = new Control<HTMLInputElement>('p', 'auth__form-login-value');
+
         const nameBox = new Control<HTMLElement>('div', 'auth__form-name-box');
         const nameTitle = new Control<HTMLElement>('p', 'auth-form-name-title');
         const nameInput = new Control<HTMLInputElement>('input', 'auth__form-name-input');
         const nameEdit = new Control<HTMLImageElement>('img', 'auth__form-name-edit');
-
-        const loginBox = new Control<HTMLElement>('div', 'auth__form-login-box');
-        const loginTitle = new Control<HTMLElement>('p', 'auth-form-login-title');
-        const loginValue = new Control<HTMLInputElement>('p', 'auth__form-login-value');
 
         const passChangeTitle = new Control<HTMLElement>('h2', 'auth__form-change-pass-title');
 
@@ -35,6 +35,12 @@ class ManageView {
         title.element.textContent = 'Your profile';
         title.append(form.element);
 
+        loginBox.append(form.element);
+        loginTitle.element.textContent = 'Login:';
+        loginTitle.append(loginBox.element);
+        loginValue.element.textContent = currentUser.login;
+        loginValue.append(loginBox.element);
+
         nameBox.append(form.element);
         nameTitle.element.textContent = 'Name:';
         nameTitle.append(nameBox.element);
@@ -42,12 +48,6 @@ class ManageView {
         nameInput.append(nameBox.element);
         nameEdit.element.src = '../../assets/icons/edit.png';
         nameEdit.append(nameBox.element);
-
-        loginBox.append(form.element);
-        loginTitle.element.textContent = 'Login:';
-        loginTitle.append(loginBox.element);
-        loginValue.element.textContent = currentUser.login;
-        loginValue.append(loginBox.element);
 
         passChangeTitle.element.textContent = 'Change password';
         passChangeTitle.append(form.element);
@@ -67,7 +67,7 @@ class ManageView {
         passSave.element.textContent = 'Save changes';
         passSave.append(form.element);
 
-        nameInput.element.addEventListener('mouseup', () => {
+        nameInput.element.addEventListener('click', () => {
             nameInput.element.select();
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             document.addEventListener('keyup', async (event) => {
@@ -77,7 +77,7 @@ class ManageView {
             nameInput.element.addEventListener('focusout', async (event) => {
                 event.preventDefault();
                 const target = event.target as HTMLInputElement;
-                await manageController.updateUserById(target.value, currentUser.login, '123');
+                await manageController.updateUserById(target.value, currentUser.login, '1234');
             });
         });
 

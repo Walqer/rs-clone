@@ -5,6 +5,7 @@ import footerView from '../../components/view/footer.view';
 import signupView from '../../components/view/signup.view';
 import { Control } from '../../utils/Control';
 import manageView from '../../components/view/manage.view';
+import homeHeaderView from '../../components/view/home-header.view';
 
 export class Auth extends AbstractView {
     constructor(params: QueryStringParams) {
@@ -21,10 +22,10 @@ export class Auth extends AbstractView {
         const params: URLSearchParams = new URLSearchParams(document.location.search);
         const { body } = document;
         const main = new Control<HTMLElement>('main', 'auth');
-        const title = new Control<HTMLElement>('h1', 'auth__title');
+        const header = new Control<HTMLElement>('header', 'auth__header');
+        body.append(homeHeaderView.render());
         main.append(body);
-        title.append(main.element);
-        title.element.textContent = 'Task manager';
+        header.append(main.element);
         if (params.get('type') === 'login') main.element.append(loginView.render());
         else if (params.get('type') === 'signup') main.element.append(signupView.render());
         else if (params.get('type') === 'manage') main.element.append(await manageView.render());
