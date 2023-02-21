@@ -58,9 +58,9 @@ export async function isBoardOwner(token: string, boardId: string, userId: strin
 }
 
 export function hashPassword(password: string) {
-  return bcrypt.hash(password, 12);
+    return bcrypt.hash(password, 12);
 }
 
 export function compareHashPassword(s: string, password: string) {
-  return bcrypt.compareSync(s, password);
+    return bcrypt.compareSync(s, password);
 }

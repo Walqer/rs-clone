@@ -1,3 +1,4 @@
+import { compareHashPassword } from '../../api/apiUtils';
 import { User } from '../../spa/types';
 import { Control } from '../../utils/Control';
 import manageController from '../controller/manage.controller';
@@ -45,6 +46,7 @@ class ManageView {
         nameTitle.element.textContent = 'Name:';
         nameTitle.append(nameBox.element);
         nameInput.element.value = currentUser.name;
+        nameInput.element.disabled = true;
         nameInput.append(nameBox.element);
         nameEdit.element.src = '../../assets/icons/edit.png';
         nameEdit.append(nameBox.element);
@@ -67,17 +69,44 @@ class ManageView {
         passSave.element.textContent = 'Save changes';
         passSave.append(form.element);
 
-        nameInput.element.addEventListener('click', () => {
+        nameEdit.element.addEventListener('click', () => {
+            nameEdit.element.classList.add('auth__form-name-edit_hide');
+            nameInput.element.disabled = false;
             nameInput.element.select();
+            const nameConfirm = new Control<HTMLElement>('div', 'auth__form-name-confirm');
+            const nameConfirmInput = new Control<HTMLInputElement>('input', 'auth__form-name-confirm-input');
+            const nameConfirmBtnYes = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_yes');
+            const nameConfirmBtnNo = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_no');
+            nameConfirm.append(nameBox.element);
+            nameConfirmInput.element.type = 'password';
+            nameConfirmInput.element.placeholder = 'Enter your password';
+            nameConfirmInput.append(nameConfirm.element);
+            nameConfirmBtnYes.element.textContent = 'yes';
+            nameConfirmBtnYes.append(nameConfirm.element);
+            nameConfirmBtnNo.element.textContent = 'no';
+            nameConfirmBtnNo.append(nameConfirm.element);
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            document.addEventListener('keyup', async (event) => {
-                if (event.code === 'Enter') nameInput.element.blur();
+            nameConfirmBtnYes.element.addEventListener('click', async (event) => {
+                event.preventDefault();
+                nameInput.element.disabled = true;
+                const hash = localStorage.getItem('hash') as string;
+                const pass = nameConfirmInput.element.value;
+                const isTruePass = compareHashPassword(pass, hash);
+                if (isTruePass) {
+                    await manageController.updateUserById(nameInput.element.value, currentUser.login, pass);
+                    nameConfirm.remove();
+                    nameEdit.element.classList.remove('auth__form-name-edit_hide');
+                } else {
+                    console.log('Error');
+                }
             });
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            nameInput.element.addEventListener('focusout', async (event) => {
-                event.preventDefault();
-                const target = event.target as HTMLInputElement;
-                await manageController.updateUserById(target.value, currentUser.login, '123');
+            nameConfirmBtnNo.element.addEventListener('click', async () => {
+                nameEdit.element.classList.remove('auth__form-name-edit_hide');
+                nameInput.element.value += ' ';
+                nameInput.element.value = nameInput.element.value.slice(0, -1);
+                nameInput.element.disabled = true;
+                nameConfirm.remove();
             });
         });
 

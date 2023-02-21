@@ -1,3 +1,4 @@
+import { hashPassword } from '../../api/apiUtils';
 import { signIn } from '../../api/auth';
 import { parseJwt } from '../../api/helper';
 import { state } from '../../store/state';
@@ -8,6 +9,9 @@ class LoginModel {
         if (typeof res === 'object') {
             localStorage.setItem('token', res.token);
             state.token = res.token;
+
+            const hash = await hashPassword(password);
+            localStorage.setItem('hash', hash);
 
             const jwt = parseJwt(res.token);
             localStorage.setItem('userId', jwt.id);
