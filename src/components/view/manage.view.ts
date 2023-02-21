@@ -77,7 +77,7 @@ class ManageView {
             nameInput.element.addEventListener('focusout', async (event) => {
                 event.preventDefault();
                 const target = event.target as HTMLInputElement;
-                await manageController.updateUserById(target.value, currentUser.login, '1234');
+                await manageController.updateUserById(target.value, currentUser.login, '123');
             });
         });
 

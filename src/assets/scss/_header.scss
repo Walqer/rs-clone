@@ -1,16 +1,22 @@
 .header {
-    padding: 25px 23px;
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    margin: 0 auto;
+    display: flex;
+    max-width: 1320px;
+    height: 55px;
     align-items: center;
-    margin-bottom: 35px;
-    border-bottom: 2px solid #edeff2;
+    justify-content: space-between;
+    padding: 0 20px;
+    &__wrapper {
+        width: 100%;
+        border-bottom: 2px solid #edeff2;
+        margin-bottom: 35px;
+    }
     &__logo {
         font-weight: bold;
         font-size: 18px;
+        color: #7d8fb3;
     }
     &__menu {
-        grid-column: span 2;
         &-list {
             display: flex;
             &-item {
@@ -24,18 +30,20 @@
     }
     &__user-block {
         position: relative;
-        grid-column-start: -1;
         display: flex;
         align-items: center;
 
         &-img {
             display: inline-block;
-            margin-right: 14px;
             cursor: pointer;
+            &:hover {
+                filter: invert(100%);
+            }
         }
         &-info {
             font-weight: bold;
             font-size: 13px;
+            margin-right: 14px;
         }
         &-menu {
             position: absolute;

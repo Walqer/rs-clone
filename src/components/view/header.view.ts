@@ -4,6 +4,7 @@ import headerController from '../controller/header.controller';
 
 class HeaderView {
     render(): HTMLElement {
+        const wrapper = new Control<HTMLElement>('div', 'header__wrapper');
         const header = new Control<HTMLElement>('header', 'header');
         const logo = new Control<HTMLLinkElement>('a', 'header__logo');
         const menu = new Control<HTMLElement>('nav', 'header__menu');
@@ -25,10 +26,12 @@ class HeaderView {
         const userMenuInfoLogin = new Control<HTMLElement>('a', 'header__user-block-menu-info-login');
         const userMenuLogOut = new Control<HTMLElement>('p', 'header__user-block-menu-logout');
         const curentUser = headerController.getUserInfo();
-        userIcon.element.src = curentUser.imgSrc;
-        userIcon.append(userBlock.element);
+
+        header.append(wrapper.element);
         userInfo.element.textContent = curentUser.fullname;
         userInfo.append(userBlock.element);
+        userIcon.element.src = curentUser.imgSrc;
+        userIcon.append(userBlock.element);
         userMenu.append(userBlock.element);
         userMenuTitleAcc.element.textContent = 'Account';
         userMenuTitleAcc.append(userMenu.element);
@@ -46,7 +49,7 @@ class HeaderView {
         userMenuLogOut.append(userMenu.element);
 
         logo.element.href = '/';
-        logo.element.textContent = 'Task manager';
+        logo.element.textContent = 'MiniTrello';
         logo.append(header.element);
         menu.append(header.element);
         userBlock.append(header.element);
@@ -76,7 +79,7 @@ class HeaderView {
             window.location.href = '/';
         });
 
-        return header.element;
+        return wrapper.element;
     }
 }
 
