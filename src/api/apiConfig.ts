@@ -1,4 +1,5 @@
-const url = 'https://final-task-backend-production-c474.up.railway.app';
+// const url = 'https://final-task-backend-production-c474.up.railway.app'; //Railway
+const url = 'https://mini-trello-back.onrender.com'; // Render
 const port = '';
 
 export const urlParams = {

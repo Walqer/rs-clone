@@ -1,5 +1,7 @@
 import { addToFavourites, isBoardOwner, removeFromFavourites, removeUserFromBoard } from '../../api/apiUtils';
 import { createBoard, getBoardsSetByUserId, deleteBoardById } from '../../api/boards';
+import { createColumn } from '../../api/columns';
+import { DefaultColumns } from '../../spa/types';
 import { state } from '../../store/state';
 
 class BoardListModel {
@@ -30,7 +32,16 @@ class BoardListModel {
     }
 
     async createBoard(name: string, color: string) {
-        await createBoard(this.token, name, this.userId, ['user1', 'user2'], color, '');
+        const newBoard = await createBoard(this.token, name, this.userId, [], color, '');
+        if (typeof newBoard !== 'string') {
+            await createColumn(this.token, newBoard._id, DefaultColumns.Tasks, 1)
+                .then(async () => {
+                    await createColumn(this.token, newBoard._id, DefaultColumns.InProgress, 2);
+                })
+                .then(async () => {
+                    await createColumn(this.token, newBoard._id, DefaultColumns.Done, 3);
+                });
+        }
     }
 
     async deleteBoard(boardId: string) {

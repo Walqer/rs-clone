@@ -7,11 +7,13 @@ interface IState {
     login: string | null;
     authError: string | null;
     columnError: string | null;
-    columns: Array<Column> | null;
+    columns: Array<Column>;
     countColumns: number;
     columnOrder: Array<ColumnOrder>;
     dragElement: HTMLElement | null;
     dragZone: HTMLElement | null;
+    dragStartId: string;
+    dragEnterId: string;
 }
 
 export const state: IState = {
@@ -21,9 +23,11 @@ export const state: IState = {
     login: localStorage.getItem('login') || null,
     authError: null,
     columnError: null,
-    columns: null,
+    columns: [],
     countColumns: 0,
     columnOrder: [],
     dragElement: null,
     dragZone: null,
+    dragStartId: '',
+    dragEnterId: '',
 };

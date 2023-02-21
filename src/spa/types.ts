@@ -69,3 +69,9 @@ export type File = {
     boardId: string;
     path: string;
 };
+
+export enum DefaultColumns {
+    Tasks = 'Tasks',
+    InProgress = 'InProgress',
+    Done = 'Done',
+}

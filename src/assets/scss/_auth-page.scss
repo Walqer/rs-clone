@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 115px);
     padding-top: 3%;
     &__form {
         display: flex;
@@ -53,10 +53,37 @@
                 margin-left: 3%;
             }
         }
+        &-name {
+            &-box {
+                margin-bottom: 15px;
+            }
+            &-edit {
+                width: 15px;
+            }
+            &-input {
+                font-size: 14px;
+                font-weight: 200;
+                color: black;
+                border: 1px solid black;
+            }
+        }
+        &-login {
+            &-title {
+            }
+            &-value {
+                font-size: 14px;
+                font-weight: 200;
+                color: black;
+            }
+        }
     }
     &_server-error {
         color: red;
         font-size: 12px;
         margin: 3%;
     }
+}
+
+.form__manage {
+    align-items: flex-start;
 }
