@@ -3,3 +3,13 @@
         width: 100%;
     }
 }
+.column__tasks {
+    background-color: #edeff2;
+}
+.column__task {
+    margin: 10px 5px;
+    padding: 10px 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}

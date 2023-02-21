@@ -1,4 +1,4 @@
-import { Column } from '../../spa/types';
+import { Column, Task } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
@@ -26,8 +26,9 @@ class BoardView {
         createColumnCancelBtn.append(createColumnButtons.element);
         await boardController.getColumns();
         if (state.columns) {
-            state.columns.forEach((elem) => {
-                columns.element.append(this.renderColumn(elem));
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            state.columns.forEach(async (elem) => {
+                columns.element.append(await this.renderColumn(elem));
             });
         }
         createColumn.append(columns.element);
@@ -56,21 +57,28 @@ class BoardView {
         return board.element;
     }
 
-    renderColumn(column: Column) {
+    async renderColumn(column: Column) {
         const columnWrap = new Control<HTMLElement>('div', 'column__wrapper');
         const columnBox = new Control<HTMLElement>('div', 'column', `${column.title}`);
         const columnTitle = new Control<HTMLElement>('div', 'column__title');
         const columnName = new Control<HTMLInputElement>('input', 'column__title_name');
         const columnRemove = new Control<HTMLElement>('div', 'column__title_remove');
         const columnRemoveImg = new Control<HTMLImageElement>('img', 'column__title_remove-img');
-        const tasks = new Control<HTMLElement>('div', 'column__tasks');
+        const tasks = new Control<HTMLUListElement>('ul', 'column__tasks');
 
         const createTask = new Control<HTMLElement>('div', 'column-create', 'task-create');
         const createTaskInput = new Control<HTMLInputElement>('input', 'column-create__input');
         const createTaskButtons = new Control<HTMLElement>('div', 'column-create__buttons', 'column-create__buttons_hide');
         const createTaskAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
         const createTaskCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
+        const tasksInColumn = (await boardController.getTasks(column._id)) as Task[];
 
+        // eslint-disable-next-line no-restricted-syntax
+        for (const task of tasksInColumn) {
+            const taskItem = new Control<HTMLElement>('li', 'column__task');
+            taskItem.element.textContent = task.title;
+            taskItem.append(tasks.element);
+        }
         createTaskInput.append(createTask.element);
         createTaskButtons.append(createTask.element);
         createTaskAddBtn.append(createTaskButtons.element);
@@ -102,7 +110,6 @@ class BoardView {
                 createTaskInput.element.value = 'Add task ...';
             });
         });
-
         columnBox.element.draggable = true;
         columnBox.element.dataset.column = column._id;
         columnBox.element.dataset.order = String(column.order);

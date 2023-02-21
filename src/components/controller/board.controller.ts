@@ -26,7 +26,8 @@ class BoardController {
     }
 
     async getTasks(columnID: string) {
-        await boardModel.getTasks(columnID);
+        const tasks = await boardModel.getTasks(columnID);
+        return tasks;
     }
 }
 
