@@ -1,4 +1,4 @@
-import { Column } from '../../spa/types';
+import { Column, Task } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
@@ -15,7 +15,6 @@ class BoardView {
         const createColumnButtons = new Control<HTMLElement>('div', 'column-create__buttons', 'column-create__buttons_hide');
         const createColumnAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
         const createColumnCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
-
         header.append(board.element);
         title.append(header.element);
         search.append(header.element);
@@ -27,8 +26,9 @@ class BoardView {
         createColumnCancelBtn.append(createColumnButtons.element);
         await boardController.getColumns();
         if (state.columns) {
-            state.columns.forEach((elem) => {
-                columns.element.append(this.renderColumn(elem));
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            state.columns.forEach(async (elem) => {
+                columns.element.append(await this.renderColumn(elem));
             });
         }
         createColumn.append(columns.element);
@@ -57,15 +57,34 @@ class BoardView {
         return board.element;
     }
 
-    renderColumn(column: Column) {
+    async renderColumn(column: Column) {
         const columnWrap = new Control<HTMLElement>('div', 'column__wrapper');
         const columnBox = new Control<HTMLElement>('div', 'column');
         const columnTitle = new Control<HTMLElement>('div', 'column__title');
         const columnName = new Control<HTMLInputElement>('input', 'column__title_name');
         const columnRemove = new Control<HTMLElement>('div', 'column__title_remove');
         const columnRemoveImg = new Control<HTMLImageElement>('img', 'column__title_remove-img');
-        const tasks = new Control<HTMLElement>('div', 'column__tasks');
-        const addTask = new Control<HTMLElement>('a', 'column__add-task');
+        const tasks = new Control<HTMLUListElement>('ul', 'column__tasks');
+
+        const createTask = new Control<HTMLElement>('div', 'column-create', 'task-create');
+        const createTaskInput = new Control<HTMLInputElement>('input', 'column-create__input');
+        const createTaskButtons = new Control<HTMLElement>('div', 'column-create__buttons', 'column-create__buttons_hide');
+        const createTaskAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
+        const createTaskCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
+        const tasksInColumn = (await boardController.getTasks(column._id)) as Task[];
+
+        // eslint-disable-next-line no-restricted-syntax
+        for (const task of tasksInColumn) {
+            const taskItem = new Control<HTMLElement>('li', 'column__task');
+            taskItem.element.textContent = task.title;
+            taskItem.append(tasks.element);
+        }
+        createTaskInput.append(createTask.element);
+        createTaskButtons.append(createTask.element);
+        createTaskAddBtn.append(createTaskButtons.element);
+        createTaskCancelBtn.append(createTaskButtons.element);
+        createTaskInput.element.placeholder = 'Add task..';
+        createTaskAddBtn.element.innerHTML = 'Add';
 
         columnBox.append(columnWrap.element);
         columnTitle.append(columnBox.element);
@@ -73,15 +92,30 @@ class BoardView {
         columnRemove.append(columnTitle.element);
         columnRemoveImg.append(columnRemove.element);
         tasks.append(columnBox.element);
-        addTask.append(columnBox.element);
-
+        createTask.append(columnBox.element);
+        createTaskInput.element.addEventListener('focus', () => {
+            createTaskButtons.element.classList.add('column-create__buttons_visible');
+            createTaskInput.element.placeholder = 'Enter task title...';
+            createTaskInput.element.value = '';
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            createTaskAddBtn.element.addEventListener('click', async () => {
+                if (createTaskInput.element.value) {
+                    await boardController.createNewTask(column._id, createTaskInput.element.value, 0);
+                    await this.update();
+                } else createTaskInput.element.focus();
+            });
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            createTaskCancelBtn.element.addEventListener('click', async () => {
+                createTaskButtons.element.classList.remove('column-create__buttons_visible');
+                createTaskInput.element.value = 'Add task ...';
+            });
+        });
         columnBox.element.draggable = true;
         columnBox.element.dataset.column = column._id;
         columnWrap.element.dataset.column = column._id;
         columnBox.element.dataset.order = String(column.order);
         columnName.element.value = column.title;
         columnRemoveImg.element.src = '../assets/icons/remove-task.png';
-        addTask.element.innerHTML = 'Add task..';
 
         columnBox.element.addEventListener('dragstart', (event) => {
             const target = event.currentTarget as HTMLElement;

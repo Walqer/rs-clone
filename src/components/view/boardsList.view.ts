@@ -50,7 +50,7 @@ class BoardListView {
                 boardDelete.append(board.element);
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 boardDelete.element.addEventListener('click', async () => {
-                    // eslint-disable-next-line no-restricted-globals
+                    // eslint-disable-next-line no-restricted-globals, no-alert
                     if (confirm('Are you sure you want to delete this board?')) {
                         await boardListController.deleteBoard(board.element.dataset.id as string).then(async () => {
                             await this.update();

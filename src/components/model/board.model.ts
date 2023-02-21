@@ -1,4 +1,5 @@
 import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
+import { createTask, getTasks } from '../../api/tasks';
 import { Column, ColumnOrder } from '../../spa/types';
 import { state } from '../../store/state';
 
@@ -54,6 +55,15 @@ class BoardModel {
             });
             await updateColumnsSet(state.token as string, columnOrder);
         }
+    }
+
+    async createNewTask(columnID: string, title: string, order: number) {
+        await createTask(state.token as string, state.boardId as string, columnID, title, order, 'test', state.userId as string, []);
+    }
+
+    async getTasks(columnId: string) {
+        const tasks = await getTasks(state.token as string, state.boardId as string, columnId);
+        return tasks;
     }
 }
 
