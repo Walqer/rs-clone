@@ -2,6 +2,7 @@ import { Column, Task } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
+import preloader from '../../utils/Preloader';
 
 class BoardView {
     async render() {
@@ -24,13 +25,14 @@ class BoardView {
         createColumnButtons.append(createColumn.element);
         createColumnAddBtn.append(createColumnButtons.element);
         createColumnCancelBtn.append(createColumnButtons.element);
+        preloader.start();
         await boardController.getColumns();
-        if (state.columns) {
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            state.columns.forEach(async (elem) => {
-                columns.element.append(await this.renderColumn(elem));
-            });
+        // eslint-disable-next-line no-restricted-syntax
+        for (const column of state.columns) {
+            // eslint-disable-next-line no-await-in-loop
+            columns.element.append(await this.renderColumn(column));
         }
+        preloader.stop();
         createColumn.append(columns.element);
         createColumnInput.element.value = 'Add another column';
         createColumnAddBtn.element.innerHTML = 'Add column';
@@ -43,8 +45,10 @@ class BoardView {
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             createColumnAddBtn.element.addEventListener('click', async () => {
                 if (createColumnInput.element.value) {
+                    preloader.start();
                     await boardController.createColumn(createColumnInput.element.value);
                     await this.update();
+                    preloader.stop();
                 } else createColumnInput.element.focus();
             });
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -71,14 +75,17 @@ class BoardView {
         const createTaskButtons = new Control<HTMLElement>('div', 'column-create__buttons', 'column-create__buttons_hide');
         const createTaskAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
         const createTaskCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
-        const tasksInColumn = (await boardController.getTasks(column._id)) as Task[];
 
+        preloader.start();
+        const tasksInColumn = (await boardController.getTasks(column._id)) as Task[];
         // eslint-disable-next-line no-restricted-syntax
         for (const task of tasksInColumn) {
             const taskItem = new Control<HTMLElement>('li', 'column__task');
             taskItem.element.textContent = task.title;
             taskItem.append(tasks.element);
         }
+        preloader.stop();
+
         createTaskInput.append(createTask.element);
         createTaskButtons.append(createTask.element);
         createTaskAddBtn.append(createTaskButtons.element);
@@ -100,8 +107,10 @@ class BoardView {
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             createTaskAddBtn.element.addEventListener('click', async () => {
                 if (createTaskInput.element.value) {
+                    preloader.start();
                     await boardController.createNewTask(column._id, createTaskInput.element.value, 0);
                     await this.update();
+                    preloader.stop();
                 } else createTaskInput.element.focus();
             });
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -157,7 +166,9 @@ class BoardView {
             event.preventDefault();
             (state.dragElement as HTMLElement).classList.remove('column_hide');
             (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+            preloader.start();
             await boardController.updateColumnSet();
+            preloader.stop();
         });
 
         columnName.element.addEventListener('mouseup', () => {
@@ -168,14 +179,18 @@ class BoardView {
             });
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             columnName.element.addEventListener('focusout', async () => {
+                preloader.start();
                 await boardController.updateColumnById(column._id, columnName.element.value);
+                preloader.stop();
             });
         });
 
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         columnRemove.element.addEventListener('click', async () => {
+            preloader.start();
             await boardController.deleteColumnById(column._id);
             await this.update();
+            preloader.stop();
         });
         return columnWrap.element;
     }
