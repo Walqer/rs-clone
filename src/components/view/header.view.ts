@@ -75,6 +75,7 @@ class HeaderView {
 
         userMenuLogOut.element.addEventListener('click', () => {
             localStorage.removeItem('token');
+            localStorage.removeItem('hash');
             state.token = null;
             window.location.href = '/';
         });
