@@ -34,12 +34,12 @@ class BoardListModel {
     async createBoard(name: string, color: string) {
         const newBoard = await createBoard(this.token, name, this.userId, [], color, '');
         if (typeof newBoard !== 'string') {
-            await createColumn(this.token, newBoard._id, DefaultColumns.Tasks, 0)
+            await createColumn(this.token, newBoard._id, DefaultColumns.Tasks, 1)
                 .then(async () => {
-                    await createColumn(this.token, newBoard._id, DefaultColumns.InProgress, 0);
+                    await createColumn(this.token, newBoard._id, DefaultColumns.InProgress, 2);
                 })
                 .then(async () => {
-                    await createColumn(this.token, newBoard._id, DefaultColumns.Done, 0);
+                    await createColumn(this.token, newBoard._id, DefaultColumns.Done, 3);
                 });
         }
     }
