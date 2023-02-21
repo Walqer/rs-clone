@@ -30,6 +30,10 @@ class SignUpView {
         name.append(nameBox.element);
         loginBox.append(form.element);
         login.element.type = 'text';
+        const params: URLSearchParams = new URLSearchParams(document.location.search);
+        if (params.get('login')) {
+            login.element.value = params.get('login') as string;
+        }
         login.element.placeholder = 'Enter login';
         login.element.dataset.minLength = '3';
         login.element.dataset.maxLength = '16';
