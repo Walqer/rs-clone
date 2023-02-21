@@ -1,12 +1,12 @@
 .board {
     margin: 0 auto;
     width: 95vw;
+    margin-bottom: 20px;
     min-height: calc(100vh - 200px);
     border-radius: 15px;
     border: 2px solid #edeff2;
     overflow-x: auto;
     &__header {
-        position: fixed;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -17,7 +17,6 @@
     }
     &__columns {
         padding: 20px;
-        padding-top: 85px;
         height: 100%;
         width: fit-content;
         display: flex;
