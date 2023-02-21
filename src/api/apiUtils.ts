@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcryptjs';
 import { Board } from '../spa/types';
 import { getBoardById, updateBoardFavourites, updateBoardUsers } from './boards';
 
@@ -54,4 +55,12 @@ export async function isBoardOwner(token: string, boardId: string, userId: strin
     const { owner } = board;
     if (owner === userId) return true;
     return false;
+}
+
+export function hashPassword(password: string) {
+  return bcrypt.hash(password, 12);
+}
+
+export function compareHashPassword(s: string, password: string) {
+  return bcrypt.compareSync(s, password);
 }
