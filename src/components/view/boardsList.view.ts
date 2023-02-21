@@ -10,7 +10,7 @@ class BoardListView {
 
         sectionTitle.append(topbar.element);
         topbar.append(section.element);
-        sectionTitle.element.textContent = 'WorkSpace';
+        sectionTitle.element.textContent = 'Workspace';
 
         const userBoardsTitle = new Control<HTMLTitleElement>('h3', 'workspace__boards-title');
         userBoardsTitle.element.textContent = 'YOUR BOARDS';
