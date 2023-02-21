@@ -1,6 +1,7 @@
 import { compareHashPassword } from '../../api/apiUtils';
 import { User } from '../../spa/types';
 import { Control } from '../../utils/Control';
+import { validation } from '../../utils/Validation';
 import manageController from '../controller/manage.controller';
 
 class ManageView {
@@ -14,7 +15,7 @@ class ManageView {
 
         const nameBox = new Control<HTMLElement>('div', 'auth__form-name-box');
         const nameTitle = new Control<HTMLElement>('p', 'auth-form-name-title');
-        const nameInput = new Control<HTMLInputElement>('input', 'auth__form-name-input');
+        const nameInput = new Control<HTMLInputElement>('input', 'auth__form-input');
         const nameEdit = new Control<HTMLImageElement>('img', 'auth__form-name-edit');
 
         const passChangeTitle = new Control<HTMLElement>('h2', 'auth__form-change-pass-title');
@@ -73,10 +74,12 @@ class ManageView {
             nameEdit.element.classList.add('auth__form-name-edit_hide');
             nameInput.element.disabled = false;
             nameInput.element.select();
+
             const nameConfirm = new Control<HTMLElement>('div', 'auth__form-name-confirm');
-            const nameConfirmInput = new Control<HTMLInputElement>('input', 'auth__form-name-confirm-input');
+            const nameConfirmInput = new Control<HTMLInputElement>('input', 'auth__form-input');
             const nameConfirmBtnYes = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_yes');
             const nameConfirmBtnNo = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_no');
+
             nameConfirm.append(nameBox.element);
             nameConfirmInput.element.type = 'password';
             nameConfirmInput.element.placeholder = 'Enter your password';
@@ -85,6 +88,7 @@ class ManageView {
             nameConfirmBtnYes.append(nameConfirm.element);
             nameConfirmBtnNo.element.textContent = 'no';
             nameConfirmBtnNo.append(nameConfirm.element);
+
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             nameConfirmBtnYes.element.addEventListener('click', async (event) => {
                 event.preventDefault();
@@ -96,8 +100,6 @@ class ManageView {
                     await manageController.updateUserById(nameInput.element.value, currentUser.login, pass);
                     nameConfirm.remove();
                     nameEdit.element.classList.remove('auth__form-name-edit_hide');
-                } else {
-                    console.log('Error');
                 }
             });
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -110,8 +112,19 @@ class ManageView {
             });
         });
 
-        passSave.element.addEventListener('click', (event) => {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        passSave.element.addEventListener('click', async (event) => {
             event.preventDefault();
+            const isValid = validation();
+            if (isValid) {
+                const hash = localStorage.getItem('hash') as string;
+                const passCurrent = passCurrentInput.element.value;
+                const passNew = passNewInput.element.value;
+                const isTruePass = compareHashPassword(passCurrent, hash);
+                if (isTruePass) {
+                    await manageController.updateUserById(nameInput.element.value, currentUser.login, passNew);
+                }
+            }
         });
 
         return form.element;
