@@ -3,21 +3,24 @@
     width: 95vw;
     min-height: calc(100vh - 200px);
     border-radius: 15px;
-    border: 2px solid #edeff2;
+    border: 1px solid #ccc;
     overflow-x: auto;
     &__header {
-        position: fixed;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 0 20px;
         height: 60px;
         width: inherit;
-        border-bottom: 2px solid #edeff2;
+        border-bottom: 1px solid #ccc;
+        background-color: #e8e8e8;
+
+        &-users {
+          //
+        }
     }
     &__columns {
         padding: 20px;
-        padding-top: 85px;
         height: 100%;
         width: fit-content;
         display: flex;
