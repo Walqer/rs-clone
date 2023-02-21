@@ -112,6 +112,7 @@ module.exports = ({ development }) => ({
     ],
     resolve: {
         extensions: ['.ts', '.js'],
+        fallback: { "crypto": false },
     },
     ...devServer(development),
 });
