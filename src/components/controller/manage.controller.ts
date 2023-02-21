@@ -8,5 +8,9 @@ class ManageController {
     getUserById() {
         return manageModel.getUserById();
     }
+
+    async deleteUserById() {
+        await manageModel.deleteUserById();
+    }
 }
 export default new ManageController();

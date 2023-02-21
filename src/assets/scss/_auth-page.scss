@@ -78,6 +78,11 @@
                 color: black;
             }
         }
+        &-delete-acc {
+            margin-top: 20px;
+            color: rgb(155, 0, 0);
+            cursor: pointer;
+        }
     }
     &_server-error {
         color: red;

@@ -4,6 +4,7 @@ import { Control } from '../../utils/Control';
 import { validation } from '../../utils/Validation';
 import manageController from '../controller/manage.controller';
 import preloader from '../../utils/Preloader';
+import confirmWindowView from './confirm-window.view';
 
 class ManageView {
     async render() {
@@ -135,6 +136,20 @@ class ManageView {
                     preloader.stop();
                 }
             }
+        });
+
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        deleteAcc.element.addEventListener('click', async () => {
+            const { body } = document;
+            const confirmWindow = confirmWindowView.render('Do you realy want to delete your accaunt?');
+            const confirmBtn = confirmWindow.querySelector('.confirm__button_yes') as HTMLButtonElement;
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            confirmBtn.addEventListener('click', async () => {
+                preloader.start();
+                await manageController.deleteUserById();
+                preloader.stop();
+            });
+            body.append(confirmWindow);
         });
 
         return form.element;
