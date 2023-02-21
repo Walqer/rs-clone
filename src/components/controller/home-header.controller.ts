@@ -4,6 +4,7 @@ class HomeHeaderContoller {
     logOut(update: () => void) {
         homeHeaderModel.logOut();
         update();
+        window.location.href = '/';
     }
 }
 

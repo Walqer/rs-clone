@@ -20,7 +20,8 @@ class HomeHeaderView {
         const workspaceLink = new Control<HTMLLinkElement>('a', 'home-header__list-item-link');
         const logOut = new Control<HTMLElement>('li', 'home-header__list-item');
         const logOutLink = new Control<HTMLLinkElement>('a', 'home-header__list-item-link');
-        title.element.textContent = 'Task manager';
+        title.element.textContent = 'MiniTrello';
+        title.element.href = '/';
         title.append(header.element);
         links.append(header.element);
         if (state.token) {
