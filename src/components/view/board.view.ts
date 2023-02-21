@@ -2,6 +2,7 @@ import { Column } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
+import manageUsersView from './manage-users.view';
 
 class BoardView {
     async render() {
@@ -9,16 +10,23 @@ class BoardView {
         const header = new Control<HTMLElement>('div', 'board__header');
         const title = new Control<HTMLElement>('h2', 'board__header-title');
         const search = new Control<HTMLElement>('div', 'board__header-search');
+        const users = new Control<HTMLElement>('div', 'board__header-users');
+        const usersButton = new Control<HTMLButtonElement>('button', 'white-button');
         const columns = new Control<HTMLElement>('div', 'board__columns');
         const createColumn = new Control<HTMLElement>('div', 'column-create');
         const createColumnInput = new Control<HTMLInputElement>('input', 'column-create__input');
         const createColumnButtons = new Control<HTMLElement>('div', 'column-create__buttons', 'column-create__buttons_hide');
         const createColumnAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
         const createColumnCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
+        const usersModal = new Control<HTMLDivElement>('div', 'users-modal');
 
+        usersModal.append(board.element);
         header.append(board.element);
         title.append(header.element);
         search.append(header.element);
+        users.append(header.element);
+        usersButton.append(users.element);
+        usersButton.element.innerHTML = 'Users';
         columns.append(board.element);
         createColumn.append(columns.element);
         createColumnInput.append(createColumn.element);
@@ -35,6 +43,22 @@ class BoardView {
         createColumnInput.element.value = 'Add another column';
         createColumnAddBtn.element.innerHTML = 'Add column';
         title.element.textContent = 'Board';
+
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        usersButton.element.addEventListener('click', async () => {
+            if (usersModal.element.innerHTML === '') {
+                await boardController.getBoardUsers();
+                usersModal.element.append(manageUsersView.render());
+            }
+            usersModal.element.style.display = 'block';
+        });
+
+        usersModal.element.addEventListener('click', (e) => {
+            const { target } = e;
+            if ((target as HTMLElement).classList.contains('users-modal')) {
+                usersModal.element.style.display = 'none';
+            }
+        });
 
         createColumnInput.element.addEventListener('focus', () => {
             createColumnButtons.element.classList.add('column-create__buttons_visible');
