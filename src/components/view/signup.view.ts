@@ -2,6 +2,7 @@ import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import { validation } from '../../utils/Validation';
 import signUpController from '../controller/signup.controller';
+import preloader from '../../utils/Preloader';
 
 class SignUpView {
     render(): HTMLFormElement {
@@ -57,8 +58,10 @@ class SignUpView {
             event.preventDefault();
             const isValid = validation();
             if (isValid) {
+                preloader.start();
                 await signUpController.registerUser(name.element.value, login.element.value, pass.element.value);
                 this.update();
+                preloader.stop();
             }
         });
         err.element.textContent = state.authError as string;

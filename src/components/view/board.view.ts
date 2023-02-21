@@ -76,7 +76,6 @@ class BoardView {
         const createTaskAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
         const createTaskCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
 
-        preloader.start();
         const tasksInColumn = (await boardController.getTasks(column._id)) as Task[];
         // eslint-disable-next-line no-restricted-syntax
         for (const task of tasksInColumn) {
@@ -84,7 +83,6 @@ class BoardView {
             taskItem.element.textContent = task.title;
             taskItem.append(tasks.element);
         }
-        preloader.stop();
 
         createTaskInput.append(createTask.element);
         createTaskButtons.append(createTask.element);
@@ -156,7 +154,6 @@ class BoardView {
         });
 
         columnWrap.element.addEventListener('dragleave', (event) => {
-            state.columnOrder.pop();
             state.dragZone = event.currentTarget as HTMLElement;
             (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
         });

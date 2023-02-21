@@ -3,6 +3,7 @@ import { User } from '../../spa/types';
 import { Control } from '../../utils/Control';
 import { validation } from '../../utils/Validation';
 import manageController from '../controller/manage.controller';
+import preloader from '../../utils/Preloader';
 
 class ManageView {
     async render() {
@@ -29,6 +30,8 @@ class ManageView {
         const passNewInput = new Control<HTMLInputElement>('input', 'auth__form-input');
 
         const passSave = new Control<HTMLButtonElement>('button', 'auth__form-pass-save');
+
+        const deleteAcc = new Control<HTMLElement>('a', 'auth__form-delete-acc');
 
         const currentUser = (await manageController.getUserById()) as User;
 
@@ -70,6 +73,9 @@ class ManageView {
         passSave.element.textContent = 'Save changes';
         passSave.append(form.element);
 
+        deleteAcc.element.textContent = 'Delete accaunt';
+        deleteAcc.append(form.element);
+
         nameEdit.element.addEventListener('click', () => {
             nameEdit.element.classList.add('auth__form-name-edit_hide');
             nameInput.element.disabled = false;
@@ -97,7 +103,9 @@ class ManageView {
                 const pass = nameConfirmInput.element.value;
                 const isTruePass = compareHashPassword(pass, hash);
                 if (isTruePass) {
+                    preloader.start();
                     await manageController.updateUserById(nameInput.element.value, currentUser.login, pass);
+                    preloader.stop();
                     nameConfirm.remove();
                     nameEdit.element.classList.remove('auth__form-name-edit_hide');
                 }
@@ -122,7 +130,9 @@ class ManageView {
                 const passNew = passNewInput.element.value;
                 const isTruePass = compareHashPassword(passCurrent, hash);
                 if (isTruePass) {
+                    preloader.start();
                     await manageController.updateUserById(nameInput.element.value, currentUser.login, passNew);
+                    preloader.stop();
                 }
             }
         });

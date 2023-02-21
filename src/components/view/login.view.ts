@@ -1,5 +1,6 @@
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
+import preloader from '../../utils/Preloader';
 import { validation } from '../../utils/Validation';
 import loginController from '../controller/login.controller';
 
@@ -37,8 +38,10 @@ class LoginView {
             event.preventDefault();
             const isValid = validation();
             if (isValid) {
+                preloader.start();
                 await loginController.loginUser(login.element.value, pass.element.value);
                 this.update();
+                preloader.stop();
             }
         });
         err.element.textContent = state.authError as string;
