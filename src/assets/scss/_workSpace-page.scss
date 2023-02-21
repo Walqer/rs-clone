@@ -1,6 +1,7 @@
 .workspace {
-    max-width: 1525px;
+    max-width: 95%;
     margin: 0 auto;
+    margin-bottom: 20px;
     border-radius: 5px;
     border: 2px solid #edeff2;
     &__topbar {
@@ -11,16 +12,16 @@
     &__boards-title {
         padding-left: 20px;
         font-size: 13px;
-        margin-bottom: 56px;
     }
     &__user-boards-list {
         padding: 50px;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-auto-rows: 150px;
-        grid-gap: 70px;
-        margin-bottom: 50px;
+        grid-gap: 30px;
         &-item {
+            min-width: 250px;
+            height: 150px;
             border-radius: 5px;
             position: relative;
             cursor: pointer;
@@ -161,4 +162,28 @@
     top: 0;
     right: 5px;
     font-size: 25px;
+}
+
+@media (max-width: 1200px) {
+    .workspace {
+        &__user-boards-list {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .workspace {
+        &__user-boards-list {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media (max-width: 690px) {
+    .workspace {
+        &__user-boards-list {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
 }

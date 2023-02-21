@@ -1,5 +1,6 @@
 import { getBoardById } from '../../api/boards';
 import boardView from '../../components/view/board.view';
+import footerView from '../../components/view/footer.view';
 import headerView from '../../components/view/header.view';
 import { state } from '../../store/state';
 import { AbstractView } from '../AbstractView';
@@ -31,5 +32,6 @@ export class BoardPage extends AbstractView {
         const { body } = document;
         body.append(headerView.render());
         body.append(await boardView.render());
+        body.append(footerView.render());
     }
 }

@@ -2,6 +2,7 @@ import headerView from '../../components/view/header.view';
 import boardsListView from '../../components/view/boardsList.view';
 import { AbstractView } from '../AbstractView';
 import { QueryStringParams } from '../types';
+import footerView from '../../components/view/footer.view';
 
 export class WorkSpace extends AbstractView {
     constructor(params: QueryStringParams) {
@@ -18,5 +19,6 @@ export class WorkSpace extends AbstractView {
         const { body } = document;
         body.append(headerView.render());
         body.append(await boardsListView.render());
+        body.append(footerView.render());
     }
 }

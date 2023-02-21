@@ -59,12 +59,14 @@
             }
             &-edit {
                 width: 15px;
+                &_hide {
+                    display: none;
+                }
             }
             &-input {
                 font-size: 14px;
                 font-weight: 200;
                 color: black;
-                border: 1px solid black;
             }
         }
         &-login {
@@ -75,6 +77,11 @@
                 font-weight: 200;
                 color: black;
             }
+        }
+        &-delete-acc {
+            margin-top: 20px;
+            color: rgb(155, 0, 0);
+            cursor: pointer;
         }
     }
     &_server-error {

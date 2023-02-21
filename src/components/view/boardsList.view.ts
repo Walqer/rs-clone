@@ -1,6 +1,7 @@
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardListController from '../controller/boardList.controller';
+import preloader from '../../utils/Preloader';
 
 class BoardListView {
     async render(): Promise<HTMLElement> {
@@ -10,7 +11,7 @@ class BoardListView {
 
         sectionTitle.append(topbar.element);
         topbar.append(section.element);
-        sectionTitle.element.textContent = 'WorkSpace';
+        sectionTitle.element.textContent = 'Workspace';
 
         const userBoardsTitle = new Control<HTMLTitleElement>('h3', 'workspace__boards-title');
         userBoardsTitle.element.textContent = 'YOUR BOARDS';
@@ -18,7 +19,9 @@ class BoardListView {
 
         const userBoardsList = new Control<HTMLUListElement>('ul', 'workspace__user-boards-list');
         userBoardsList.append(section.element);
+        preloader.start();
         const userBoardsFromDatabase = await boardListController.getUserBoards();
+        preloader.stop();
         if (userBoardsFromDatabase !== 'error') {
             userBoardsFromDatabase.forEach((item) => {
                 const board = new Control<HTMLLIElement>('li', 'workspace__user-boards-list-item');
@@ -52,8 +55,10 @@ class BoardListView {
                 boardDelete.element.addEventListener('click', async () => {
                     // eslint-disable-next-line no-restricted-globals, no-alert
                     if (confirm('Are you sure you want to delete this board?')) {
+                        preloader.start();
                         await boardListController.deleteBoard(board.element.dataset.id as string).then(async () => {
                             await this.update();
+                            preloader.stop();
                         });
                     }
                 });
@@ -137,8 +142,10 @@ class BoardListView {
             const boardName = formData.get('name') as string;
             const boardColor = formData.get('color') as string;
             newBoardMain.element.classList.remove('active');
+            preloader.start();
             await boardListController.createBoard(boardName, boardColor).then(async () => {
                 await this.update();
+                preloader.stop();
             });
         });
         NewBoard.element.addEventListener('click', () => {
