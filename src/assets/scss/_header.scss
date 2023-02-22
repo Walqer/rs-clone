@@ -8,13 +8,13 @@
     padding: 0 20px;
     &__wrapper {
         width: 100%;
-        border-bottom: 2px solid #edeff2;
+        border-bottom: 1px solid $color_border;
         margin-bottom: 35px;
     }
     &__logo {
-        font-weight: bold;
+        font-weight: 700;
         font-size: 18px;
-        color: #7d8fb3;
+        color: $color_red;
     }
     &__menu {
         &-list {
@@ -22,8 +22,9 @@
             &-item {
                 margin-right: 21px;
                 &-link {
-                    font-size: 13px;
-                    color: #7d8fb3;
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: $color_main;
                 }
             }
         }
@@ -41,8 +42,8 @@
             }
         }
         &-info {
-            font-weight: bold;
-            font-size: 13px;
+            font-weight: 700;
+            font-size: 14px;
             margin-right: 14px;
         }
         &-menu {

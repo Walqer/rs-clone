@@ -1,8 +1,18 @@
+$color_red: #A80707;
+$color_black: #090909;
+$color_main: #7d8fb3;
+$color_white: #fff;
+$color_gray: #e8e8e8;
+$color_text_headers: #42619e;
+$color_border: #ccc;
+$color_transparent_bg: rgba(0, 0, 0, 0.4);
+$color_milk: rgb(236, 236, 236);
+
 body {
     font-family: 'Roboto', sans-serif;
-    font-weight: 700;
+    font-weight: 400;
     font-size: 16px;
-    color: #4d5e80;
+    color: $color_main;
 }
 
 ::-webkit-scrollbar {
@@ -17,5 +27,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #4d5e80;
+    background-color: #edeff2;
+}
+
+a:hover {
+  color: $color_red;
+}
+
+h1,h2,h3,h4 {
+  color: $color_text_headers;
 }

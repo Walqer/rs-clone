@@ -89,11 +89,11 @@ class BoardListView {
         newBoardMain.append(newBoardMainWrapper.element);
         const newBoardTitle = new Control<HTMLTitleElement>('h3', 'new-board__title');
         newBoardTitle.append(newBoardMain.element);
-        newBoardTitle.element.textContent = 'Создать доску';
+        newBoardTitle.element.textContent = 'Create new Board';
 
         const newBoardBgtitle = new Control<HTMLTitleElement>('h3', 'new-board__inner-title');
         newBoardBgtitle.append(newBoardMain.element);
-        newBoardBgtitle.element.textContent = 'Фон';
+        newBoardBgtitle.element.textContent = 'Background';
 
         const newBoardBgColors = new Control<HTMLUListElement>('ul', 'new-board__bg-colors');
         newBoardBgColors.append(newBoardMain.element);
@@ -107,13 +107,13 @@ class BoardListView {
 
         const newBoardName = new Control<HTMLInputElement>('h3', 'new-board__inner-title');
         newBoardName.append(newBoardMain.element);
-        newBoardName.element.textContent = 'Заголовок доски';
-        const newBoardNameInput = new Control<HTMLInputElement>('input', 'new-board__input');
+        newBoardName.element.textContent = 'Board Title';
+        const newBoardNameInput = new Control<HTMLInputElement>('input', 'input-text');
         newBoardNameInput.element.required = true;
         newBoardNameInput.element.name = 'name';
         const newBoardColorInput = new Control<HTMLInputElement>('input', 'new-board__input', 'visually-hidden');
-        const newBoardButton = new Control<HTMLButtonElement>('button', 'new-board__button', 'button');
-        newBoardButton.element.textContent = 'Создать';
+        const newBoardButton = new Control<HTMLButtonElement>('button', 'new-board__button', 'button', 'white-button');
+        newBoardButton.element.textContent = 'Create Board';
         const newBoardForm = new Control<HTMLFormElement>('form', 'new-board__inner-form');
         newBoardNameInput.append(newBoardForm.element);
 
