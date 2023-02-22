@@ -14,24 +14,44 @@
     &__content {
         display: flex;
         flex-direction: column;
-        
+
         position: relative;
         margin: auto;
         padding: 20px;
         width: 500px;
         height: 500px;
-        -webkit-animation-name: animatetop;
-        -webkit-animation-duration: 0.4s;
-        animation-name: animatetop;
-        animation-duration: 0.4s;
+        // -webkit-animation-name: animatetop;
+        // -webkit-animation-duration: 0.4s;
+        // animation-name: animatetop;
+        // animation-duration: 0.4s;
 
         border-radius: 10px;
         background: rgb(236, 236, 236);
         box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-    }
+
+        &__wrapper {
+            padding: 10px 10px 20px 10px;
+            overflow-y: scroll;
+        }
+        &__footer {
+          display: grid;
+          padding: 20px 10px 10px 10px;
+      }
+  }
 
     &__title {
         padding: 10px 0px;
+    }
+
+    &__user {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 15px;
+        font-family: 'Roboto';
+        font-size: 16px;
+        font-weight: 400;
+        padding: 6px 15px;
     }
 }
 
