@@ -1,9 +1,21 @@
+import { getBoardById } from '../../api/boards';
 import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
 import { createTask, getTasks } from '../../api/tasks';
+import { getAllUsers } from '../../api/users';
 import { Column, ColumnOrder } from '../../spa/types';
 import { state } from '../../store/state';
 
 class BoardModel {
+    async getBoardUsers() {
+        const board = await getBoardById(state.token as string, state.boardId as string);
+        const users = await getAllUsers(state.token as string);
+        if (typeof board !== 'string' && typeof users !== 'string') {
+            state.boardOwner = users.find((el) => el._id === board.owner) || null;
+            state.boardUsers = users.filter((val) => board.users.includes(val._id));
+            state.notBoardUsers = users.filter((val) => !board.users.includes(val._id) && val._id !== board.owner);
+        }
+    }
+
     async createColumn(title: string) {
         await createColumn(state.token as string, state.boardId as string, title, state.countColumns);
     }

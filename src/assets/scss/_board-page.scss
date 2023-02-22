@@ -4,7 +4,7 @@
     margin-bottom: 20px;
     min-height: calc(100vh - 200px);
     border-radius: 15px;
-    border: 2px solid #edeff2;
+    border: 1px solid #ccc;
     overflow-x: auto;
     &__header {
         display: flex;
@@ -13,7 +13,12 @@
         padding: 0 20px;
         height: 60px;
         width: inherit;
-        border-bottom: 2px solid #edeff2;
+        border-bottom: 1px solid #ccc;
+        background-color: #e8e8e8;
+
+        &-users {
+          //
+        }
     }
     &__columns {
         padding: 20px;

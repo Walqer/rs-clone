@@ -1,4 +1,4 @@
-import { Column, ColumnOrder } from '../spa/types';
+import { Column, ColumnOrder, User } from '../spa/types';
 
 interface IState {
     token: string | null;
@@ -14,6 +14,9 @@ interface IState {
     dragZone: HTMLElement | null;
     dragStartId: string;
     dragEnterId: string;
+    boardOwner: User | null;
+    boardUsers: Array<User>;
+    notBoardUsers: Array<User>;
 }
 
 export const state: IState = {
@@ -30,4 +33,7 @@ export const state: IState = {
     dragZone: null,
     dragStartId: '',
     dragEnterId: '',
+    boardOwner: null,
+    boardUsers: [],
+    notBoardUsers: [],
 };

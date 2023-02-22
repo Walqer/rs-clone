@@ -1,6 +1,10 @@
 import boardModel from '../model/board.model';
 
 class BoardController {
+    async getBoardUsers() {
+        await boardModel.getBoardUsers();
+    }
+
     async createColumn(title: string) {
         await boardModel.createColumn(title);
     }
