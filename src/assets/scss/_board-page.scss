@@ -1,6 +1,7 @@
 .board {
     margin: 0 auto;
     width: 95vw;
+    margin-bottom: 20px;
     min-height: calc(100vh - 200px);
     border-radius: 15px;
     border: 1px solid #ccc;
@@ -24,7 +25,7 @@
         height: 100%;
         width: fit-content;
         display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
+        justify-content: start;
+        align-items: start;
     }
 }

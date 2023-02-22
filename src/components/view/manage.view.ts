@@ -1,6 +1,10 @@
+import { compareHashPassword } from '../../api/apiUtils';
 import { User } from '../../spa/types';
 import { Control } from '../../utils/Control';
+import { validation } from '../../utils/Validation';
 import manageController from '../controller/manage.controller';
+import preloader from '../../utils/Preloader';
+import confirmWindowView from './confirm-window.view';
 
 class ManageView {
     async render() {
@@ -13,7 +17,7 @@ class ManageView {
 
         const nameBox = new Control<HTMLElement>('div', 'auth__form-name-box');
         const nameTitle = new Control<HTMLElement>('p', 'auth-form-name-title');
-        const nameInput = new Control<HTMLInputElement>('input', 'auth__form-name-input');
+        const nameInput = new Control<HTMLInputElement>('input', 'auth__form-input');
         const nameEdit = new Control<HTMLImageElement>('img', 'auth__form-name-edit');
 
         const passChangeTitle = new Control<HTMLElement>('h2', 'auth__form-change-pass-title');
@@ -27,6 +31,8 @@ class ManageView {
         const passNewInput = new Control<HTMLInputElement>('input', 'auth__form-input');
 
         const passSave = new Control<HTMLButtonElement>('button', 'auth__form-pass-save');
+
+        const deleteAcc = new Control<HTMLElement>('a', 'auth__form-delete-acc');
 
         const currentUser = (await manageController.getUserById()) as User;
 
@@ -45,6 +51,7 @@ class ManageView {
         nameTitle.element.textContent = 'Name:';
         nameTitle.append(nameBox.element);
         nameInput.element.value = currentUser.name;
+        nameInput.element.disabled = true;
         nameInput.append(nameBox.element);
         nameEdit.element.src = '../../assets/icons/edit.png';
         nameEdit.append(nameBox.element);
@@ -67,22 +74,82 @@ class ManageView {
         passSave.element.textContent = 'Save changes';
         passSave.append(form.element);
 
-        nameInput.element.addEventListener('click', () => {
+        deleteAcc.element.textContent = 'Delete accaunt';
+        deleteAcc.append(form.element);
+
+        nameEdit.element.addEventListener('click', () => {
+            nameEdit.element.classList.add('auth__form-name-edit_hide');
+            nameInput.element.disabled = false;
             nameInput.element.select();
+
+            const nameConfirm = new Control<HTMLElement>('div', 'auth__form-name-confirm');
+            const nameConfirmInput = new Control<HTMLInputElement>('input', 'auth__form-input');
+            const nameConfirmBtnYes = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_yes');
+            const nameConfirmBtnNo = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_no');
+
+            nameConfirm.append(nameBox.element);
+            nameConfirmInput.element.type = 'password';
+            nameConfirmInput.element.placeholder = 'Enter your password';
+            nameConfirmInput.append(nameConfirm.element);
+            nameConfirmBtnYes.element.textContent = 'yes';
+            nameConfirmBtnYes.append(nameConfirm.element);
+            nameConfirmBtnNo.element.textContent = 'no';
+            nameConfirmBtnNo.append(nameConfirm.element);
+
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            document.addEventListener('keyup', async (event) => {
-                if (event.code === 'Enter') nameInput.element.blur();
+            nameConfirmBtnYes.element.addEventListener('click', async (event) => {
+                event.preventDefault();
+                nameInput.element.disabled = true;
+                const hash = localStorage.getItem('hash') as string;
+                const pass = nameConfirmInput.element.value;
+                const isTruePass = compareHashPassword(pass, hash);
+                if (isTruePass) {
+                    preloader.start();
+                    await manageController.updateUserById(nameInput.element.value, currentUser.login, pass);
+                    preloader.stop();
+                    nameConfirm.remove();
+                    nameEdit.element.classList.remove('auth__form-name-edit_hide');
+                }
             });
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
-            nameInput.element.addEventListener('focusout', async (event) => {
-                event.preventDefault();
-                const target = event.target as HTMLInputElement;
-                await manageController.updateUserById(target.value, currentUser.login, '123');
+            nameConfirmBtnNo.element.addEventListener('click', async () => {
+                nameEdit.element.classList.remove('auth__form-name-edit_hide');
+                nameInput.element.value += ' ';
+                nameInput.element.value = nameInput.element.value.slice(0, -1);
+                nameInput.element.disabled = true;
+                nameConfirm.remove();
             });
         });
 
-        passSave.element.addEventListener('click', (event) => {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        passSave.element.addEventListener('click', async (event) => {
             event.preventDefault();
+            const isValid = validation();
+            if (isValid) {
+                const hash = localStorage.getItem('hash') as string;
+                const passCurrent = passCurrentInput.element.value;
+                const passNew = passNewInput.element.value;
+                const isTruePass = compareHashPassword(passCurrent, hash);
+                if (isTruePass) {
+                    preloader.start();
+                    await manageController.updateUserById(nameInput.element.value, currentUser.login, passNew);
+                    preloader.stop();
+                }
+            }
+        });
+
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        deleteAcc.element.addEventListener('click', async () => {
+            const { body } = document;
+            const confirmWindow = confirmWindowView.render('Do you realy want to delete your accaunt?');
+            const confirmBtn = confirmWindow.querySelector('.confirm__button_yes') as HTMLButtonElement;
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            confirmBtn.addEventListener('click', async () => {
+                preloader.start();
+                await manageController.deleteUserById();
+                preloader.stop();
+            });
+            body.append(confirmWindow);
         });
 
         return form.element;

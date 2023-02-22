@@ -14,7 +14,11 @@ class SignUpWidget {
             signUpBtn.append(auth.element);
             signUpBtn.element.addEventListener('click', (event) => {
                 event.preventDefault();
-                window.location.href = `http://localhost:8080/auth?type=signup&login=${logInInput.element.value}`;
+                if (logInInput.element.value) {
+                    window.location.href = `/auth?type=signup&login=${logInInput.element.value}`;
+                } else {
+                    window.location.href = `/auth?type=signup`;
+                }
             });
         }
         return auth.element;
