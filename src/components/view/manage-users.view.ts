@@ -14,7 +14,7 @@ class ManageUsersView {
         owner.element.innerText = 'Owner';
         let userItem = new Control<HTMLElement>('div', 'users-modal__user');
         userItem.append(modalContent.element);
-        if (state.boardOwner) userItem.element.innerText = `${state.boardOwner.login as string} - ${state.boardOwner.name as string}`;
+        if (state.boardOwner) userItem.element.innerText = `${state.boardOwner.login} - ${state.boardOwner.name}`;
 
         const users = new Control<HTMLElement>('h3', 'users-modal__title');
         users.append(modalContent.element);
@@ -23,10 +23,10 @@ class ManageUsersView {
         for (const user of state.boardUsers) {
             userItem = new Control<HTMLElement>('div', 'users-modal__user');
             const checkbox = `<label class="checkbox-container">
-                                <input type="checkbox" value="${user._id as string}" checked ${user._id === state.userId ? 'disabled' : ''}>
+                                <input type="checkbox" value="${user._id}" checked ${user._id === state.userId ? 'disabled' : ''}>
                                 <div class="checkmark"></div>
                               </label>
-                              <span>${user.login as string} - ${user.name as string}</span>`;
+                              <span>${user.login} - ${user.name}</span>`;
             userItem.append(modalContent.element);
             userItem.element.innerHTML = checkbox;
         }
@@ -38,10 +38,10 @@ class ManageUsersView {
         for (const user of state.notBoardUsers) {
             userItem = new Control<HTMLElement>('div', 'users-modal__user');
             const checkbox = `<label class="checkbox-container">
-                                <input type="checkbox" value="${user._id as string}">
+                                <input type="checkbox" value="${user._id}">
                                 <div class="checkmark"></div>
                               </label>
-                              <span>${user.login as string} - ${user.name as string}</span>`;
+                              <span>${user.login} - ${user.name}</span>`;
             userItem.append(modalContent.element);
             userItem.element.innerHTML = checkbox;
         }

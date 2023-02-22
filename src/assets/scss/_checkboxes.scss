@@ -1,55 +1,53 @@
 /* Hide the default checkbox */
 .checkbox-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
 
 .checkbox-container {
-  display: block;
-  position: relative;
-  font-size: 20px;
-  user-select: none;
+    display: block;
+    position: relative;
+    font-size: 20px;
+    user-select: none;
 }
 
 /* Create a custom checkbox */
 .checkmark {
-  position: relative;
-  top: 0;
-  left: 0;
-  height: 1.3em;
-  width: 1.3em;
-  background-color: #ccc;
-  border-radius: 100%;
-  background: #e8e8e8;
-  box-shadow: 3px 3px 5px #c5c5c5,
-              -3px -3px 5px #ffffff;
-  transition-duration: 0.5s;
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1.3em;
+    width: 1.3em;
+    background-color: #ccc;
+    border-radius: 100%;
+    background: #e8e8e8;
+    box-shadow: 3px 3px 5px #c5c5c5, -3px -3px 5px #ffffff;
+    transition-duration: 0.5s;
 }
 
 .checkbox-container input:checked ~ .checkmark {
-  box-shadow: inset 3px 3px 5px #c5c5c5,
-              inset -3px -3px 5px #ffffff;
+    box-shadow: inset 3px 3px 5px #c5c5c5, inset -3px -3px 5px #ffffff;
 }
 
 .checkmark:after {
-  content: "";
-  position: absolute;
-  opacity: 0;
+    content: '';
+    position: absolute;
+    opacity: 0;
 }
 
 .checkbox-container input:checked ~ .checkmark:after {
-  opacity: 1;
+    opacity: 1;
 }
 
 .checkbox-container .checkmark:after {
-  left: 0.55em;
-  top: 0.35em;
-  width: 0.25em;
-  height: 0.5em;
-  border: solid darkgray;
-  border-width: 0 0.15em 0.15em 0;
-  transform: rotate(45deg);
+    left: 0.55em;
+    top: 0.35em;
+    width: 0.25em;
+    height: 0.5em;
+    border: solid darkgray;
+    border-width: 0 0.15em 0.15em 0;
+    transform: rotate(45deg);
 }

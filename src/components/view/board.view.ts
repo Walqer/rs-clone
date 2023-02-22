@@ -34,7 +34,7 @@ class BoardView {
         createColumnButtons.append(createColumn.element);
         createColumnAddBtn.append(createColumnButtons.element);
         createColumnCancelBtn.append(createColumnButtons.element);
-        
+
         preloader.start();
         await boardController.getColumns();
         // eslint-disable-next-line no-restricted-syntax
