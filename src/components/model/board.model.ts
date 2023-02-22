@@ -1,4 +1,4 @@
-import { getBoardById } from '../../api/boards';
+import { getBoardById, updateBoardUsers } from '../../api/boards';
 import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
 import { createTask, getTasks } from '../../api/tasks';
 import { getAllUsers } from '../../api/users';
@@ -14,6 +14,10 @@ class BoardModel {
             state.boardUsers = users.filter((val) => board.users.includes(val._id));
             state.notBoardUsers = users.filter((val) => !board.users.includes(val._id) && val._id !== board.owner);
         }
+    }
+
+    async saveBoardUsers(users: string[]) {
+        await updateBoardUsers(state.token as string, state.boardId as string, users);
     }
 
     async createColumn(title: string) {
