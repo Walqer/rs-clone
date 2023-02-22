@@ -56,6 +56,7 @@ class SignUpView {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         submit.element.addEventListener('click', async (event) => {
             event.preventDefault();
+            passRepit.element.dataset.isRepeat = pass.element.value;
             const isValid = validation();
             if (isValid) {
                 preloader.start();

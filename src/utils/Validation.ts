@@ -41,6 +41,15 @@ export function validation() {
             }
         }
 
+        if (input.dataset.isRepeat) {
+            console.log(input.dataset.isRepeat);
+            if (input.value !== input.dataset.isRepeat) {
+                removeError(input);
+                createError(input, `Passwords must be equal`);
+                result = false;
+            }
+        }
+
         if (input.value === '') {
             removeError(input);
             createError(input, 'The field is empty!');
