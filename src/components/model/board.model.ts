@@ -2,10 +2,15 @@ import { getBoardById, updateBoardUsers } from '../../api/boards';
 import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
 import { createTask, getTasks } from '../../api/tasks';
 import { getAllUsers } from '../../api/users';
-import { Column, ColumnOrder } from '../../spa/types';
+import { Column, ColumnOrder, Board } from '../../spa/types';
 import { state } from '../../store/state';
 
 class BoardModel {
+    async getBoard(): Promise<Board | string> {
+        const board = await getBoardById(state.token as string, state.boardId as string);
+        return board;
+    }
+
     async getBoardUsers() {
         const board = await getBoardById(state.token as string, state.boardId as string);
         const users = await getAllUsers(state.token as string);

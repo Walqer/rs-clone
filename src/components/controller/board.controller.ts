@@ -1,6 +1,11 @@
 import boardModel from '../model/board.model';
 
 class BoardController {
+    async getBoard() {
+        const board = await boardModel.getBoard();
+        return board;
+    }
+
     async saveBoardUsers(users: string[]) {
         await boardModel.saveBoardUsers(users);
     }

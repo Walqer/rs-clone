@@ -1,4 +1,4 @@
-import { Column, Task } from '../../spa/types';
+import { Board, Column, Task } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
@@ -47,7 +47,7 @@ class BoardView {
         createColumn.append(columns.element);
         createColumnInput.element.value = 'Add another column';
         createColumnAddBtn.element.innerHTML = 'Add column';
-        title.element.textContent = 'Board';
+        title.element.textContent = `Board: ${(await boardController.getBoard() as Board).title}`;
 
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         usersButton.element.addEventListener('click', async () => {
