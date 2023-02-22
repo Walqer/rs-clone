@@ -23,7 +23,7 @@ class ManageUsersView {
         for (const user of state.boardUsers) {
             userItem = new Control<HTMLElement>('div', 'users-modal__user');
             const checkbox = `<label class="checkbox-container">
-                                <input type="checkbox" value="${user._id as string}" checked>
+                                <input type="checkbox" value="${user._id as string}" checked ${user._id === state.userId ? 'disabled' : ''}>
                                 <div class="checkmark"></div>
                               </label>
                               <span>${user.login as string} - ${user.name as string}</span>`;
@@ -54,7 +54,7 @@ class ManageUsersView {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         usersButton.element.addEventListener('click', async () => {
             const checkedElements = document.querySelectorAll('.checkbox-container input[type="checkbox"]:checked');
-            const checkedUsers = Array.from(checkedElements).map(x => (x as HTMLInputElement).value);
+            const checkedUsers = Array.from(checkedElements).map((x) => (x as HTMLInputElement).value);
             await boardController.saveBoardUsers(checkedUsers);
             await boardController.getBoardUsers();
             this.update();
