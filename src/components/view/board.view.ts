@@ -13,6 +13,7 @@ class BoardView {
         const search = new Control<HTMLElement>('div', 'board__header-search');
         const users = new Control<HTMLElement>('div', 'board__header-users');
         const usersButton = new Control<HTMLButtonElement>('button', 'white-button');
+        const columnsWrapper = new Control<HTMLElement>('div', 'board__columns-wrapper');
         const columns = new Control<HTMLElement>('div', 'board__columns');
         const createColumn = new Control<HTMLElement>('div', 'column-create');
         const createColumnInput = new Control<HTMLInputElement>('input', 'column-create__input');
@@ -28,7 +29,8 @@ class BoardView {
         users.append(header.element);
         usersButton.append(users.element);
         usersButton.element.innerHTML = 'Users';
-        columns.append(board.element);
+        columnsWrapper.append(board.element);
+        columns.append(columnsWrapper.element);
         createColumn.append(columns.element);
         createColumnInput.append(createColumn.element);
         createColumnButtons.append(createColumn.element);
