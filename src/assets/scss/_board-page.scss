@@ -6,6 +6,10 @@
     border-radius: 8px;
     border: 1px solid $color_border;
     overflow-x: auto;
+    background: url('../img/scrum2.png');
+    background-position: right 10px bottom;
+    background-repeat: no-repeat;
+    background-size: 300px 200px;
     &__header {
         display: flex;
         justify-content: space-between;

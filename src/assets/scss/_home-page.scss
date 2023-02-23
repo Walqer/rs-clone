@@ -48,15 +48,26 @@
         max-width: 1320px;
         height: 100%;
         padding: 0 20px;
+        gap: 10px;
     }
     &__greating {
         max-width: 400px;
         color: white;
         &-title {
-            max-width: 500px;
-            font-size: 3rem;
+            max-width: 400px;
+            font-size: 2rem;
             line-height: 1.25;
             color: #0e2656;
+        }
+        &-desc {
+          display: flex;
+//          flex-direction: column;
+          max-width: 500px;
+          align-content: center;
+          justify-content: center;
+          img {
+            max-width: 500px;
+          }
         }
         &-text {
             font-size: 2rem;
