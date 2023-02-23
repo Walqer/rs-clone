@@ -2,32 +2,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: calc(100vh - 115px);
-    padding-top: 3%;
+    //padding-top: 3%;
     &__form {
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 10px;
         width: 400px;
         margin: 40px;
         border-radius: 5px;
-        background: #f7f8fa;
-        box-shadow: 0px 2px 15px #26334d;
-        padding: 3%;
+        //background: #f7f8fa;
+        //box-shadow: 0px 2px 15px #26334d;
+        padding: 30px;
+        background: rgb(236, 236, 236);
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
         &-input {
-            height: 35px;
+            //height: 35px;
             width: 220px;
             border-radius: 5px;
-            color: #212529;
-            border: 2px solid #bdbdbd;
-            font-size: 13px;
-            &:hover {
-                border: 2px solid blue;
-            }
-            &:focus {
-                border: 2px solid rgb(116, 116, 248);
-            }
+            //color: #212529;
+            //border: 2px solid #bdbdbd;
+            //font-size: 13px;
+            // &:hover {
+            //     border: 2px solid blue;
+            // }
+            // &:focus {
+            //     border: 2px solid rgb(116, 116, 248);
+            // }
         }
         &-submit {
             height: 35px;
@@ -46,11 +50,12 @@
             margin-top: 3%;
         }
         &_error {
-            border: 2px solid red;
+            border: 2px solid $color_red;
             &-label {
-                color: red;
-                font-size: 10px;
+                color: $color_red;
+                font-size: 12px;
                 margin-left: 3%;
+                margin-top: 7px;
             }
         }
         &-name {
@@ -85,8 +90,8 @@
         }
     }
     &_server-error {
-        color: red;
-        font-size: 12px;
+        color: $color_red;
+        font-size: 14px;
         margin: 3%;
     }
 }

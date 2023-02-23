@@ -9,10 +9,10 @@ class LoginView {
         const form = new Control<HTMLFormElement>('form', 'auth__form', 'form__login');
         const title = new Control<HTMLElement>('h2', 'auth__form-title');
         const loginBox = new Control<HTMLInputElement>('div', 'auth__form-input-box');
-        const login = new Control<HTMLInputElement>('input', 'auth__form-input');
+        const login = new Control<HTMLInputElement>('input', 'auth__form-input', 'input-text');
         const passBox = new Control<HTMLInputElement>('div', 'auth__form-input-box');
-        const pass = new Control<HTMLInputElement>('input', 'auth__form-input');
-        const submit = new Control<HTMLButtonElement>('button', 'auth__form-submit');
+        const pass = new Control<HTMLInputElement>('input', 'auth__form-input', 'input-text');
+        const submit = new Control<HTMLButtonElement>('button', 'auth__form-submit', 'white-button');
         const or = new Control<HTMLElement>('p', 'auth__form-text-or');
         const reg = new Control<HTMLLinkElement>('a', 'auth__form-text-reg');
         const err = new Control<HTMLElement>('p', 'auth_server-error');
