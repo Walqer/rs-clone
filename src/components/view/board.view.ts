@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Board, Column, Task } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
 import preloader from '../../utils/Preloader';
 import manageUsersView from './manage-users.view';
+import taskView from './task.view';
 
 class BoardView {
     async render() {
@@ -21,8 +25,10 @@ class BoardView {
         const createColumnAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
         const createColumnCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
         const usersModal = new Control<HTMLDivElement>('div', 'users-modal');
+        const taskModal = new Control<HTMLDivElement>('div', 'task-modal');
 
         usersModal.append(board.element);
+        taskModal.append(board.element);
         header.append(board.element);
         title.append(header.element);
         search.append(header.element);
@@ -49,12 +55,11 @@ class BoardView {
         createColumn.append(columns.element);
         createColumnInput.element.value = 'Add another column';
         createColumnAddBtn.element.innerHTML = 'Add column';
-        title.element.textContent = `Board: ${(await boardController.getBoard() as Board).title}`;
+        title.element.textContent = `Board: ${((await boardController.getBoard()) as Board).title}`;
 
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         usersButton.element.addEventListener('click', async () => {
             if (usersModal.element.innerHTML === '') {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 await boardController.getBoardUsers();
                 usersModal.element.append(manageUsersView.render());
             }
@@ -65,6 +70,13 @@ class BoardView {
             const { target } = e;
             if ((target as HTMLElement).classList.contains('users-modal')) {
                 usersModal.element.style.display = 'none';
+            }
+        });
+
+        taskModal.element.addEventListener('click', (e) => {
+            const { target } = e;
+            if ((target as HTMLElement).classList.contains('task-modal')) {
+                taskModal.element.style.display = 'none';
             }
         });
 
@@ -111,7 +123,14 @@ class BoardView {
         for (const task of tasksInColumn) {
             const taskItem = new Control<HTMLElement>('li', 'column__task');
             taskItem.element.textContent = task.title;
+            taskItem.element.dataset.task = task._id;
             taskItem.append(tasks.element);
+            taskItem.element.addEventListener('click', () => {
+              const taskModal = document.querySelector('.task-modal') as HTMLElement;
+              taskModal.innerHTML = '';
+              taskModal.append(taskView.render(task._id));
+              taskModal.style.display = 'block';
+            });
         }
 
         createTaskInput.append(createTask.element);
