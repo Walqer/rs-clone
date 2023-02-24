@@ -30,6 +30,10 @@ body {
     background-color: #edeff2;
 }
 
+a {
+  color: $color_main;
+}
+
 a:hover {
   color: $color_red;
 }

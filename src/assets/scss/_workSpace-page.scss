@@ -1,11 +1,16 @@
 .workspace {
     width: 95vw;
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 173px);//-200px
     margin: 0 auto;
+    margin-top: 35px;
     margin-bottom: 20px;
     border-radius: 8px;
     border: 1px solid $color_border;
     overflow: auto;
+    background: url('../img/scrum1.png');
+    background-position: right 10px bottom;
+    background-repeat: no-repeat;
+    background-size: 300px 200px;
     &__topbar {
         display: flex;
         align-items: center;

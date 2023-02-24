@@ -6,7 +6,7 @@ class SignUpWidget {
         const auth = new Control<HTMLFormElement>('form', 'home-content__greating-widget');
         if (!state.token) {
             const logInInput = new Control<HTMLInputElement>('input', 'home-content__greating-widget_input');
-            const signUpBtn = new Control<HTMLButtonElement>('button', 'home-content__greating-widget_submit');
+            const signUpBtn = new Control<HTMLButtonElement>('button', 'home-content__greating-widget_submit', 'blue-button');
             logInInput.element.type = 'text';
             logInInput.element.placeholder = 'Login';
             logInInput.append(auth.element);
