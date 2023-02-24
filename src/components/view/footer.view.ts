@@ -14,11 +14,26 @@ class FooterView {
         year.element.innerHTML = '2023';
         gitLink.element.innerHTML = `
             <li class="category">
-                <a href="#" class="btn"><img src="../../assets/icons/github-logo.png"></a>
+                <a href="#" class="btn"><img src="../../assets/icons/github.png"></a>
                 <ul class="submenu">
-                    <li><a href="https://github.com/231globus">231globus</a></li>
-                    <li><a href="https://github.com/errfrost">errfrost</a></li>
-                    <li><a href="https://github.com/Walqer">Walqer</a></li>
+                    <li>
+                        <a href="https://github.com/231globus">
+                            <img src="https://avatars.githubusercontent.com/u/18600508?s=64&amp;v=4" alt="@231globus" class="avatar circle">
+                            Viacheslav Bartosh
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/Walqer">
+                            <img src="https://avatars.githubusercontent.com/u/32606809?s=64&amp;v=4" alt="@Walqer" class="avatar circle">
+                            Alimossim Agayev
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/errfrost">
+                            <img src="https://avatars.githubusercontent.com/u/93862673?s=64&amp;v=4" alt="@errfrost" class="avatar circle">
+                            Vladimir Kurganov
+                        </a>
+                    </li>
                 </ul>
             </li>
         `;
