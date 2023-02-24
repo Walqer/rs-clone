@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
+import preloader from '../../utils/Preloader';
 import boardController from '../controller/board.controller';
 
 class ManageUsersView {
@@ -55,8 +56,10 @@ class ManageUsersView {
         usersButton.element.addEventListener('click', async () => {
             const checkedElements = document.querySelectorAll('.checkbox-container input[type="checkbox"]:checked');
             const checkedUsers = Array.from(checkedElements).map((x) => (x as HTMLInputElement).value);
+            preloader.start();
             await boardController.saveBoardUsers(checkedUsers);
             await boardController.getBoardUsers();
+            preloader.stop();
             this.update();
         });
 
