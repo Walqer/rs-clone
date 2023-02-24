@@ -60,7 +60,9 @@ class BoardView {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         usersButton.element.addEventListener('click', async () => {
             if (usersModal.element.innerHTML === '') {
+                preloader.start();
                 await boardController.getBoardUsers();
+                preloader.stop();
                 usersModal.element.append(manageUsersView.render());
             }
             usersModal.element.style.display = 'block';
