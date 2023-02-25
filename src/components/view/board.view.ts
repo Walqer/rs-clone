@@ -134,6 +134,8 @@ class BoardView {
             taskItem.element.addEventListener('click', () => {
                 const taskModal = document.querySelector('.task-modal') as HTMLElement;
                 taskModal.innerHTML = '';
+                state.columnId = task.columnId;
+                state.taskId = task._id;
                 taskModal.append(taskView.render(task._id));
                 taskModal.style.display = 'block';
             });

@@ -10,7 +10,7 @@ class HeaderView {
         const menu = new Control<HTMLElement>('nav', 'header__menu');
         const menuList = new Control<HTMLUListElement>('ul', 'header__menu-list');
         const menuLinks = [
-            ['Dashboard', '/workspace'],
+            ['Workspace', '/workspace'],
             ['About Us', 'href'],
         ];
         const userBlock = new Control<HTMLDivElement>('div', 'header__user-block');
@@ -43,7 +43,7 @@ class HeaderView {
         userMenuInfoName.append(userMenuInfoContainer.element);
         userMenuInfoLogin.element.textContent = 'login';
         userMenuInfoLogin.append(userMenuInfoContainer.element);
-        userMenuTitleSet.element.textContent = 'Manage accaunt';
+        userMenuTitleSet.element.textContent = 'Manage account';
         userMenuTitleSet.append(userMenu.element);
         userMenuLogOut.element.textContent = 'Log out';
         userMenuLogOut.append(userMenu.element);
