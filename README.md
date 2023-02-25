@@ -49,10 +49,14 @@ install dependencies with $ npm i
 
 ### Back-end
 ссылка на back-end - https://github.com/errfrost/final-task-backend
+
 NodeJS + MongoDB
+
 Back-end поднят на сервисах Railway и Render, бесплатные версии которых не отличаются большой скоростью, так же как и бесплатная база данных на MongoDB. Скорость работы приложения напрямую зависит от этих сервисов, поэтому возможны подвисания в работе.
 
+
 За основу взят Back-end для final-task курса по React - https://github.com/rolling-scopes-school/final-task-backend
+
 Оригинальный back-end был доработан следующим функционалом
 
 - добвлены поля к доскам:
