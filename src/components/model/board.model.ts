@@ -86,6 +86,10 @@ class BoardModel {
         const tasks = await getTasks(state.token as string, state.boardId as string, columnId);
         return tasks;
     }
+
+    async updateTasksSet() {
+        console.log('updata tasks set');
+    }
 }
 
 export default new BoardModel();

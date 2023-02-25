@@ -1,4 +1,4 @@
-$color_red: #A80707;
+$color_red: #a80707;
 $color_black: #090909;
 $color_main: #7d8fb3;
 $color_white: #fff;
@@ -31,13 +31,16 @@ body {
 }
 
 a {
-  color: $color_main;
+    color: $color_main;
 }
 
 a:hover {
-  color: $color_red;
+    color: $color_red;
 }
 
-h1,h2,h3,h4 {
-  color: $color_text_headers;
+h1,
+h2,
+h3,
+h4 {
+    color: $color_text_headers;
 }

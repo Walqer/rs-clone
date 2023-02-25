@@ -42,6 +42,10 @@ class BoardController {
         const tasks = await boardModel.getTasks(columnID);
         return tasks;
     }
+
+    async updateTasksSet() {
+        await boardModel.updateTasksSet();
+    }
 }
 
 export default new BoardController();
