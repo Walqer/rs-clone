@@ -23,7 +23,13 @@ class TaskView {
         saveTaskButton.element.innerHTML = 'Save';
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         saveTaskButton.element.addEventListener('click', async () => {
-            await updateTaskTitle(state.token as string, state.boardId as string, state.columnId as string, state.taskId as string, 'new title');
+            await updateTaskTitle(
+                state.token as string,
+                state.boardId as string,
+                state.columnId as string,
+                state.taskId as string,
+                'new title'
+            );
             this.update(taskId);
         });
 

@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Board, Column, Task } from '../../spa/types';
+import { Board, Column, TaskOrder } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
 import preloader from '../../utils/Preloader';
 import manageUsersView from './manage-users.view';
 import taskView from './task.view';
+import { updateTasksSet } from '../../api/tasks';
 
 class BoardView {
     async render() {
@@ -120,15 +121,18 @@ class BoardView {
         const createTaskAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
         const createTaskCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
 
-        const tasksInColumn = (await boardController.getTasks(column._id)) as Task[];
+        const tasksInColumn = await boardController.getTasks(column._id);
+        state.columnTasks.push(tasksInColumn);
         // eslint-disable-next-line no-restricted-syntax
         for (const task of tasksInColumn) {
             const taskItemWrap = new Control<HTMLElement>('li', 'column__task-wrapper');
             const taskItem = new Control<HTMLElement>('div', 'column__task');
             taskItem.element.textContent = task.title;
             taskItem.element.draggable = true;
+            taskItem.element.dataset.task = task._id;
             taskItem.element.dataset.column = task.columnId;
             taskItem.append(taskItemWrap.element);
+            taskItemWrap.element.dataset.task = task._id;
             taskItemWrap.element.dataset.column = task.columnId;
             taskItemWrap.append(tasks.element);
             taskItem.element.addEventListener('click', () => {
@@ -166,9 +170,44 @@ class BoardView {
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             taskItemWrap.element.addEventListener('drop', async (event) => {
                 event.preventDefault();
+                const target = event.target as HTMLElement;
                 (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+
+                let dragColumnIndex = 0;
+                let dropColumnIndex = 0;
+                let dragTaskIndex = 0;
+                let dropTaskIndex = 0;
+
+                state.columnTasks.forEach((col, i) => {
+                    col.forEach((t, j) => {
+                        if (state.dragElement?.dataset.column === t.columnId) {
+                            dragColumnIndex = i;
+                        }
+                        if (target.dataset.column === t.columnId) {
+                            dropColumnIndex = i;
+                        }
+                        if (state.dragElement?.dataset.task === t._id) {
+                            dragTaskIndex = j;
+                        }
+                        if (target.dataset.task === t._id) {
+                            dropTaskIndex = j;
+                        }
+                    });
+                });
+
+                const temp = state.columnTasks[dragColumnIndex][dragTaskIndex];
+                state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
+                state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, temp);
+                const arrayTaskOrder: TaskOrder[] = [];
+                state.columnTasks.forEach((col) => {
+                    col.forEach((t, j) => {
+                        t.order = j;
+                        const { title, boardId, description, userId, users, ...taskOrder } = t;
+                        arrayTaskOrder.push(taskOrder);
+                    });
+                });
                 preloader.start();
-                await boardController.updateTasksSet();
+                await updateTasksSet(state.token as string, arrayTaskOrder);
                 preloader.stop();
             });
         }

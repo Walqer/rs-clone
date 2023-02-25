@@ -2,7 +2,7 @@ import { getBoardById, updateBoardUsers } from '../../api/boards';
 import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
 import { createTask, getTasks } from '../../api/tasks';
 import { getAllUsers } from '../../api/users';
-import { Column, ColumnOrder, Board } from '../../spa/types';
+import { Column, ColumnOrder, Board, Task } from '../../spa/types';
 import { state } from '../../store/state';
 
 class BoardModel {
@@ -83,7 +83,8 @@ class BoardModel {
     }
 
     async getTasks(columnId: string) {
-        const tasks = await getTasks(state.token as string, state.boardId as string, columnId);
+        const tasks = (await getTasks(state.token as string, state.boardId as string, columnId)) as Task[];
+        tasks.sort((a, b) => (a.order > b.order ? 1 : -1));
         return tasks;
     }
 
