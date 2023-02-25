@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
-import boardController from '../controller/board.controller';
 
 class TaskView {
     render(taskId: string) {
@@ -12,7 +11,7 @@ class TaskView {
         const owner = new Control<HTMLElement>('h3', 'task-modal__title');
         owner.append(modalContent.element);
         owner.element.innerText = taskId;
-        let userItem = new Control<HTMLElement>('div', 'task-modal__user');
+        const userItem = new Control<HTMLElement>('div', 'task-modal__user');
         userItem.append(modalContent.element);
         if (state.boardOwner) userItem.element.innerText = `${state.boardOwner.login} - ${state.boardOwner.name}`;
 
