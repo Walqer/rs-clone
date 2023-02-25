@@ -128,10 +128,10 @@ class BoardView {
             taskItem.element.dataset.task = task._id;
             taskItem.append(tasks.element);
             taskItem.element.addEventListener('click', () => {
-              const taskModal = document.querySelector('.task-modal') as HTMLElement;
-              taskModal.innerHTML = '';
-              taskModal.append(taskView.render(task._id));
-              taskModal.style.display = 'block';
+                const taskModal = document.querySelector('.task-modal') as HTMLElement;
+                taskModal.innerHTML = '';
+                taskModal.append(taskView.render(task._id));
+                taskModal.style.display = 'block';
             });
         }
 

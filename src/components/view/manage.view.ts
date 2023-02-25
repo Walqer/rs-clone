@@ -74,7 +74,7 @@ class ManageView {
         passSave.element.textContent = 'Save changes';
         passSave.append(form.element);
 
-        deleteAcc.element.textContent = 'Delete accaunt';
+        deleteAcc.element.textContent = 'Delete account';
         deleteAcc.append(form.element);
 
         nameEdit.element.addEventListener('click', () => {
@@ -141,7 +141,7 @@ class ManageView {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         deleteAcc.element.addEventListener('click', async () => {
             const { body } = document;
-            const confirmWindow = confirmWindowView.render('Do you realy want to delete your accaunt?');
+            const confirmWindow = confirmWindowView.render('Do you realy want to delete your account?');
             const confirmBtn = confirmWindow.querySelector('.confirm__button_yes') as HTMLButtonElement;
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
             confirmBtn.addEventListener('click', async () => {

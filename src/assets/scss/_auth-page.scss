@@ -37,6 +37,9 @@
             //     border: 2px solid rgb(116, 116, 248);
             // }
         }
+        &-pass-save {
+            cursor: pointer;
+        }
         &-submit {
             height: 35px;
             width: 220px;
@@ -67,6 +70,7 @@
                 margin-bottom: 15px;
             }
             &-edit {
+                cursor: pointer;
                 width: 15px;
                 &_hide {
                     display: none;
@@ -79,8 +83,6 @@
             }
         }
         &-login {
-            &-title {
-            }
             &-value {
                 font-size: 14px;
                 font-weight: 200;
