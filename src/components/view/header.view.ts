@@ -48,6 +48,7 @@ class HeaderView {
         userMenuLogOut.element.textContent = 'Log out';
         userMenuLogOut.append(userMenu.element);
 
+        logo.element.dataset.link = '';
         logo.element.href = '/';
         logo.element.textContent = 'MiniTrello';
         logo.append(header.element);
@@ -58,6 +59,7 @@ class HeaderView {
         menuLinks.forEach((item) => {
             const menuListItem = new Control<HTMLLIElement>('li', 'header__menu-list-item');
             const menuListLink = new Control<HTMLLinkElement>('a', 'header__menu-list-item-link');
+            menuListLink.element.dataset.link = '';
             menuListLink.element.textContent = `${item[0]}`;
             menuListLink.element.href = `${item[1]}`;
             menuListLink.element.dataset.link = '';
