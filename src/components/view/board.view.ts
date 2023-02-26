@@ -134,12 +134,13 @@ class BoardView {
             taskItemWrap.element.dataset.task = task._id;
             taskItemWrap.element.dataset.column = task.columnId;
             taskItemWrap.append(tasks.element);
-            taskItem.element.addEventListener('click', () => {
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            taskItem.element.addEventListener('click', async () => {
                 const taskModal = document.querySelector('.task-modal') as HTMLElement;
                 taskModal.innerHTML = '';
                 state.columnId = task.columnId;
                 state.taskId = task._id;
-                taskModal.append(taskView.render(task._id));
+                taskModal.append(await taskView.render(state.boardId as string, column._id, task._id));
                 taskModal.style.display = 'block';
             });
 
