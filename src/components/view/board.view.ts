@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { Board, Column, Task } from '../../spa/types';
+import { Board, Column } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
 import boardController from '../controller/board.controller';
@@ -120,13 +120,20 @@ class BoardView {
         const createTaskAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
         const createTaskCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
 
-        const tasksInColumn = (await boardController.getTasks(column._id)) as Task[];
+        const tasksInColumn = await boardController.getTasks(column._id);
+        state.columnTasks.push(tasksInColumn);
         // eslint-disable-next-line no-restricted-syntax
         for (const task of tasksInColumn) {
-            const taskItem = new Control<HTMLElement>('li', 'column__task');
+            const taskItemWrap = new Control<HTMLElement>('li', 'column__task-wrapper');
+            const taskItem = new Control<HTMLElement>('div', 'column__task');
             taskItem.element.textContent = task.title;
+            taskItem.element.draggable = true;
             taskItem.element.dataset.task = task._id;
-            taskItem.append(tasks.element);
+            taskItem.element.dataset.column = task.columnId;
+            taskItem.append(taskItemWrap.element);
+            taskItemWrap.element.dataset.task = task._id;
+            taskItemWrap.element.dataset.column = task.columnId;
+            taskItemWrap.append(tasks.element);
             taskItem.element.addEventListener('click', () => {
                 const taskModal = document.querySelector('.task-modal') as HTMLElement;
                 taskModal.innerHTML = '';
@@ -134,6 +141,39 @@ class BoardView {
                 state.taskId = task._id;
                 taskModal.append(taskView.render(task._id));
                 taskModal.style.display = 'block';
+            });
+
+            taskItemWrap.element.addEventListener('dragenter', (event) => {
+                const target = event.currentTarget as HTMLElement;
+                const child = target.firstElementChild as HTMLElement;
+                if (state.dragElement?.classList.contains('column__task') && child !== state.dragElement) {
+                    if (state.dragZone?.dataset.column !== target.dataset.column) {
+                        target.insertAdjacentElement('afterend', state.dragZone as HTMLElement);
+                        (state.dragZone as HTMLElement).dataset.column = target.dataset.column;
+                    }
+                    state.dragZone?.appendChild(child);
+                    target.appendChild(state.dragElement);
+                    target.classList.add('column__wrapper_hide');
+                }
+            });
+
+            taskItemWrap.element.addEventListener('dragleave', (event) => {
+                state.dragZone = event.currentTarget as HTMLElement;
+                (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+            });
+
+            taskItemWrap.element.addEventListener('dragover', (event) => {
+                event.preventDefault();
+            });
+
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            taskItemWrap.element.addEventListener('drop', async (event) => {
+                event.preventDefault();
+                const target = event.currentTarget as HTMLElement;
+                target.classList.remove('column__wrapper_hide');
+                preloader.start();
+                await boardController.updateTasksSet(target.dataset.column as string, target.dataset.task as string);
+                preloader.stop();
             });
         }
 
@@ -171,14 +211,14 @@ class BoardView {
             });
         });
         columnBox.element.draggable = true;
-        columnBox.element.dataset.column = column._id;
-        columnWrap.element.dataset.column = column._id;
+        columnBox.element.dataset.id = column._id;
+        columnWrap.element.dataset.id = column._id;
         columnBox.element.dataset.order = String(column.order);
         columnName.element.value = column.title;
         columnRemoveImg.element.src = '../assets/icons/remove-task.png';
 
         columnBox.element.addEventListener('dragstart', (event) => {
-            const target = event.currentTarget as HTMLElement;
+            const target = event.target as HTMLElement;
             const parent = target.parentElement as HTMLElement;
             setTimeout(() => {
                 target.classList.add('column_hide');
@@ -186,7 +226,7 @@ class BoardView {
             }, 0);
             state.dragElement = target;
             state.dragZone = parent;
-            state.dragStartId = target.dataset.column as string;
+            state.dragStartId = target.dataset.id as string;
         });
 
         columnBox.element.addEventListener('dragend', (event) => {
@@ -198,27 +238,33 @@ class BoardView {
         });
 
         columnWrap.element.addEventListener('dragenter', (event) => {
-            const target = event.currentTarget as HTMLElement;
-            const child = target.firstElementChild as HTMLElement;
-            state.dragEnterId = child.dataset.column as string;
-            (state.dragZone as HTMLElement).append(child);
-            target.append(state.dragElement as HTMLElement);
-            target.classList.add('column__wrapper_hide');
+            if (state.dragElement?.classList.contains('column')) {
+                const target = event.currentTarget as HTMLElement;
+                const child = target.firstElementChild as HTMLElement;
+                state.dragEnterId = child.dataset.id as string;
+                (state.dragZone as HTMLElement).append(child);
+                target.append(state.dragElement);
+                target.classList.add('column__wrapper_hide');
+            }
         });
 
         columnWrap.element.addEventListener('dragleave', (event) => {
-            state.dragZone = event.currentTarget as HTMLElement;
-            (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+            if (state.dragElement?.classList.contains('column')) {
+                state.dragZone = event.currentTarget as HTMLElement;
+                (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+            }
         });
 
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         columnWrap.element.addEventListener('drop', async (event) => {
             event.preventDefault();
-            (state.dragElement as HTMLElement).classList.remove('column_hide');
-            (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
-            preloader.start();
-            await boardController.updateColumnSet();
-            preloader.stop();
+            if (state.dragElement?.classList.contains('column')) {
+                state.dragElement.classList.remove('column_hide');
+                (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+                preloader.start();
+                await boardController.updateColumnSet();
+                preloader.stop();
+            }
         });
 
         columnName.element.addEventListener('mouseup', () => {

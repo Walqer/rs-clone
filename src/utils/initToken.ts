@@ -12,7 +12,6 @@ export function initToken() {
         if (curTime > expTime) {
             // localStorage.removeItem('token');
             // state.token = null;
-            console.log('token is invalid');
         }
     }
 }
