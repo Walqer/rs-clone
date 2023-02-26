@@ -75,10 +75,16 @@ class BoardView {
             }
         });
 
-        taskModal.element.addEventListener('click', (e) => {
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        taskModal.element.addEventListener('click', async (e) => {
             const { target } = e;
-            if ((target as HTMLElement).classList.contains('task-modal')) {
+            if (
+                (target as HTMLElement).classList.contains('task-modal') ||
+                (target as HTMLElement).classList.contains('task-modal__remove')
+            ) {
                 taskModal.element.style.display = 'none';
+                preloader.start();
+                await this.update();
             }
         });
 

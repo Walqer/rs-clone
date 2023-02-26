@@ -1,4 +1,4 @@
-import { getTaskById, updateTaskById, updateTaskTitle } from '../../api/tasks';
+import { getTaskById, updateTaskTitle, updateTaskDescription, deleteTaskById } from '../../api/tasks';
 import { Task } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
@@ -9,29 +9,39 @@ class TaskView {
         const modal = new Control<HTMLElement>('div', 'task-modal__content');
         const modalContent = new Control<HTMLElement>('div', 'task-modal__content__wrapper');
         modalContent.append(modal.element);
-
-        const owner = new Control<HTMLElement>('h3', 'task-modal__title');
-        owner.append(modalContent.element);
-        owner.element.innerText = taskId;
-        console.log(task);
         const title = new Control<HTMLTextAreaElement>('textarea', 'task-modal__title', 'textarea');
+        const description = new Control<HTMLTextAreaElement>('textarea', 'task-modal__description', 'textarea');
+        const removeTask = new Control<HTMLDivElement>('div', 'task-modal__remove');
         title.append(modalContent.element);
         title.element.innerText = task.title;
+        description.append(modalContent.element);
+        removeTask.append(modalContent.element);
+        description.element.innerHTML = task.description;
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         title.element.addEventListener('change', async () => {
             task.title = title.element.value;
-            await updateTaskById(
+            await updateTaskTitle(
                 state.token as string,
-                task.boardId,
-                task.columnId,
-                task._id,
-                task.title,
-                task.order,
-                task.description,
-                +task.userId,
-                task.users
+                state.boardId as string,
+                state.columnId as string,
+                state.taskId as string,
+                task.title
             );
-            console.log(task);
+        });
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        description.element.addEventListener('change', async () => {
+            task.description = description.element.value;
+            await updateTaskDescription(
+                state.token as string,
+                state.boardId as string,
+                state.columnId as string,
+                state.taskId as string,
+                task.description
+            );
+        });
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        removeTask.element.addEventListener('click', async () => {
+            await deleteTaskById(state.token as string, state.boardId as string, state.columnId as string, state.taskId as string);
         });
         const userItem = new Control<HTMLElement>('div', 'task-modal__user');
         userItem.append(modalContent.element);
@@ -39,20 +49,6 @@ class TaskView {
 
         const modalFooter = new Control<HTMLElement>('div', 'task-modal__content__footer');
         modalFooter.append(modal.element);
-        const saveTaskButton = new Control<HTMLButtonElement>('button', 'white-button');
-        saveTaskButton.append(modalFooter.element);
-        saveTaskButton.element.innerHTML = 'Save';
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        saveTaskButton.element.addEventListener('click', async () => {
-            await updateTaskTitle(
-                state.token as string,
-                state.boardId as string,
-                state.columnId as string,
-                state.taskId as string,
-                'new title'
-            );
-            await this.update(boardId, columnId, taskId);
-        });
 
         return modal.element;
     }

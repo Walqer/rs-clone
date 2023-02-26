@@ -79,7 +79,7 @@ class BoardModel {
     }
 
     async createNewTask(columnID: string, title: string, order: number) {
-        await createTask(state.token as string, state.boardId as string, columnID, title, order, 'test', state.userId as string, []);
+        await createTask(state.token as string, state.boardId as string, columnID, title, order, ' ', state.userId as string, []);
     }
 
     async getTasks(columnId: string) {
