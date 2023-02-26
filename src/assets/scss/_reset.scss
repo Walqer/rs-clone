@@ -47,3 +47,12 @@ input:focus {
     border: none;
     outline: none;
 }
+
+.textarea {
+    resize: none;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    border: none;
+    background-color: transparent;
+    padding: 0 10px;
+}
