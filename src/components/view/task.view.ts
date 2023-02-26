@@ -48,12 +48,31 @@ class TaskView {
             await boardController.deleteTaskById();
             preloader.stop();
         });
+
         const userItem = new Control<HTMLElement>('div', 'task-modal__user');
         userItem.append(modalContent.element);
         if (state.boardOwner) userItem.element.innerText = `${state.boardOwner.login} - ${state.boardOwner.name}`;
 
         const modalFooter = new Control<HTMLElement>('div', 'task-modal__content__footer');
         modalFooter.append(modal.element);
+        // это кнопка сохранения
+        // const saveTaskButton = new Control<HTMLButtonElement>('button', 'white-button');
+        // saveTaskButton.append(modalFooter.element);
+        // saveTaskButton.element.innerHTML = 'Save';
+        // // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        // saveTaskButton.element.addEventListener('click', async () => {
+        //     await updateTaskById(
+        //         state.token as string,
+        //         task.boardId,
+        //         task.columnId,
+        //         task._id,
+        //         task.title,
+        //         task.order,
+        //         task.description,
+        //         task.userId,
+        //         task.users
+        //     );
+        // });
 
         return modal.element;
     }
