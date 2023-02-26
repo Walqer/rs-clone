@@ -21,11 +21,13 @@ class HomeHeaderView {
         const logOut = new Control<HTMLElement>('li', 'home-header__list-item');
         const logOutLink = new Control<HTMLLinkElement>('a', 'home-header__list-item-link');
         title.element.textContent = 'MiniTrello';
+        title.element.dataset.link = '';
         title.element.href = '/';
         title.append(header.element);
         links.append(header.element);
         if (state.token) {
             workspace.append(links.element);
+            workspaceLink.element.dataset.link = '';
             workspaceLink.element.href = '/workspace';
             workspaceLink.element.textContent = 'Workspace';
             workspaceLink.append(workspace.element);
@@ -37,10 +39,12 @@ class HomeHeaderView {
             });
         } else {
             signUp.append(links.element);
+            signUpLink.element.dataset.link = '';
             signUpLink.element.href = '/auth?type=signup';
             signUpLink.element.textContent = 'Sign up';
             signUpLink.append(signUp.element);
             logIn.append(links.element);
+            logInLink.element.dataset.link = '';
             logInLink.element.href = '/auth?type=login';
             logInLink.element.textContent = 'Log in';
             logInLink.append(logIn.element);

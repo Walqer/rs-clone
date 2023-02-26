@@ -70,6 +70,7 @@ class SignUpView {
         or.element.textContent = 'or';
         or.append(form.element);
         log.element.textContent = 'Log in';
+        log.element.dataset.link = '';
         log.element.href = '/auth?type=login';
         log.append(form.element);
 

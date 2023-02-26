@@ -49,6 +49,7 @@ class LoginView {
         or.element.textContent = 'or';
         or.append(form.element);
         reg.element.textContent = 'Register accaunt';
+        reg.element.dataset.link = '';
         reg.element.href = '/auth?type=signup';
         reg.append(form.element);
         return form.element;

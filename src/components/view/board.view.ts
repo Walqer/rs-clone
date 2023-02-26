@@ -51,7 +51,6 @@ class BoardView {
             columns.element.append(await this.renderColumn(column));
         }
         preloader.stop();
-        console.log(state.columnTasks);
         createColumn.append(columns.element);
         createColumnInput.element.value = 'Add another column';
         createColumnAddBtn.element.innerHTML = 'Add column';
@@ -153,6 +152,7 @@ class BoardView {
             taskItemWrap.element.addEventListener('dragenter', (event) => {
                 const target = event.currentTarget as HTMLElement;
                 const child = target.firstElementChild as HTMLElement;
+                console.log(target);
                 if (state.dragElement?.classList.contains('column__task') && child !== state.dragElement) {
                     if (state.dragZone?.dataset.column !== target.dataset.column) {
                         target.insertAdjacentElement('afterend', state.dragZone as HTMLElement);
@@ -196,6 +196,7 @@ class BoardView {
         columnName.append(columnTitle.element);
         columnRemove.append(columnTitle.element);
         columnRemoveImg.append(columnRemove.element);
+        tasks.element.dataset.tasks = column._id;
         tasks.append(columnBox.element);
         createTask.append(columnBox.element);
         createTaskInput.element.addEventListener('focus', () => {
@@ -245,13 +246,20 @@ class BoardView {
         });
 
         columnWrap.element.addEventListener('dragenter', (event) => {
+            const target = event.currentTarget as HTMLElement;
+            const child = target.firstElementChild as HTMLElement;
             if (state.dragElement?.classList.contains('column')) {
-                const target = event.currentTarget as HTMLElement;
-                const child = target.firstElementChild as HTMLElement;
                 state.dragEnterId = child.dataset.id as string;
                 (state.dragZone as HTMLElement).append(child);
                 target.append(state.dragElement);
                 target.classList.add('column__wrapper_hide');
+            } else if (state.dragElement?.classList.contains('column__task')) {
+                const isEmptyColumn = document.querySelector(`[data-column = '${target.dataset.id as string}']`) as HTMLElement;
+                if (!isEmptyColumn) {
+                    const taskList = document.querySelector(`[data-tasks = '${target.dataset.id as string}']`) as HTMLElement;
+                    taskList.append(state.dragZone as HTMLElement);
+                    (state.dragZone as HTMLElement).dataset.column = taskList.dataset.tasks;
+                }
             }
         });
 
