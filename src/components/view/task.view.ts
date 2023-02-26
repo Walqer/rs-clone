@@ -1,7 +1,9 @@
-import { getTaskById, updateTaskTitle, updateTaskDescription, deleteTaskById } from '../../api/tasks';
+import { getTaskById, updateTaskTitle, updateTaskDescription } from '../../api/tasks';
 import { Task } from '../../spa/types';
 import { state } from '../../store/state';
 import { Control } from '../../utils/Control';
+import preloader from '../../utils/Preloader';
+import boardController from '../controller/board.controller';
 
 class TaskView {
     async render(boardId: string, columnId: string, taskId: string) {
@@ -41,7 +43,9 @@ class TaskView {
         });
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         removeTask.element.addEventListener('click', async () => {
-            await deleteTaskById(state.token as string, state.boardId as string, state.columnId as string, state.taskId as string);
+            preloader.start();
+            await boardController.deleteTaskById();
+            preloader.stop();
         });
         const userItem = new Control<HTMLElement>('div', 'task-modal__user');
         userItem.append(modalContent.element);

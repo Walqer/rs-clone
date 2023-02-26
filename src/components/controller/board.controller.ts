@@ -38,6 +38,10 @@ class BoardController {
         await boardModel.createNewTask(columnID, title, order);
     }
 
+    async deleteTaskById() {
+        await boardModel.deleteTaskById();
+    }
+
     async getTasks(columnID: string) {
         const tasks = await boardModel.getTasks(columnID);
         return tasks;

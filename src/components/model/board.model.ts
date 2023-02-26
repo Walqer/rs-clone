@@ -79,7 +79,36 @@ class BoardModel {
     }
 
     async createNewTask(columnID: string, title: string, order: number) {
+        let orderIndex = 0;
+        state.columnTasks.forEach((col, i) => {
+            col.forEach((t) => {
+                if (t.columnId === columnID) orderIndex = i;
+            });
+        });
+        order = state.columnTasks[orderIndex].length;
         await createTask(state.token as string, state.boardId as string, columnID, title, order, ' ', state.userId as string, []);
+    }
+
+    async deleteTaskById() {
+        await deleteTaskById(state.token as string, state.boardId as string, state.columnId as string, state.taskId as string);
+        const arrayTaskOrder: TaskOrder[] = [];
+        let columnIndex = 0;
+        let taskIndex = 0;
+        state.columnTasks.forEach((col, i) => {
+            col.forEach((t, j) => {
+                if (t.columnId === state.columnId) columnIndex = i;
+                if (t._id === state.taskId) taskIndex = j;
+            });
+        });
+        state.columnTasks[columnIndex].splice(taskIndex, 1);
+        state.columnTasks.forEach((col) => {
+            col.forEach((t, j) => {
+                t.order = j;
+                const { title, boardId, description, userId, users, ...taskOrder } = t;
+                arrayTaskOrder.push(taskOrder);
+            });
+        });
+        await updateTasksSet(state.token as string, arrayTaskOrder);
     }
 
     async getTasks(columnId: string) {
@@ -121,11 +150,12 @@ class BoardModel {
                 state.columnTasks[dragColumnIndex][dragTaskIndex].users
             );
             state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, resp as Task);
+            state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
         } else {
             const temp = state.columnTasks[dragColumnIndex][dragTaskIndex];
+            state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
             state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, temp);
         }
-        state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
 
         const arrayTaskOrder: TaskOrder[] = [];
         state.columnTasks.forEach((col) => {

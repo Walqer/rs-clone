@@ -51,7 +51,7 @@ class BoardView {
             columns.element.append(await this.renderColumn(column));
         }
         preloader.stop();
-
+        console.log(state.columnTasks);
         createColumn.append(columns.element);
         createColumnInput.element.value = 'Add another column';
         createColumnAddBtn.element.innerHTML = 'Add column';
