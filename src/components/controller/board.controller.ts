@@ -43,8 +43,8 @@ class BoardController {
         return tasks;
     }
 
-    async updateTasksSet() {
-        await boardModel.updateTasksSet();
+    async updateTasksSet(dropDataSetColumn: string, dropDataSetTask: string) {
+        await boardModel.updateTasksSet(dropDataSetColumn, dropDataSetTask);
     }
 }
 
