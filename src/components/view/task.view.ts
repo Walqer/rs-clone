@@ -44,6 +44,7 @@ class TaskView {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         removeTask.element.addEventListener('click', async () => {
             preloader.start();
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
             await boardController.deleteTaskById();
             preloader.stop();
         });
