@@ -48,35 +48,36 @@ install dependencies with $ npm i
 ---
 
 ### Back-end
+
 ссылка на back-end - https://github.com/errfrost/final-task-backend
 
 NodeJS + MongoDB
 
 Back-end поднят на сервисах Railway и Render, бесплатные версии которых не отличаются большой скоростью, так же как и бесплатная база данных на MongoDB. Скорость работы приложения напрямую зависит от этих сервисов, поэтому возможны подвисания в работе.
 
-
 За основу взят Back-end для final-task курса по React - https://github.com/rolling-scopes-school/final-task-backend
 
 Оригинальный back-end был доработан следующим функционалом
 
-- добавлены поля к доскам:
-  - bgСolor - реализован функционал, позволяющий получать и изменять цвет доски
-  - bgImg - реализован функционал, позволяющий получать и изменять фоновую картинку у доски
-  - usersFavourite - реализован функционал, позволяющий получать, добавлять и удалять доски в избранное у пользователя
+-   добавлены поля к доскам:
 
-- все имеющиеся функции back-end обновлены с учетом появления новых полей
+    -   bgСolor - реализован функционал, позволяющий получать и изменять цвет доски
+    -   bgImg - реализован функционал, позволяющий получать и изменять фоновую картинку у доски
+    -   usersFavourite - реализован функционал, позволяющий получать, добавлять и удалять доски в избранное у пользователя
 
-- в оригинальном backend-е не было возможности обновлять поля по отдельности, написан функционал для такого обновления и соответствующие функции:
-  - updateBoardColor
-  - updateBoardImg
-  - updateBoardFavourites
-  - updateBoardUsers
-  - updateBoardTitle
-  - updateTaskTitle
-  - updateTaskDescription
-  - updateTaskOrder
-  - updateTaskUsers
-  - updateTaskColumnId
+-   все имеющиеся функции back-end обновлены с учетом появления новых полей
+
+-   в оригинальном backend-е не было возможности обновлять поля по отдельности, написан функционал для такого обновления и соответствующие функции:
+    -   updateBoardColor
+    -   updateBoardImg
+    -   updateBoardFavourites
+    -   updateBoardUsers
+    -   updateBoardTitle
+    -   updateTaskTitle
+    -   updateTaskDescription
+    -   updateTaskOrder
+    -   updateTaskUsers
+    -   updateTaskColumnId
 
 ---
 
