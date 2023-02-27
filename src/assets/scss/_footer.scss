@@ -40,7 +40,15 @@
 .categories .category:hover .submenu {
     display: flex;
     align-items: center;
-    gap: 10px;
+    @include media-laptop {
+        gap: 10px;
+    }
+    @include media-tablet {
+        gap: 10px;
+    }
+    @include media-mobile {
+        gap: 0px;
+    }
 }
 
 .categories .category .submenu {
@@ -54,6 +62,8 @@
     color: $color_main;
     margin-right: 10px;
     font-size: 14px;
+    display: inline-flex;
+    align-items: center;
 }
 
 .categories .category .submenu li a:hover {
@@ -72,4 +82,16 @@
 
 .circle {
     border-radius: var(--primer-borderRadius-full, 50%) !important;
+}
+
+.submenu-text {
+    @include media-laptop {
+        display: block;
+    }
+    @include media-tablet {
+        display: none;
+    }
+    @include media-mobile {
+        display: none;
+    }
 }

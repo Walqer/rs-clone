@@ -19,19 +19,19 @@ class FooterView {
                     <li>
                         <a href="https://github.com/231globus">
                             <img src="https://avatars.githubusercontent.com/u/18600508?s=64&amp;v=4" alt="@231globus" class="avatar circle">
-                            Viacheslav Bartosh
+                            <div class="submenu-text">Viacheslav Bartosh</div>
                         </a>
                     </li>
                     <li>
                         <a href="https://github.com/Walqer">
                             <img src="https://avatars.githubusercontent.com/u/32606809?s=64&amp;v=4" alt="@Walqer" class="avatar circle">
-                            Alimossim Agayev
+                            <div class="submenu-text">Alimossim Agayev</div>
                         </a>
                     </li>
                     <li>
                         <a href="https://github.com/errfrost">
                             <img src="https://avatars.githubusercontent.com/u/93862673?s=64&amp;v=4" alt="@errfrost" class="avatar circle">
-                            Vladimir Kurganov
+                            <div class="submenu-text">Vladimir Kurganov</div>
                         </a>
                     </li>
                 </ul>
