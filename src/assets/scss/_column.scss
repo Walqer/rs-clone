@@ -49,8 +49,11 @@
             height: 40px;
             margin-right: 15px;
             font-size: 14px;
-            background-color: blue;
+            background-color: #197fd7;
             color: white;
+            &:hover {
+                color: $color_black;
+            }
         }
         &__cancel-btn {
             cursor: pointer;
