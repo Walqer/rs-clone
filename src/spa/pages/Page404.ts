@@ -18,7 +18,7 @@ export class Page404 extends AbstractView {
     async mounted() {
         const { body } = document;
         body.append(homeHeaderView.render());
-        const img = `<img src="../assets/img/not-found.png" class="not-found-image">`;
+        const img = `<div style="min-height: calc(100vh - 115px);"><img src="../assets/img/not-found.png" class="not-found-image"></div>`;
         body.insertAdjacentHTML('beforeend', img);
         body.append(footerView.render());
     }
