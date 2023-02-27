@@ -109,6 +109,8 @@ class ManageView {
                     preloader.stop();
                     nameConfirm.remove();
                     nameEdit.element.classList.remove('auth__form-name-edit_hide');
+                } else {
+                    alert('Wrong password!');
                 }
             });
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -134,6 +136,8 @@ class ManageView {
                     preloader.start();
                     await manageController.updateUserById(nameInput.element.value, currentUser.login, passNew);
                     preloader.stop();
+                } else {
+                    alert('Wrong password!');
                 }
             }
         });
