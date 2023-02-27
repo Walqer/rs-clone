@@ -1,7 +1,11 @@
 import homeHeaderModel from '../components/model/home-header.model';
 import { JWTData } from '../spa/types';
+import { urls } from './apiConfig';
 
 export async function fetchApi(url: string, method: string, token: string, body?: object) {
+    if (!localStorage.getItem('token') && url !== `${urls.signin}` && url !== `${urls.signup}`) {
+        document.location = '/auth?type=login';
+    }
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     if (token !== '') headers.append('Authorization', `Bearer ${token}`);
@@ -18,6 +22,9 @@ export async function fetchApi(url: string, method: string, token: string, body?
 }
 
 export async function fetchApiFormData(url: string, method: string, token: string, formElement: HTMLFormElement) {
+    if (!localStorage.getItem('token')) {
+        document.location = '/auth?type=login';
+    }
     const headers = new Headers();
     if (token !== '') headers.append('Authorization', `Bearer ${token}`);
     const data = new FormData(formElement);
