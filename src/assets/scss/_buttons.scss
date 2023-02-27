@@ -7,6 +7,7 @@
     border: 1px solid #e8e8e8;
     transition: all 0.3s;
     box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+    white-space: nowrap;
 }
 
 .white-button:hover {
@@ -27,6 +28,7 @@
     border: 1px solid #197fd7;
     transition: all 0.3s;
     box-shadow: 6px 6px 12px #43106e, -6px -6px 12px #6316a2;
+    white-space: nowrap;
 }
 
 .blue-button:hover {

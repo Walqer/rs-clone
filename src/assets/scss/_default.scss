@@ -13,6 +13,8 @@ body {
     font-weight: 400;
     font-size: 16px;
     color: $color_main;
+    min-width: 360px;
+    overflow: scroll;
 }
 
 ::-webkit-scrollbar {

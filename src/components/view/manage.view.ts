@@ -17,20 +17,20 @@ class ManageView {
 
         const nameBox = new Control<HTMLElement>('div', 'auth__form-name-box');
         const nameTitle = new Control<HTMLElement>('p', 'auth-form-name-title');
-        const nameInput = new Control<HTMLInputElement>('input', 'auth__form-input');
+        const nameInput = new Control<HTMLInputElement>('input', 'auth__form-input', 'input-text');
         const nameEdit = new Control<HTMLImageElement>('img', 'auth__form-name-edit');
 
         const passChangeTitle = new Control<HTMLElement>('h2', 'auth__form-change-pass-title');
 
         const passCurrentBox = new Control<HTMLElement>('div', 'auth__form-current-pass-box');
         const passCurrentTitle = new Control<HTMLElement>('p', 'auth-form-current-pass-title');
-        const passCurrentInput = new Control<HTMLInputElement>('input', 'auth__form-input');
+        const passCurrentInput = new Control<HTMLInputElement>('input', 'auth__form-input', 'input-text');
 
         const passNewBox = new Control<HTMLElement>('div', 'auth__form-new-pass-box');
         const passNewTitle = new Control<HTMLElement>('p', 'auth-form-new-pass-title');
-        const passNewInput = new Control<HTMLInputElement>('input', 'auth__form-input');
+        const passNewInput = new Control<HTMLInputElement>('input', 'auth__form-input', 'input-text');
 
-        const passSave = new Control<HTMLButtonElement>('button', 'auth__form-pass-save');
+        const passSave = new Control<HTMLButtonElement>('button', 'auth__form-pass-save', 'white-button');
 
         const deleteAcc = new Control<HTMLElement>('a', 'auth__form-delete-acc');
 
@@ -83,9 +83,9 @@ class ManageView {
             nameInput.element.select();
 
             const nameConfirm = new Control<HTMLElement>('div', 'auth__form-name-confirm');
-            const nameConfirmInput = new Control<HTMLInputElement>('input', 'auth__form-input');
-            const nameConfirmBtnYes = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_yes');
-            const nameConfirmBtnNo = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_no');
+            const nameConfirmInput = new Control<HTMLInputElement>('input', 'auth__form-input', 'input-text');
+            const nameConfirmBtnYes = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_yes', 'white-button');
+            const nameConfirmBtnNo = new Control<HTMLButtonElement>('button', 'auth__form-name-confirm-button_no', 'white-button');
 
             nameConfirm.append(nameBox.element);
             nameConfirmInput.element.type = 'password';
@@ -109,6 +109,8 @@ class ManageView {
                     preloader.stop();
                     nameConfirm.remove();
                     nameEdit.element.classList.remove('auth__form-name-edit_hide');
+                } else {
+                    alert('Wrong password!');
                 }
             });
             // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -134,6 +136,8 @@ class ManageView {
                     preloader.start();
                     await manageController.updateUserById(nameInput.element.value, currentUser.login, passNew);
                     preloader.stop();
+                } else {
+                    alert('Wrong password!');
                 }
             }
         });

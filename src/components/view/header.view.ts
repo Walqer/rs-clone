@@ -11,7 +11,6 @@ class HeaderView {
         const menuList = new Control<HTMLUListElement>('ul', 'header__menu-list');
         const menuLinks = [
             ['Workspace', '/workspace'],
-            ['About Us', 'href'],
         ];
         const userBlock = new Control<HTMLDivElement>('div', 'header__user-block');
         const userIcon = new Control<HTMLImageElement>('img', 'header__user-block-img');
