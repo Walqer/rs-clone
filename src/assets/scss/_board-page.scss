@@ -3,6 +3,7 @@
     flex-direction: column;
     margin: 0 auto;
     width: 95vw;
+    min-width: 342px;
     min-height: calc(100vh - 173px); //-200px
     margin-top: 35px;
     margin-bottom: 20px;
@@ -19,12 +20,11 @@
         align-items: center;
         padding: 0 20px;
         height: 60px;
-        width: inherit;
+        //width: inherit;
         border-bottom: 1px solid #ccc;
         background-color: #e8e8e8;
-
-        &-users {
-            //
+        &-title {
+          white-space: nowrap;
         }
     }
     &__columns {
