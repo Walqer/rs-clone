@@ -43,7 +43,7 @@ export async function updateTaskById(
     title: string,
     order: number,
     description: string,
-    userId: number,
+    userId: string,
     users: string[]
 ): Promise<Task | string> {
     const url = `${urls.boards}/${boardId}/${urlParams.columns}/${columnId}/${urlParams.tasks}/${taskId}`;
