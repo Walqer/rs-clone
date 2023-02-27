@@ -55,9 +55,11 @@
             padding: 20px 15px;
             color: #7d8fb3;
             font-size: 14px;
-            background-color: #edeff2;
+            //            background-color: #edeff2;
             border-radius: 3px;
-            box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+            background: rgb(236, 236, 236);
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+            //                box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
             box-sizing: border-box;
             &-title {
                 color: black;
@@ -72,6 +74,7 @@
                 display: flex;
                 align-items: center;
                 padding-bottom: 10px;
+                gap: 5px;
                 &-container {
                     display: flex;
                     flex-direction: column;

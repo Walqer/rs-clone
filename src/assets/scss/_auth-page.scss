@@ -5,7 +5,7 @@
     justify-content: center;
     width: 100%;
     height: calc(100vh - 117px); //-115px
-    min-height: 550px;
+    min-height: 615px;
     //padding-top: 3%;
     background: url(https://images.ctfassets.net/rz1oowkt5gyp/7lTGeXbBRNRLaVk2MdBjtJ/99c266ed4cb8cc63bd0c388071f01ff6/white-wave-bg.svg)
             center bottom -0.5px / 100% 14% no-repeat scroll padding-box border-box,
@@ -42,6 +42,7 @@
         }
         &-pass-save {
             cursor: pointer;
+            margin-top: 10px;
         }
         &-submit {
             height: 35px;
@@ -75,6 +76,7 @@
             &-edit {
                 cursor: pointer;
                 width: 15px;
+                margin-left: 10px;
                 &_hide {
                     display: none;
                 }
@@ -94,6 +96,7 @@
         }
         &-delete-acc {
             margin-top: 20px;
+            margin-left: 3px;
             color: rgb(155, 0, 0);
             cursor: pointer;
         }
@@ -107,4 +110,20 @@
 
 .form__manage {
     align-items: flex-start;
+}
+
+.auth-form-current-pass-title,
+.auth-form-new-pass-title,
+.auth-form-name-title,
+.auth-form-login-title {
+    padding: 5px 0;
+}
+
+.auth__form-name-confirm-button_yes,
+.auth__form-name-confirm-button_no {
+    margin: 0 0 0 10px;
+}
+
+.auth__form-name-confirm {
+    padding-top: 10px;
 }
