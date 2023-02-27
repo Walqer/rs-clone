@@ -10,7 +10,7 @@ export abstract class AbstractView {
         if (params) {
             this.params = params;
         }
-        this.title = 'RS Store - ';
+        this.title = 'MiniTrello - ';
     }
 
     setTitle(title: string) {
