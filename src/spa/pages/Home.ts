@@ -32,7 +32,7 @@ export class Home extends AbstractView {
         greating.append(wrapper.element);
         greatingDesc.element.innerHTML = '<img src="../assets/img/scrum3.png">';
         greatingDesc.append(wrapper.element);
-        h2.element.innerHTML = 'MiniTrello brings all your tasks, teammates and tools together<br><br>';
+        h2.element.innerHTML = 'MiniTrello brings all your tasks, teammates and tools together<br>';
         h2.append(wrapper.element);
         p.element.innerHTML = "Keep everything in the same place — even if your team isn't<br><br>";
         p.append(greating.element);
