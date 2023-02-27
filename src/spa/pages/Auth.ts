@@ -19,6 +19,9 @@ export class Auth extends AbstractView {
     }
 
     async mounted() {
+        if (localStorage.getItem('token')) {
+            document.location = '/workspace';
+        }
         const params: URLSearchParams = new URLSearchParams(document.location.search);
         const { body } = document;
         const main = new Control<HTMLElement>('main', 'auth');
