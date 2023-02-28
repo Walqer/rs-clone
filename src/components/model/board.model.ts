@@ -1,6 +1,6 @@
 import { getBoardById, updateBoardUsers } from '../../api/boards';
 import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
-import { createTask, deleteTaskById, getTasks, updateTasksSet } from '../../api/tasks';
+import { createTask, deleteTaskById, getTasks, updateTaskColumn, updateTasksSet } from '../../api/tasks';
 import { getAllUsers } from '../../api/users';
 import { Column, ColumnOrder, Board, Task, TaskOrder } from '../../spa/types';
 import { state } from '../../store/state';
@@ -123,39 +123,29 @@ class BoardModel {
         let dragTaskIndex = 0;
         let dropTaskIndex = 0;
 
-        state.columnTasks.forEach((col, i) => {
-            col.forEach((t, j) => {
-                if (state.dragElement?.dataset.column === t.columnId) dragColumnIndex = i;
-                if (dropDataSetColumn === t.columnId) dropColumnIndex = i;
-                if (state.dragElement?.dataset.task === t._id) dragTaskIndex = j;
-                if (dropDataSetTask === t._id) dropTaskIndex = j;
-            });
+        state.columns.forEach((col, i) => {
+            if (col._id === dropDataSetColumn) dropColumnIndex = i;
         });
 
+        state.columnTasks.forEach((col, i) => {
+            col.forEach((task, j) => {
+                if (state.dragElement?.dataset.column === task.columnId) dragColumnIndex = i;
+                if (state.dragElement?.dataset.task === task._id) dragTaskIndex = j;
+                if (dropDataSetTask === task._id) dropTaskIndex = j;
+            });
+        });
+        console.log(dropDataSetColumn, state.dragElement?.dataset.column);
+        console.log(dropDataSetTask, state.dragElement?.dataset.task);
+        console.log(dragColumnIndex, dropColumnIndex, dragTaskIndex, dropTaskIndex);
+
+        const temp = state.columnTasks[dragColumnIndex][dragTaskIndex];
         if (dragColumnIndex !== dropColumnIndex) {
-            await deleteTaskById(
-                state.token as string,
-                state.boardId as string,
-                state.dragElement?.dataset.column as string,
-                state.dragElement?.dataset.task as string
-            );
-            const resp = await createTask(
-                state.token as string,
-                state.boardId as string,
-                dropDataSetColumn,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].title,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].order,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].description,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].userId,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].users
-            );
-            state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, resp as Task);
-            state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
-        } else {
-            const temp = state.columnTasks[dragColumnIndex][dragTaskIndex];
-            state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
-            state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, temp);
+            await updateTaskColumn(state.token as string, state.boardId as string, temp.columnId, temp._id, dropDataSetColumn);
         }
+        console.log(state.columnTasks);
+        state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
+        state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, temp);
+        console.log(state.columnTasks);
 
         const arrayTaskOrder: TaskOrder[] = [];
         state.columnTasks.forEach((col) => {
@@ -165,7 +155,7 @@ class BoardModel {
                 arrayTaskOrder.push(taskOrder);
             });
         });
-        await updateTasksSet(state.token as string, arrayTaskOrder);
+        // await updateTasksSet(state.token as string, arrayTaskOrder);
     }
 }
 
