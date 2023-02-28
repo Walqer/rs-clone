@@ -136,9 +136,11 @@ class BoardModel {
         });
 
         const temp = state.columnTasks[dragColumnIndex][dragTaskIndex];
+        console.log(temp);
+        if (!temp) return;
         if (dragColumnIndex !== dropColumnIndex) {
             await updateTaskColumn(state.token as string, state.boardId as string, temp.columnId, temp._id, dropDataSetColumn);
-            temp.columnId = dropDataSetColumn;
+            state.columnTasks[dragColumnIndex][dragTaskIndex].columnId = dropDataSetColumn;
         }
         state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
         state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, temp);
@@ -151,7 +153,7 @@ class BoardModel {
                 arrayTaskOrder.push(taskOrder);
             });
         });
-        
+        console.log(arrayTaskOrder);
         await updateTasksSet(state.token as string, arrayTaskOrder);
     }
 }

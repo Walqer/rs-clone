@@ -125,7 +125,7 @@ class BoardView {
         const createTaskAddBtn = new Control<HTMLElement>('a', 'column-create__add-btn', 'column-create__add-btn');
         const createTaskCancelBtn = new Control<HTMLElement>('a', 'column-create__cancel-btn', 'column-create__cancel-btn');
 
-        const tasksInColumn = await boardController.getTasks(column._id);
+        const tasksInColumn = (await boardController.getTasks(column._id)).sort((a, b) => a.order - b.order);
         state.columnTasks.push(tasksInColumn);
         // eslint-disable-next-line no-restricted-syntax
         for (const task of tasksInColumn) {
