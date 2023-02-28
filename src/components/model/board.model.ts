@@ -134,28 +134,25 @@ class BoardModel {
                 if (dropDataSetTask === task._id) dropTaskIndex = j;
             });
         });
-        console.log(dropDataSetColumn, state.dragElement?.dataset.column);
-        console.log(dropDataSetTask, state.dragElement?.dataset.task);
-        console.log(dragColumnIndex, dropColumnIndex, dragTaskIndex, dropTaskIndex);
 
         const temp = state.columnTasks[dragColumnIndex][dragTaskIndex];
         if (dragColumnIndex !== dropColumnIndex) {
             await updateTaskColumn(state.token as string, state.boardId as string, temp.columnId, temp._id, dropDataSetColumn);
+            temp.columnId = dropDataSetColumn;
         }
-        console.log(state.columnTasks);
         state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
         state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, temp);
-        console.log(state.columnTasks);
 
         const arrayTaskOrder: TaskOrder[] = [];
         state.columnTasks.forEach((col) => {
-            col.forEach((t, j) => {
-                t.order = j;
-                const { title, boardId, description, userId, users, ...taskOrder } = t;
+            col.forEach((task, j) => {
+                task.order = j;
+                const { title, boardId, description, userId, users, ...taskOrder } = task;
                 arrayTaskOrder.push(taskOrder);
             });
         });
-        // await updateTasksSet(state.token as string, arrayTaskOrder);
+        
+        await updateTasksSet(state.token as string, arrayTaskOrder);
     }
 }
 
