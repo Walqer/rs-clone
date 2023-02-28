@@ -151,7 +151,7 @@ class BoardModel {
                 arrayTaskOrder.push(taskOrder);
             });
         });
-        
+
         await updateTasksSet(state.token as string, arrayTaskOrder);
     }
 }

@@ -9,9 +9,7 @@ class HeaderView {
         const logo = new Control<HTMLLinkElement>('a', 'header__logo');
         const menu = new Control<HTMLElement>('nav', 'header__menu');
         const menuList = new Control<HTMLUListElement>('ul', 'header__menu-list');
-        const menuLinks = [
-            ['Workspace', '/workspace'],
-        ];
+        const menuLinks = [['Workspace', '/workspace']];
         const userBlock = new Control<HTMLDivElement>('div', 'header__user-block');
         const userIcon = new Control<HTMLImageElement>('img', 'header__user-block-img');
         const userInfo = new Control<HTMLSpanElement>('span', 'header__user-block-info');

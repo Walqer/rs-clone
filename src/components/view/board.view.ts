@@ -152,7 +152,6 @@ class BoardView {
             taskItemWrap.element.addEventListener('dragenter', (event) => {
                 const target = event.currentTarget as HTMLElement;
                 const child = target.firstElementChild as HTMLElement;
-                console.log(target);
                 if (state.dragElement?.classList.contains('column__task') && child !== state.dragElement) {
                     if (state.dragZone?.dataset.column !== target.dataset.column) {
                         target.insertAdjacentElement('afterend', state.dragZone as HTMLElement);
@@ -166,7 +165,7 @@ class BoardView {
 
             taskItemWrap.element.addEventListener('dragleave', (event) => {
                 state.dragZone = event.currentTarget as HTMLElement;
-                (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
+                // (event.currentTarget as HTMLElement).classList.remove('column__wrapper_hide');
             });
 
             taskItemWrap.element.addEventListener('dragover', (event) => {
@@ -254,9 +253,9 @@ class BoardView {
                 target.append(state.dragElement);
                 target.classList.add('column__wrapper_hide');
             } else if (state.dragElement?.classList.contains('column__task')) {
-                const isEmptyColumn = document.querySelector(`[data-column = '${target.dataset.id as string}']`) as HTMLElement;
-                if (!isEmptyColumn) {
-                    const taskList = document.querySelector(`[data-tasks = '${target.dataset.id as string}']`) as HTMLElement;
+                const taskList = document.querySelector(`[data-tasks = '${target.dataset.id as string}']`) as HTMLElement;
+                const isEmptyColumns = taskList.childElementCount;
+                if (!isEmptyColumns) {
                     taskList.append(state.dragZone as HTMLElement);
                     (state.dragZone as HTMLElement).dataset.column = taskList.dataset.tasks;
                 }
