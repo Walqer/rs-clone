@@ -62,7 +62,7 @@ export async function updateTaskColumn(
     newColumnId: string
 ): Promise<Task | string> {
     const url = `${urls.boards}/${boardId}/${urlParams.columns}/${columnId}/${urlParams.tasks}/${taskId}/column`;
-    const task = { newColumnId };
+    const task = { columnId: newColumnId };
     const res = await fetchApi(url, 'PATCH', token, task);
     if (res.status === 200) return (await res.body) as unknown as Task;
     if (res.status === 400) return 'Bad Request';
