@@ -159,6 +159,7 @@ class BoardView {
                     }
                     state.dragZone?.appendChild(child);
                     target.appendChild(state.dragElement);
+                    // target.dataset.task = (target.firstElementChild as HTMLElement).dataset.task;
                     target.classList.add('column__wrapper_hide');
                 }
             });
@@ -176,6 +177,7 @@ class BoardView {
             taskItemWrap.element.addEventListener('drop', async (event) => {
                 event.preventDefault();
                 const target = event.currentTarget as HTMLElement;
+                // target.dataset.task = (target.firstElementChild as HTMLElement).dataset.task;
                 target.classList.remove('column__wrapper_hide');
                 preloader.start();
                 await boardController.updateTasksSet(target.dataset.column as string, target.dataset.task as string);

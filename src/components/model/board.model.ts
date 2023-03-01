@@ -136,14 +136,26 @@ class BoardModel {
         });
 
         const temp = state.columnTasks[dragColumnIndex][dragTaskIndex];
-        console.log(temp);
         if (!temp) return;
         if (dragColumnIndex !== dropColumnIndex) {
             await updateTaskColumn(state.token as string, state.boardId as string, temp.columnId, temp._id, dropDataSetColumn);
             state.columnTasks[dragColumnIndex][dragTaskIndex].columnId = dropDataSetColumn;
+            state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
+            state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, temp);
+        } else {
+            const currentColumnId = temp.columnId;
+            const currentColumnTasks = document.querySelectorAll(
+                `.column__task[data-column = '${currentColumnId}']`
+            ) as unknown as HTMLElement[];
+            console.log(...state.columnTasks[1]);            
+            currentColumnTasks.forEach((task) => {
+              const taskIndex = state.columnTasks[dragColumnIndex].map(el => el._id).indexOf(task.dataset.task as string);
+              const currentTask = state.columnTasks[dragColumnIndex][taskIndex];
+              state.columnTasks[dragColumnIndex].splice(taskIndex, 1);
+              state.columnTasks[dragColumnIndex].push(currentTask);
+            });
+            console.log(...state.columnTasks[1]);            
         }
-        state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
-        state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, temp);
 
         const arrayTaskOrder: TaskOrder[] = [];
         state.columnTasks.forEach((col) => {
@@ -153,7 +165,6 @@ class BoardModel {
                 arrayTaskOrder.push(taskOrder);
             });
         });
-        console.log(arrayTaskOrder);
         await updateTasksSet(state.token as string, arrayTaskOrder);
     }
 }
