@@ -27,8 +27,8 @@ export class BoardPage extends AbstractView {
             if (board === 'Board was not founded!') window.location.href = '/404';
             else state.boardId = this.boardID;
         } else {
-          document.location = '/auth?type=login';
-          throw new Error('invalid token');
+            document.location = '/auth?type=login';
+            throw new Error('invalid token');
         }
         const { body } = document;
         body.append(headerView.render());

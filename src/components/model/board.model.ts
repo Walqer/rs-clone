@@ -1,6 +1,6 @@
 import { getBoardById, updateBoardUsers } from '../../api/boards';
 import { createColumn, getColumns, deleteColumnById, updateColumnById, updateColumnsSet } from '../../api/columns';
-import { createTask, deleteTaskById, getTasks, updateTasksSet } from '../../api/tasks';
+import { createTask, deleteTaskById, getTasks, updateTaskColumn, updateTasksSet } from '../../api/tasks';
 import { getAllUsers } from '../../api/users';
 import { Column, ColumnOrder, Board, Task, TaskOrder } from '../../spa/types';
 import { state } from '../../store/state';
@@ -123,45 +123,43 @@ class BoardModel {
         let dragTaskIndex = 0;
         let dropTaskIndex = 0;
 
+        state.columns.forEach((col, i) => {
+            if (col._id === dropDataSetColumn) dropColumnIndex = i;
+        });
+
         state.columnTasks.forEach((col, i) => {
-            col.forEach((t, j) => {
-                if (state.dragElement?.dataset.column === t.columnId) dragColumnIndex = i;
-                if (dropDataSetColumn === t.columnId) dropColumnIndex = i;
-                if (state.dragElement?.dataset.task === t._id) dragTaskIndex = j;
-                if (dropDataSetTask === t._id) dropTaskIndex = j;
+            col.forEach((task, j) => {
+                if (state.dragElement?.dataset.column === task.columnId) dragColumnIndex = i;
+                if (state.dragElement?.dataset.task === task._id) dragTaskIndex = j;
+                if (dropDataSetTask === task._id) dropTaskIndex = j;
             });
         });
 
+        const temp = state.columnTasks[dragColumnIndex][dragTaskIndex];
+        if (!temp) return;
         if (dragColumnIndex !== dropColumnIndex) {
-            await deleteTaskById(
-                state.token as string,
-                state.boardId as string,
-                state.dragElement?.dataset.column as string,
-                state.dragElement?.dataset.task as string
-            );
-            const resp = await createTask(
-                state.token as string,
-                state.boardId as string,
-                dropDataSetColumn,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].title,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].order,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].description,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].userId,
-                state.columnTasks[dragColumnIndex][dragTaskIndex].users
-            );
-            state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, resp as Task);
-            state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
-        } else {
-            const temp = state.columnTasks[dragColumnIndex][dragTaskIndex];
+            await updateTaskColumn(state.token as string, state.boardId as string, temp.columnId, temp._id, dropDataSetColumn);
+            state.columnTasks[dragColumnIndex][dragTaskIndex].columnId = dropDataSetColumn;
             state.columnTasks[dragColumnIndex].splice(dragTaskIndex, 1);
             state.columnTasks[dropColumnIndex].splice(dropTaskIndex, 0, temp);
+        } else {
+            const currentColumnId = temp.columnId;
+            const currentColumnTasks = document.querySelectorAll(
+                `.column__task[data-column = '${currentColumnId}']`
+            ) as unknown as HTMLElement[];
+            currentColumnTasks.forEach((task) => {
+                const taskIndex = state.columnTasks[dragColumnIndex].map((el) => el._id).indexOf(task.dataset.task as string);
+                const currentTask = state.columnTasks[dragColumnIndex][taskIndex];
+                state.columnTasks[dragColumnIndex].splice(taskIndex, 1);
+                state.columnTasks[dragColumnIndex].push(currentTask);
+            });
         }
 
         const arrayTaskOrder: TaskOrder[] = [];
         state.columnTasks.forEach((col) => {
-            col.forEach((t, j) => {
-                t.order = j;
-                const { title, boardId, description, userId, users, ...taskOrder } = t;
+            col.forEach((task, j) => {
+                task.order = j;
+                const { title, boardId, description, userId, users, ...taskOrder } = task;
                 arrayTaskOrder.push(taskOrder);
             });
         });
