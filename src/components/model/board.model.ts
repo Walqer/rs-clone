@@ -147,14 +147,12 @@ class BoardModel {
             const currentColumnTasks = document.querySelectorAll(
                 `.column__task[data-column = '${currentColumnId}']`
             ) as unknown as HTMLElement[];
-            console.log(...state.columnTasks[1]);            
             currentColumnTasks.forEach((task) => {
-              const taskIndex = state.columnTasks[dragColumnIndex].map(el => el._id).indexOf(task.dataset.task as string);
-              const currentTask = state.columnTasks[dragColumnIndex][taskIndex];
-              state.columnTasks[dragColumnIndex].splice(taskIndex, 1);
-              state.columnTasks[dragColumnIndex].push(currentTask);
+                const taskIndex = state.columnTasks[dragColumnIndex].map((el) => el._id).indexOf(task.dataset.task as string);
+                const currentTask = state.columnTasks[dragColumnIndex][taskIndex];
+                state.columnTasks[dragColumnIndex].splice(taskIndex, 1);
+                state.columnTasks[dragColumnIndex].push(currentTask);
             });
-            console.log(...state.columnTasks[1]);            
         }
 
         const arrayTaskOrder: TaskOrder[] = [];
