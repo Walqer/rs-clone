@@ -1,0 +1,40 @@
+.white-button {
+    color: #090909;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 8px;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+    white-space: nowrap;
+}
+
+.white-button:hover {
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.white-button:active {
+    box-shadow: 4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff;
+}
+
+.blue-button {
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 8px;
+    background: #197fd7;
+    border: 1px solid #197fd7;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px #43106e, -6px -6px 12px #6316a2;
+    white-space: nowrap;
+}
+
+.blue-button:hover {
+    border: 1px solid white;
+}
+
+.blue-button:active {
+    box-shadow: 4px 4px 12px #c5c5c5, -4px -4px 12px #ffffff;
+}

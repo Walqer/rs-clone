@@ -1,0 +1,129 @@
+.auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 117px); //-115px
+    min-height: 615px;
+    //padding-top: 3%;
+    background: url(https://images.ctfassets.net/rz1oowkt5gyp/7lTGeXbBRNRLaVk2MdBjtJ/99c266ed4cb8cc63bd0c388071f01ff6/white-wave-bg.svg)
+            center bottom -0.5px / 100% 14% no-repeat scroll padding-box border-box,
+        linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto repeat scroll padding-box border-box rgb(82, 67, 170);
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: calc(100vw - 20px);
+        min-width: 342px;
+        max-width: 400px;
+        margin: 40px;
+        border-radius: 5px;
+        //background: #f7f8fa;
+        //box-shadow: 0px 2px 15px #26334d;
+        padding: 30px;
+        background: rgb(236, 236, 236);
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        &-input {
+            //height: 35px;
+            width: 220px;
+            border-radius: 5px;
+            //color: #212529;
+            //border: 2px solid #bdbdbd;
+            //font-size: 13px;
+            // &:hover {
+            //     border: 2px solid blue;
+            // }
+            // &:focus {
+            //     border: 2px solid rgb(116, 116, 248);
+            // }
+        }
+        &-pass-save {
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        &-submit {
+            height: 35px;
+            width: 220px;
+            border-radius: 5px;
+            border: none;
+            background-color: blue;
+            color: white;
+            margin-top: 3%;
+            cursor: pointer;
+        }
+        &-input-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin-top: 3%;
+        }
+        &_error {
+            border: 2px solid $color_red;
+            &-label {
+                color: $color_red;
+                font-size: 12px;
+                margin-left: 3%;
+                margin-top: 7px;
+            }
+        }
+        &-name {
+            &-box {
+                margin-bottom: 15px;
+            }
+            &-edit {
+                cursor: pointer;
+                width: 15px;
+                margin-left: 10px;
+                &_hide {
+                    display: none;
+                }
+            }
+            &-input {
+                font-size: 14px;
+                font-weight: 200;
+                color: black;
+            }
+        }
+        &-login {
+            &-value {
+                font-size: 14px;
+                font-weight: 200;
+                color: black;
+            }
+        }
+        &-delete-acc {
+            margin-top: 20px;
+            margin-left: 3px;
+            color: rgb(155, 0, 0);
+            cursor: pointer;
+        }
+    }
+    &_server-error {
+        color: $color_red;
+        font-size: 14px;
+        margin: 3%;
+    }
+}
+
+.form__manage {
+    align-items: flex-start;
+}
+
+.auth-form-current-pass-title,
+.auth-form-new-pass-title,
+.auth-form-name-title,
+.auth-form-login-title {
+    padding: 5px 0;
+}
+
+.auth__form-name-confirm-button_yes,
+.auth__form-name-confirm-button_no {
+    margin: 0 0 0 10px;
+}
+
+.auth__form-name-confirm {
+    padding-top: 10px;
+}

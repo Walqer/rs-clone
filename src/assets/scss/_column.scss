@@ -1,0 +1,128 @@
+.column {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-right: 10px;
+    width: 100%;
+    border: 2px solid #edeff2;
+    border-radius: 5px;
+    background-color: white;
+    &__wrapper {
+        width: 224px;
+        padding: 5px;
+        min-height: 77px; //282px;
+        background-color: white;
+        border-radius: 5px;
+        margin-right: 10px;
+        &_hide {
+            background-color: #edeff2;
+        }
+    }
+    &_hide {
+        color: red;
+        visibility: hidden;
+    }
+
+    &-create {
+        background-color: #edeff2;
+        margin-right: 0;
+        order: 1;
+        width: 200px;
+        &__input {
+            width: 100%;
+            padding: 6px 18px;
+            background-color: #edeff2;
+            cursor: pointer;
+            color: #4d5e80;
+            &:focus {
+                background-color: white;
+                cursor: text;
+                border: 2px solid #4d5e80;
+            }
+        }
+        &__add-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 6px 12px;
+            width: 100px;
+            height: 40px;
+            margin-right: 15px;
+            font-size: 14px;
+            background-color: #197fd7;
+            color: white;
+            &:hover {
+                color: $color_black;
+            }
+        }
+        &__cancel-btn {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:before,
+            &:after {
+                content: '';
+                width: 24px;
+                height: 3px;
+                background: gray;
+            }
+            &:before {
+                transform: rotate(45deg);
+            }
+            &:after {
+                position: relative;
+                left: -24px;
+                transform: rotate(-45deg);
+            }
+        }
+        &__buttons {
+            cursor: pointer;
+            justify-content: flex-start;
+            margin-top: 10px;
+            &_hide {
+                display: none;
+            }
+            &_visible {
+                display: flex;
+            }
+        }
+    }
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid#edeff2;
+        padding: 5px;
+        &_name {
+            width: 100%;
+            cursor: pointer;
+            color: #4d5e80;
+            &:focus {
+                border: 2px solid #4d5e80;
+            }
+        }
+        &_remove {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            &-img {
+                width: 15px;
+                height: 15px;
+                filter: contrast(10%);
+            }
+        }
+    }
+    &__tasks {
+        min-height: 0px;
+    }
+    &__add-task {
+        padding: 5px;
+        cursor: pointer;
+        color: #7d8fb3;
+        &:hover {
+            background-color: #edeff2;
+        }
+    }
+}

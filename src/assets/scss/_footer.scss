@@ -1,0 +1,97 @@
+.footer {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1320px;
+    height: 60px;
+    padding: 0 20px 20px 20px;
+}
+
+.logo-rss {
+    height: 40px;
+    cursor: pointer;
+}
+
+.btn {
+    color: black;
+}
+
+.logo-git {
+    height: 40px;
+    cursor: pointer;
+}
+
+.categories {
+    display: flex;
+    list-style-type: none;
+}
+
+.categories .category {
+    display: flex;
+    position: relative;
+    gap: 10px;
+}
+
+.categories .category a img {
+    height: 40px;
+}
+
+.categories .category:hover .submenu {
+    display: flex;
+    align-items: center;
+    @include media-laptop {
+        gap: 10px;
+    }
+    @include media-tablet {
+        gap: 10px;
+    }
+    @include media-mobile {
+        gap: 0px;
+    }
+}
+
+.categories .category .submenu {
+    list-style-type: none;
+    padding: 0 5px;
+    gap: 10px;
+    display: none;
+}
+
+.categories .category .submenu li a {
+    color: $color_main;
+    margin-right: 10px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.categories .category .submenu li a:hover {
+    color: $color_red;
+}
+
+.avatar {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 30px !important;
+    height: 30px !important;
+    margin-right: 5px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px 0px 0px inset;
+}
+
+.circle {
+    border-radius: var(--primer-borderRadius-full, 50%) !important;
+}
+
+.submenu-text {
+    @include media-laptop {
+        display: block;
+    }
+    @include media-tablet {
+        display: none;
+    }
+    @include media-mobile {
+        display: none;
+    }
+}
